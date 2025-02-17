@@ -1,5 +1,6 @@
 import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
+import { NavLink } from "@/components/nav-link"
 import Link from "next/link"
 import "./globals.css"
 import type React from "react" // Import React
