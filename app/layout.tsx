@@ -3,31 +3,12 @@ import { GrassIcon } from "@/components/grass-icon"
 import { NavLink } from "@/components/nav-link"
 import Link from "next/link"
 import "./globals.css"
-import type React from "react" // Import React
-import { usePathname } from "next/navigation"
+import type React from "react"
 
 export const metadata = {
   title: "Touch Grass",
   description: "Innovate Fast & Touch Grass - AI-powered sales solutions",
-    generator: 'v0.dev'
-}
-
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const pathname = usePathname()
-  const isActive = pathname === href
-
-  return (
-    <Link
-      href={href}
-      className={`transition-all flex items-center ${
-        isActive
-          ? "text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent"
-          : "text-sm text-gray-400 hover:text-white"
-      }`}
-    >
-      {children}
-    </Link>
-  )
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -170,7 +151,5 @@ export default function RootLayout({
     </html>
   )
 }
-
-
 
 import './globals.css'
