@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Brain, Zap, Users, BarChart } from "lucide-react"
+import { Brain, Zap, Users, Code } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
 
@@ -23,74 +23,70 @@ export default function Page() {
                 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
               >
                 <GrassIcon className="w-6 h-6 mr-2" />
-                Touch Grass
+                Russell Gardner
               </Link>
               <nav className="hidden md:flex space-x-6">
-                <Link href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link href="#solutions" className="text-sm text-gray-400 hover:text-white transition-colors">
                   Solutions
                 </Link>
-                <Link href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Industries
+                <Link href="#about" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  About
                 </Link>
-                <Link href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  About Us
-                </Link>
-                <Link href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link href="#contact" className="text-sm text-gray-400 hover:text-white transition-colors">
                   Contact
                 </Link>
               </nav>
             </div>
             <Link
-              href="#"
+              href="#contact"
               className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
             >
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Get a Demo</span>
+              <span className="relative text-white">Let's Connect</span>
             </Link>
           </div>
         </header>
 
         {/* Hero Section */}
-        <section className="pt-32 pb-16 px-4">
+        <section className="pt-32 pb-16 px-4" id="hero">
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-teal-400 via-violet-400 to-teal-400 bg-clip-text text-transparent animate-gradient">
-                Innovate Fast & Touch Grass
+                Building Digital Solutions That Matter
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
-              Merging sales strategy and psychology with highly effective tools
+              Full-stack developer specializing in modern web applications, automation, and innovative software solutions
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="#"
+                href="#solutions"
                 className="group relative px-8 py-3 rounded-md font-medium transition-all duration-300 ease-out hover:text-white"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-white/5 border border-white/10 group-hover:bg-white/10 transition-all" />
-                <span className="relative text-white">Explore Solutions</span>
+                <span className="relative text-white">View My Work</span>
               </Link>
               <Link
-                href="#"
+                href="#contact"
                 className="group relative px-8 py-3 rounded-md font-medium transition-all duration-300 ease-out hover:text-white"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-white/5 border border-white/10 group-hover:bg-white/10 transition-all" />
-                <span className="relative text-white">Schedule a Demo</span>
+                <span className="relative text-white">Get in Touch</span>
               </Link>
             </div>
           </div>
         </section>
 
         {/* Solutions Grid */}
-        <section className="py-24 px-4">
+        <section className="py-24 px-4" id="solutions">
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-white">Time Is Money</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-white">What I Do</h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              We focus on evaluating and optimizing sales workflows for small to mid-sized businesses. Drawing on
-              extensive experience in sales, startup operations, and process automation, we build tailored strategies
-              that reduce workload, refine lead generation, and boost conversion rates—often in less time than most
-              people expect.
+              I specialize in building modern web applications and automation solutions that help businesses scale. 
+              With expertise in full-stack development and a focus on clean, maintainable code, I create solutions 
+              that drive real business value.
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
               {solutions.map((solution, index) => (
@@ -112,70 +108,69 @@ export default function Page() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-4">
+        <section className="py-24 px-4" id="contact">
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 relative">
-                🔥{" "}
                 <span className="bg-gradient-to-r from-teal-400 to-violet-400 bg-clip-text text-transparent">
-                  Success = Skill + Leverage + Consistency
+                  Let's Build Something Amazing Together
                 </span>
               </h2>
             </div>
             <p className="text-gray-400 max-w-3xl mx-auto mb-8 text-sm md:text-base">
-              If you're ready to streamline your sales operations, or you just want to explore how AI and automation
-              could reshape your results—reach out here. I'm committed to making your sales process more efficient and
-              profitable. Let's talk about the specific challenges you face and how we can solve them together.
+              Whether you need a new web application, want to optimize your existing systems, or are looking to 
+              automate your workflows—I'm here to help. Let's discuss your project and find the best solution 
+              for your needs.
             </p>
             <Link
-              href="#"
+              href="mailto:contact@generuss.com"
               className="group relative inline-flex px-8 py-3 rounded-md font-medium transition-all duration-300 ease-out hover:text-white"
             >
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500 to-violet-600 opacity-90 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Let's Talk</span>
+              <span className="relative text-white">Contact Me</span>
             </Link>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-white/5 py-12 px-4 relative">
+        <footer className="border-t border-white/5 py-12 px-4 relative" id="footer">
           <div className="container mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
                 <h3 className="text-white font-semibold mb-4">Russell Gardner</h3>
-                <p className="text-gray-400 text-sm">Producing software solutions for the digital age.</p>
+                <p className="text-gray-400 text-sm">Full-stack developer building modern web solutions.</p>
               </div>
               <div>
-                <h3 className="text-white font-semibold mb-4">Solutions</h3>
+                <h3 className="text-white font-semibold mb-4">Services</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      n8n Automation
+                    <Link href="#solutions" className="text-gray-400 hover:text-white text-sm transition-colors">
+                      Web Development
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      Training & Coaching
+                    <Link href="#solutions" className="text-gray-400 hover:text-white text-sm transition-colors">
+                      Automation Solutions
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      Excel Optimization
+                    <Link href="#solutions" className="text-gray-400 hover:text-white text-sm transition-colors">
+                      Technical Consulting
                     </Link>
                   </li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-white font-semibold mb-4">Company</h3>
+                <h3 className="text-white font-semibold mb-4">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="#about" className="text-gray-400 hover:text-white text-sm transition-colors">
                       About
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="#contact" className="text-gray-400 hover:text-white text-sm transition-colors">
                       Contact
                     </Link>
                   </li>
@@ -186,6 +181,8 @@ export default function Page() {
                 <div className="flex space-x-4">
                   <Link
                     href="https://github.com/washyaderner"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"
                   >
                     <span className="sr-only">GitHub</span>
@@ -197,13 +194,12 @@ export default function Page() {
                       />
                     </svg>
                   </Link>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    <span className="sr-only">Twitter</span>
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </Link>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Link 
+                    href="https://www.linkedin.com/in/russell-gardner"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     <span className="sr-only">LinkedIn</span>
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -230,28 +226,28 @@ export default function Page() {
 
 const solutions = [
   {
-    icon: Brain,
-    title: "AI-Powered Solutions",
+    icon: Code,
+    title: "Web Development",
     description:
-      "Seamlessly integrate advanced AI into your sales process, reducing manual tasks and driving conversion rates up.",
+      "Modern, responsive web applications built with Next.js, React, and TypeScript. Focus on clean code and exceptional user experience.",
   },
   {
     icon: Zap,
-    title: "Precision Automations",
+    title: "Automation Solutions",
     description:
-      "Replace repetitive workflows with custom, data-driven automations that let your team focus on closing deals.",
+      "Custom automation workflows that streamline processes and boost efficiency. Expertise in API integration and process optimization.",
+  },
+  {
+    icon: Brain,
+    title: "Technical Architecture",
+    description:
+      "Strategic technical planning and system design. Building scalable solutions that grow with your business needs.",
   },
   {
     icon: Users,
-    title: "Deep Training & Coaching",
+    title: "Technical Consulting",
     description:
-      "Combine proven scripts, real-time feedback, and hands-on coaching to transform your whole team into top earners.",
-  },
-  {
-    icon: BarChart,
-    title: "Process Enhancements",
-    description:
-      "Refine everything from CRM input to follow-up cadence, ensuring a streamlined customer journey and measurable ROI.",
+      "Expert guidance on technology decisions, best practices, and implementation strategies for your development projects.",
   },
 ]
 
