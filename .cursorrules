@@ -126,6 +126,55 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
    - Format: feature/descriptive-name
    - Merged back to dev when complete
 
+ main
+
+### Pull Request Templates
+
+1. Feature Branch to Dev:
+   ```markdown
+   Title: [Cursor] Feature Description
+   Base: dev
+   Compare: feature/your-feature-name
+   
+   ## Changes
+   - List specific changes made
+   - One change per line
+   - Be specific and clear
+   
+   ## Testing
+   - List what was tested
+   - Include preview deployment checks
+   - Note any specific test cases
+   
+   ## Notes
+   - Any additional context
+   - Breaking changes if any
+   - Dependencies or requirements
+   ```
+
+2. Dev to Main (Production):
+   ```markdown
+   Title: [Cursor] Merge dev into main for production
+   Base: main
+   Compare: dev
+   
+   ## Changes
+   - List all features being promoted to production
+   - Note any major updates or changes
+   - Reference related PR numbers if applicable
+   
+   ## Testing
+   - Confirm all changes verified in dev
+   - List preview deployments tested
+   - Note any specific production considerations
+   
+   ## Notes
+   - Any deployment requirements
+   - Breaking changes if any
+   - Required environment variables
+   ```
+
+ dev
 ### Workflow Steps
 1. Starting New Feature
    ```bash
@@ -182,10 +231,11 @@ git branch -d feature/name
 
 # Scratchpad
 
-## Current Task: Deploy Next.js Website to Vercel
+## Current Task: Implement Blog with Contentful Integration
 
 ### Project Context
 - Next.js 14.2.16 website with shadcn/ui components
+ main
 - TypeScript + Tailwind CSS for development
 - Repository: washyaderner/generuss-dot-com
 - All core dependencies installed and working locally
@@ -314,6 +364,93 @@ git branch -d feature/name
 - Package.json has dependency conflicts (using --legacy-peer-deps)
 - DNS propagation may take 24-48 hours
 - Need to ensure all environment variables are set in Vercel
+=======
+- TypeScript + Tailwind CSS
+- Contentful CMS integration needed
+- Need to implement dynamic blog display
+
+### Current Status
+[X] Website deployed on Vercel
+[X] Domain configured (generuss.com)
+[X] Basic site structure in place
+[X] Contentful API keys configured
+[X] Initial blog components created
+
+### Critical Issues
+1. Content Type Mismatch
+   - Error: `unknownContentType` in Contentful query
+   - Need to create content type "blogPost" in Contentful space
+   - Must match our interface exactly
+
+2. Component Structure
+   - BlogList component exists but import path needs fixing
+   - Need to verify all component paths and imports
+
+### Required Contentful Setup
+1. Content Type "blogPost" Fields:
+   ```typescript
+   interface BlogPost {
+     title: string
+     slug: string
+     summary: string
+     headerImage?: {
+       url: string
+       description: string
+     }
+     content: string
+     sys: {
+       createdAt: string
+       updatedAt: string
+     }
+   }
+   ```
+
+### Implementation Checklist
+[X] Set up Next.js project
+[X] Configure domain
+[X] Add Contentful API keys
+[X] Create basic blog components
+[ ] Set up Contentful content type
+[ ] Create test blog post
+[ ] Test content fetching
+[ ] Verify component rendering
+[ ] Implement SEO optimization
+[ ] Deploy changes
+
+### Next Immediate Steps
+1. In Contentful:
+   - Create content type "blogPost"
+   - Add required fields matching interface
+   - Create a test blog post
+   - Publish content type and post
+
+2. In Codebase:
+   - Verify content type name in `contentful.ts`
+   - Test content fetching
+   - Fix component imports
+   - Add error handling
+
+### Files to Monitor
+1. `app/lib/contentful.ts` - Content fetching
+2. `app/components/blog/BlogList.tsx` - List component
+3. `app/components/blog/BlogPost.tsx` - Individual post
+4. `app/blog/page.tsx` - Main blog page
+5. `app/blog/[slug]/page.tsx` - Dynamic routes
+
+### Environment Variables (Set)
+```
+CONTENTFUL_SPACE_ID=zg5esxnsmp6e
+CONTENTFUL_ACCESS_TOKEN=A00fhcpfms51JXRDTelMSZPyXQGeS6HwbdqZnPrvqoI
+```
+
+### Testing Plan
+1. Create content type in Contentful
+2. Add test blog post
+3. Run development server
+4. Verify data fetching
+5. Check component rendering
+6. Test responsive design
+ dev
 
 # Debugging and Reasoning Framework
 
@@ -463,3 +600,47 @@ Remember:
 25. Consider performance implications
 26. Keep security in mind
 27. Maintain backward compatibility
+
+# Fundamental Principles
+- write clean, simple, readable code
+- implement features in the simplet possible way
+- keep files small and focused (<200 lines if possible)
+- test after every meaningful change
+- focus on core functionality before optimization 
+- use clear, consistent naming
+- think thoroughly before coding. write 2-3 reasoning paragraphs.
+- ALWAYS write simple, clean and modular code.
+- use clear and easy-to-understand language. write in short sentences
+- optimize for SEO whenever possible
+
+# SEO Best Practices
+1. Images
+   - Use descriptive file names (e.g., "next-js-deployment-diagram.webp" not "image1.jpg")
+   - Always include alt text that describes the image
+   - Optimize image sizes (max 200KB for most images)
+   - Use modern formats (WebP preferred)
+   - Lazy load images below the fold
+   - Include proper width and height attributes
+
+2. Content Structure
+   - Use semantic HTML (h1, h2, article, nav, etc.)
+   - Follow heading hierarchy (one h1, proper h2-h6 structure)
+   - Include meta descriptions and titles
+   - Use descriptive URLs/slugs
+   - Structure content with featured snippets in mind
+
+3. Technical SEO
+   - Ensure mobile responsiveness
+   - Optimize loading speed
+   - Implement proper canonical tags
+   - Use structured data when applicable
+   - Set up proper robots.txt
+   - Create and maintain sitemap.xml
+
+4. Blog Posts
+   - Use keyword-rich titles naturally
+   - Include meta descriptions
+   - Structure content with subheadings
+   - Use internal linking
+   - Optimize images and media
+   - Include social sharing meta tags
