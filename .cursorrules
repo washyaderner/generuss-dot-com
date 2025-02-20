@@ -126,6 +126,8 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
    - Format: feature/descriptive-name
    - Merged back to dev when complete
 
+ main
+
 ### Pull Request Templates
 
 1. Feature Branch to Dev:
@@ -172,6 +174,7 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
    - Required environment variables
    ```
 
+ dev
 ### Workflow Steps
 1. Starting New Feature
    ```bash
@@ -232,6 +235,136 @@ git branch -d feature/name
 
 ### Project Context
 - Next.js 14.2.16 website with shadcn/ui components
+ main
+- TypeScript + Tailwind CSS for development
+- Repository: washyaderner/generuss-dot-com
+- All core dependencies installed and working locally
+- Development branch: dev (for preview deployments)
+- Production branch: main (for live site)
+
+### Progress Tracking
+[X] Step 1-3: Initial Setup and Development (Completed)
+    - Project setup with Next.js 14.2.16
+    - Repository cleanup and organization
+    - Documentation and configuration
+    - Local development verified
+
+[X] Step 4: Vercel Deployment
+    [X] Push changes to GitHub
+    [X] Connect repository to Vercel
+        - Import from GitHub
+        - Configure build settings
+        - Set up environment variables
+    [X] Test deployment
+        - Verify build process
+        - Check deployed features
+        - Test performance
+    [X] Set up development workflow
+        - Created dev branch
+        - Configured preview deployments
+        - Established branch strategy
+    [ ] Set up custom domain
+        - Configure in Vercel
+        - Update DNS settings
+    [ ] Configure Cloudflare DNS
+        - Set up DNS records
+        - Configure SSL/TLS
+        - Verify propagation
+
+### Branch Strategy
+- main: Production branch (deployed to generuss.com)
+- dev: Development branch (preview deployments)
+- Feature branches: Create from dev for specific features
+
+### Key Learnings
+1. **Next.js Server/Client Components**
+   - Always use 'use client' directive when using React hooks (usePathname, useState, etc.)
+   - Keep server components (like layout.tsx) free of client-side logic
+   - Move client-side logic to dedicated client components
+   - Properly import and use client components in server components
+
+2. **Dependency Management**
+   - Use --legacy-peer-deps when installing packages to handle conflicts
+   - Keep package versions consistent and compatible
+   - Pay attention to peer dependency warnings
+   - Document specific version requirements in package.json
+
+3. **Project Structure Best Practices**
+   - Maintain clean separation between server and client components
+   - Keep server components lean and focused
+   - Organize components logically in directories
+   - Use proper file naming conventions (_app.tsx, layout.tsx, etc.)
+
+4. **Deployment Checklist**
+   - Verify all dependencies are properly installed
+   - Check for client/server component separation
+   - Ensure environment variables are configured
+   - Use proper build commands and settings
+   - Test locally before deploying
+
+5. **Common Issues & Solutions**
+   - Client hooks in server components: Move to client components
+   - Dependency conflicts: Use --legacy-peer-deps
+   - Missing modules: Verify package.json and installation
+   - Build errors: Check component architecture
+
+### Next Steps (Priority Order)
+1. Configure Custom Domain
+   - Set up domain in Vercel
+   - Configure DNS settings
+   - Set up SSL/TLS
+2. Implement Core Features
+   - Plan feature branches
+   - Set up preview deployments
+   - Test in isolation
+3. Performance Optimization
+   - Analyze loading times
+   - Optimize images
+   - Implement caching
+4. Monitoring Setup
+   - Error tracking
+   - Performance monitoring
+   - User analytics
+
+### Deployment Checklist
+1. Vercel Setup
+   [ ] Create Vercel account (if not done)
+   [ ] Import GitHub repository
+   [ ] Configure project settings
+   [ ] Set environment variables
+
+2. Build Configuration
+   [ ] Verify build command (next build)
+   [ ] Check output directory (.next)
+   [ ] Configure Node.js version
+   [ ] Set environment variables
+
+3. Domain Setup
+   [ ] Add custom domain in Vercel
+   [ ] Configure DNS records
+   [ ] Set up SSL/TLS
+   [ ] Verify domain connection
+
+4. Post-Deployment
+   [ ] Test all routes
+   [ ] Verify API endpoints
+   [ ] Check performance
+   [ ] Monitor error logs
+
+### Critical Information
+- Using Node.js with --legacy-peer-deps
+- Environment variables needed in Vercel:
+  - NEXT_PUBLIC_APP_URL
+  - (Add others as needed)
+- Build command: next build
+- Output directory: .next
+- Node.js version: Latest LTS
+
+### Known Issues/Considerations
+- Package.json has dependency conflicts (using --legacy-peer-deps)
+- DNS propagation may take 24-48 hours
+- Need to ensure all environment variables are set in Vercel
+=======
 - TypeScript + Tailwind CSS
 - Contentful CMS integration needed
 - Need to implement dynamic blog display
@@ -317,6 +450,7 @@ CONTENTFUL_ACCESS_TOKEN=A00fhcpfms51JXRDTelMSZPyXQGeS6HwbdqZnPrvqoI
 4. Verify data fetching
 5. Check component rendering
 6. Test responsive design
+ dev
 
 # Debugging and Reasoning Framework
 
