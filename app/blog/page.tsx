@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
-import { getSortedPostsData } from "@/app/lib/blog"
+import { getAllPosts } from "@/app/lib/contentful"
+import BlogList from "@/app/components/blog/BlogList"
 
-export default function Blog() {
-  const blogPosts = getSortedPostsData()
+export const revalidate = 3600 // Revalidate every hour
+
+export default async function Blog() {
+  const posts = await getAllPosts()
 
   return (
     <div className="min-h-screen bg-black">
@@ -74,27 +77,7 @@ export default function Blog() {
         {/* Blog Posts */}
         <section className="py-24 px-4">
           <div className="container mx-auto">
-            <div className="grid gap-8 max-w-5xl mx-auto">
-              {blogPosts.map((post) => (
-                <div
-                  key={post.slug}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
-                >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                  <div className="relative">
-                    <h2 className="text-2xl font-semibold text-white mb-2">{post.title}</h2>
-                    <p className="text-gray-400 mb-4">{post.excerpt}</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">{post.date}</span>
-                      <Link href={`/blog/${post.slug}`} className="text-teal-400 hover:text-teal-300 transition-colors">
-                        Read more →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <BlogList posts={posts} />
           </div>
         </section>
       </div>
