@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "revalidate": "tsx tools/revalidate.ts"
+    "generate-og": "node scripts/generate-og-image.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -70,14 +70,12 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
-    "@types/node-fetch": "^2.6.12",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "dotenv": "^16.4.7",
-    "node-fetch": "^2.7.0",
+    "contentful-management": "^11.47.2",
     "postcss": "^8",
+    "puppeteer": "^24.2.1",
     "tailwindcss": "^3.4.17",
-    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

@@ -1,4 +1,4 @@
-import { createClient } from 'contentful'
+import { createClient, Entry, EntryCollection } from 'contentful'
 
 // Initialize Contentful client
 const client = createClient({
@@ -6,14 +6,19 @@ const client = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 })
 
-// Debug client configuration
-console.log('Debug - Contentful Config:', {
-  spaceId: process.env.CONTENTFUL_SPACE_ID,
-  hasAccessToken: !!process.env.CONTENTFUL_ACCESS_TOKEN,
-  tokenPrefix: process.env.CONTENTFUL_ACCESS_TOKEN?.substring(0, 5)
-})
+// Helper function for environment-based logging
+const log = {
+  debug: (...args: any[]) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Contentful]', ...args)
+    }
+  },
+  error: (...args: any[]) => {
+    console.error('[Contentful]', ...args)
+  }
+}
 
-// Type for blog post from Contentful
+// Our frontend type that matches what we use in components
 export interface BlogPost {
   title: string
   slug: string
@@ -29,82 +34,94 @@ export interface BlogPost {
   }
 }
 
+// Contentful's type structure
+interface BlogPostFields {
+  title: string
+  slug: string
+  summary: string
+  headerImage?: {
+    fields: {
+      file: {
+        url: string
+      }
+      description?: string
+    }
+  }
+  content: string
+}
+
+// Transform Contentful entry to our frontend type
+function transformEntry(entry: Entry<BlogPostFields>): BlogPost {
+  const { fields, sys } = entry
+  
+  return {
+    title: fields.title,
+    slug: fields.slug,
+    summary: fields.summary,
+    headerImage: fields.headerImage?.fields
+      ? {
+          url: `https:${fields.headerImage.fields.file.url}`,
+          description: fields.headerImage.fields.description || '',
+        }
+      : undefined,
+    content: fields.content,
+    sys: {
+      createdAt: sys.createdAt,
+      updatedAt: sys.updatedAt,
+    },
+  }
+}
+
 // Fetch all blog posts
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
-    console.log('Debug - Fetching all posts')
-    const response = await client.getEntries({
+    log.debug('Fetching all posts')
+    const entries = await client.getEntries<BlogPostFields>({
       content_type: 'blogPost',
-      order: '-sys.createdAt',
+      order: ['-sys.createdAt'],
+      include: 2,
     })
-    console.log('Debug - Response:', {
-      total: response.total,
-      limit: response.limit,
-      skip: response.skip,
-      items: response.items?.length
+
+    log.debug('Fetched posts:', {
+      total: entries.total,
+      limit: entries.limit,
+      skip: entries.skip,
     })
-    return response.items.map((item: any) => ({
-      title: item.fields.title,
-      slug: item.fields.slug,
-      summary: item.fields.summary,
-      headerImage: item.fields.headerImage?.fields
-        ? {
-            url: item.fields.headerImage.fields.file.url,
-            description: item.fields.headerImage.fields.description,
-          }
-        : undefined,
-      content: item.fields.content,
-      sys: {
-        createdAt: item.sys.createdAt,
-        updatedAt: item.sys.updatedAt,
-      },
-    }))
-  } catch (error) {
-    console.error('Debug - Error fetching posts:', error)
-    throw error
+
+    return entries.items.map(transformEntry)
+  } catch (error: any) {
+    log.error('Failed to fetch posts:', {
+      message: error.message,
+      details: error.details,
+      status: error.status
+    })
+    return []
   }
 }
 
 // Fetch a single blog post by slug
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    console.log('Debug - Fetching post with slug:', slug)
-    const response = await client.getEntries({
+    log.debug('Fetching post:', slug)
+    const entries = await client.getEntries<BlogPostFields>({
       content_type: 'blogPost',
       'fields.slug': slug,
       limit: 1,
     })
-    console.log('Debug - Response for slug:', {
-      total: response.total,
-      limit: response.limit,
-      skip: response.skip,
-      items: response.items?.length
-    })
 
-    if (!response.items.length) {
-      console.log('Debug - No post found with slug:', slug)
+    if (!entries.items.length) {
+      log.debug('No post found with slug:', slug)
       return null
     }
 
-    const item = response.items[0]
-    return {
-      title: item.fields.title,
-      slug: item.fields.slug,
-      summary: item.fields.summary,
-      headerImage: item.fields.headerImage?.fields
-        ? {
-            url: item.fields.headerImage.fields.file.url,
-            description: item.fields.headerImage.fields.description,
-          }
-        : undefined,
-      content: item.fields.content,
-      sys: {
-        createdAt: item.sys.createdAt,
-        updatedAt: item.sys.updatedAt,
-      },
-    }
-  } catch (error) {
-    console.error('Debug - Error fetching post by slug:', error)
-    throw error
+    return transformEntry(entries.items[0])
+  } catch (error: any) {
+    log.error('Failed to fetch post:', {
+      slug,
+      message: error.message,
+      details: error.details,
+      status: error.status
+    })
+    return null
   }
 } 
