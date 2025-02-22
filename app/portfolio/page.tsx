@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChevronRight, BarChart, Zap, Users, Database, Brain } from "lucide-react"
+import { ChevronRight, BarChart, Zap, Users, Database, Brain, Bot, Rocket, TableProperties, Code, LineChart } from "lucide-react"
 
 const competencies = [
   {
@@ -81,6 +81,57 @@ const achievements = [
   },
 ]
 
+const projects = [
+  {
+    title: "Hold My Brain",
+    category: "AI-Powered Knowledge Management",
+    description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
+    impact: [
+      "Reduced information retrieval time by 80%",
+      "Automated content summarization",
+      "Seamless integration with existing workflows"
+    ],
+    technologies: ["Next.js", "GPT-4o", "VisionKit", "Whisper AI", "Swift"],
+    icon: Brain
+  },
+  {
+    title: "Sales Acceleration Suite",
+    category: "Sales Automation",
+    description: "A comprehensive sales automation system that streamlined operations for a mid-sized tech company.",
+    impact: [
+      "Increased close rates by 45%",
+      "Reduced manual data entry by 90%",
+      "Automated lead scoring and prioritization"
+    ],
+    technologies: ["Excel VBA", "Python", "GPT-4", "n8n", "PandaDoc"],
+    icon: Rocket
+  },
+  {
+    title: "Content Generation Engine",
+    category: "AI Content Automation",
+    description: "An AI-powered system for generating and managing marketing content at scale.",
+    impact: [
+      "10x increase in content output",
+      "Maintained consistent brand voice",
+      "Reduced content creation costs by 60%"
+    ],
+    technologies: ["Claude", "GPT-4", "n8n", "Next.js", "Perplexity"],
+    icon: Bot
+  },
+  {
+    title: "Excel Performance Dashboard",
+    category: "Business Intelligence",
+    description: "A sophisticated Excel-based performance tracking system for a Fortune 500 company.",
+    impact: [
+      "Real-time KPI tracking",
+      "Automated report generation",
+      "Reduced reporting time by 85%"
+    ],
+    technologies: ["Excel", "VBA", "Power Query", "DAX", "Python"],
+    icon: LineChart
+  }
+]
+
 export default function Portfolio() {
   const [activeCompetency, setActiveCompetency] = useState(competencies[0].title)
 
@@ -127,9 +178,9 @@ export default function Portfolio() {
               href="#"
               className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
             >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-gray-300 group-hover:text-white">Get a Demo</span>
+              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
+              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative text-white">Get a Demo</span>
             </Link>
           </div>
         </header>
@@ -137,120 +188,184 @@ export default function Portfolio() {
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4">
           <div className="container mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative inline-block"
-            >
+            <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-teal-400 via-violet-400 to-teal-400 bg-clip-text text-transparent animate-gradient">
-                Portfolio & Expertise
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Featured Work
+                </span>
               </h1>
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg"
-            >
-              Discover my core competencies and representative achievements in sales optimization and process
-              improvement
-            </motion.p>
+            </div>
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
+              Real projects, real results—explore how we've helped businesses transform their operations with AI and automation
+            </p>
           </div>
         </section>
 
-        {/* Core Competencies Section */}
+        {/* Portfolio Grid */}
         <section className="py-24 px-4">
           <div className="container mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-teal-400 to-violet-400 bg-clip-text text-transparent"
-            >
-              Core Competencies
-            </motion.h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                {competencies.map((competency, index) => (
-                  <motion.div
-                    key={competency.title}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Card
-                      className={`cursor-pointer transition-all duration-300 bg-gray-900/50 backdrop-blur-md border-white/10 ${
-                        activeCompetency === competency.title
-                          ? "border-teal-500/50 shadow-md shadow-teal-500/10"
-                          : "border-gray-800/50 hover:border-gray-700/50"
-                      }`}
-                      onClick={() => setActiveCompetency(competency.title)}
-                    >
-                      <CardHeader className="flex flex-row items-center space-x-4">
-                        <competency.icon className="w-8 h-8 text-teal-400" />
-                        <CardTitle className="text-white">{competency.title}</CardTitle>
-                      </CardHeader>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-              <motion.div
-                key={activeCompetency}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-gray-900/50 backdrop-blur-md rounded-lg p-6 border border-gray-800/50"
-              >
-                <h3 className="text-2xl font-bold text-white mb-4">{activeCompetency}</h3>
-                <p className="text-gray-300 mb-6">
-                  {competencies.find((c) => c.title === activeCompetency)?.description}
-                </p>
-                <ul className="space-y-2">
-                  {competencies
-                    .find((c) => c.title === activeCompetency)
-                    ?.details.map((detail, index) => (
-                      <li key={index} className="flex items-start">
-                        <ChevronRight className="w-5 h-5 text-teal-400 mr-2 mt-1 flex-shrink-0" />
-                        <span className="text-gray-200">{detail}</span>
-                      </li>
-                    ))}
-                </ul>
-              </motion.div>
+            <div className="grid grid-cols-1 gap-8 max-w-5xl mx-auto">
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
+                >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
+                  <div className="relative">
+                    <div className="flex items-start gap-6">
+                      <div className="p-3 rounded-lg bg-teal-500/20">
+                        <project.icon className="w-8 h-8 text-teal-400" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+                          <span className="text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300">
+                            {project.category}
+                          </span>
+                        </div>
+                        <p className="text-gray-300 text-lg mb-6">{project.description}</p>
+                        
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div>
+                            <h4 className="text-white font-medium mb-3">Impact</h4>
+                            <ul className="space-y-2">
+                              {project.impact.map((item, idx) => (
+                                <li key={idx} className="flex items-center text-gray-400">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          
+                          <div>
+                            <h4 className="text-white font-medium mb-3">Technologies</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {project.technologies.map((tech, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-3 py-1 rounded-full text-sm bg-white/5 text-gray-300 border border-white/10"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-6">
+                          <Link
+                            href="#"
+                            className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
+                          >
+                            View case study
+                            <svg
+                              className="w-4 h-4 ml-2"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Representative Achievements Section */}
-        <section className="py-24 px-4 bg-gray-900">
-          <div className="container mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-teal-400 to-violet-400 bg-clip-text text-transparent"
-            >
-              Representative Achievements
-            </motion.h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={achievement.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="h-full bg-gray-900/50 backdrop-blur-md border border-gray-800/50">
-                    <CardHeader>
-                      <CardTitle className="text-xl font-bold text-white">{achievement.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-300">{achievement.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+        {/* Creative Background Section */}
+        <section className="py-24 px-4 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/20 to-teal-900/20 opacity-50" />
+          <div className="container mx-auto relative">
+            <div className="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-md rounded-xl border border-white/10 p-8 md:p-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Where Technology Meets Creativity
+                </span>
+              </h2>
+              <div className="space-y-6 text-gray-300">
+                <p className="text-lg leading-relaxed">
+                  With 15 years of music production experience, I bring a unique blend of technical precision and creative 
+                  problem-solving to every project. The same attention to detail required in mixing and mastering translates 
+                  directly to crafting efficient automation systems and optimizing business processes.
+                </p>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                  <div>
+                    <h3 className="text-white font-semibold mb-3">Transferable Skills</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Precision and attention to detail
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Complex system optimization
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Technical troubleshooting
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Creative problem-solving
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-semibold mb-3">Enhanced Capabilities</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Pattern recognition in complex data
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Workflow optimization expertise
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Quality assurance mindset
+                      </li>
+                      <li className="flex items-center text-gray-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                        Advanced technical proficiency
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 px-4">
+          <div className="container mx-auto text-center">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Ready to Build Something Great?
+                </span>
+              </h2>
+              <p className="text-gray-400 mb-8">
+                Let's discuss how we can create similar results for your business through intelligent automation and AI integration.
+              </p>
+              <Link
+                href="#"
+                className="group relative inline-flex px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+              >
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                <span className="relative text-white">Start a Project</span>
+              </Link>
             </div>
           </div>
         </section>
