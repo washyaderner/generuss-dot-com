@@ -1,32 +1,32 @@
 import Link from "next/link"
-import { Brain, Zap, Users, BarChart } from "lucide-react"
+import { TableProperties, Rocket, Bot, Code } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
 
 const solutions = [
   {
-    icon: Brain,
-    title: "AI-Powered Solutions",
+    icon: TableProperties,
+    title: "Excel & AI Automation",
     description:
-      "Seamlessly integrate advanced AI into your sales process, reducing manual tasks and driving conversion rates up.",
+      "Excel mastery meets AI innovation—turning complex tasks into effortless automation for faster, smarter, and more profitable results.",
   },
   {
-    icon: Zap,
-    title: "Precision Automations",
+    icon: Rocket,
+    title: "Sales Strategy & Systems",
     description:
-      "Replace repetitive workflows with custom, data-driven automations that let your team focus on closing deals.",
+      "Sales isn't a numbers game—it's a strategy game. I build smarter training, automation, and scripts that help teams close faster, sell more, and work less.",
   },
   {
-    icon: Users,
-    title: "Deep Training & Coaching",
+    icon: Bot,
+    title: "Business & Content Automation",
     description:
-      "Combine proven scripts, real-time feedback, and hands-on coaching to transform your whole team into top earners.",
+      "Workflows, sales, and content—automated. Scale faster with AI-driven business & content automation that eliminates inefficiencies and drives results.",
   },
   {
-    icon: BarChart,
-    title: "Process Enhancements",
+    icon: Code,
+    title: "AI-Powered App & Web Development",
     description:
-      "Refine everything from CRM input to follow-up cadence, ensuring a streamlined customer journey and measurable ROI.",
+      "AI-enhanced apps and web solutions—built for efficiency, automation, and effortless user experience.",
   },
 ]
 
@@ -86,8 +86,11 @@ export default function Home() {
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent animate-gradient">
-                Innovate Fast & Touch Grass
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
+                ⚡{" "}
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Innovate Fast & Touch Grass
+                </span>
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
