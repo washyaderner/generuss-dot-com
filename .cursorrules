@@ -229,39 +229,84 @@ git push origin feature/name
 git branch -d feature/name
 ```
 
+### PR Management Rules
+- All pull requests will be handled through GitHub UI
+- NO git commands for PR operations should be executed by Cursor
+- Feature branches to dev: Use squash and merge
+- Dev to main: Use regular merge
+- Always maintain clean git history
+- Include "[Cursor] " prefix in PR titles
+
+### Current Task Status
+[X] Initial Next.js setup
+[X] Portfolio page implementation
+[X] Solutions page implementation
+[X] About page creation
+[X] Timeline updates in About page
+[X] Hero section content reordering
+[X] Feature branch PR created
+[ ] Merge feature/copy-updates to dev (pending GitHub UI squash merge)
+[ ] Test in dev environment
+[ ] Prepare dev to main PR
+
+### Technical Stack
+- Next.js 14
+- Tailwind CSS
+- Framer Motion
+- Modern gradient design system
+- SEO optimizations
+
+### Design System
+- Consistent gradient treatments
+- Modern card designs
+- Interactive hover effects
+- Responsive layouts
+- SEO-optimized structure
+
+### Content Priority
+1. AI and technical expertise
+2. Sales leadership
+3. Creative background (supporting)
+
+### SEO Focus
+- Proper heading hierarchy
+- Meta descriptions
+- Alt text for images
+- Semantic HTML structure
+
 # Scratchpad
 
-## Current Task: Blog Implementation with Contentful CMS
+## Current Task: Website Development and Content Updates
 
 ### Progress
 [X] Initial Next.js setup
-[X] Contentful CMS integration
-[X] Blog components creation
-[X] OpenGraph metadata implementation
-[X] Error handling and logging
-[X] Package.json cleanup
-[X] Feature branch merged to dev
+[X] Portfolio page implementation
+[X] Solutions page implementation
+[X] About page creation
+[X] Timeline updates in About page
+[X] Hero section content reordering
+[X] Feature branch PR created
 
 ### Current State
-- On dev branch after successful PR merge
-- Blog functionality working but content needs formatting
-- Contentful CMS connected and fetching posts
-- OpenGraph metadata implemented
-- Build cache cleaned up
+- PR from feature/copy-updates to dev branch pending
+- About page updated with correct timeline dates
+- Hero section reordered to prioritize AI expertise
+- Content structure optimized for SEO
+- All pages maintain consistent design language
 
 ### Next Steps
-[ ] Format blog content in Contentful
-[ ] Test blog responsiveness
-[ ] Review SEO implementation
-[ ] Plan main branch deployment
-[ ] Add analytics tracking
+[ ] Merge PR to dev branch (using squash and merge)
+[ ] Test changes in dev environment
+[ ] Prepare dev to main PR
+[ ] Plan deployment to production
+[ ] Review site-wide content for consistency
 
 ### Technical Details
-- Next.js 14.2.16
-- Contentful API integrated
-- Using markdown-to-jsx for content rendering
-- Revalidation set to 1 hour
-- Debug logging in place
+- Next.js 14
+- Using Tailwind CSS for styling
+- Framer Motion for animations
+- Maintaining modern gradient design system
+- SEO optimizations in place
 
 # Lessons
 
