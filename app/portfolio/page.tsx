@@ -352,11 +352,13 @@ export default function Portfolio() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Ready to Build Something Great?
+                  I'm looking forward to hearing from you!
                 </span>
               </h2>
               <p className="text-gray-400 mb-8">
-                Let's discuss how we can create similar results for your business through intelligent automation and AI integration.
+                The flood of possibilities AI brings to the business world is insane.<br />
+                This means the competitive clock is ticking... <span className="italic">fast</span>.<br />
+                Let's redefine the way your business operates before the competition catches up.
               </p>
               <Link
                 href="#"
