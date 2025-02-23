@@ -645,3 +645,34 @@ Remember:
    - Use internal linking
    - Optimize images and media
    - Include social sharing meta tags
+
+### Current PR Information
+For feature/copy-updates:
+```markdown
+Title: [Cursor] Update portfolio page copy and content structure
+Base: dev
+Compare: feature/copy-updates
+
+## Changes
+- Updated CTA section text with more compelling messaging
+- Improved text formatting for better readability
+- Added emphasis on urgency and competitive advantage
+- Updated .cursorrules with new project guidelines
+
+## Testing
+- Verified text changes in portfolio page
+- Checked responsive layout
+- Confirmed proper text formatting and styling
+
+## Notes
+- Using squash and merge to maintain clean git history
+```
+
+### Next Feature Branch
+After PR is merged:
+- Name: feature/mobile-and-navigation
+- Base: dev (after copy-updates is merged)
+- Scope: 
+  1. Button functionality implementation
+  2. Call-to-action button links
+  3. Mobile optimization
