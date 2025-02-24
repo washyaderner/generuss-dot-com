@@ -7,6 +7,7 @@ import { CursorGradient } from "@/components/cursor-gradient"
 import { GrassIcon } from "@/components/grass-icon"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChevronRight, BarChart, Zap, Users, Database, Brain, Bot, Rocket, TableProperties, Code, LineChart } from "lucide-react"
+import { MobileNav } from "@/components/mobile-nav"
 
 const competencies = [
   {
@@ -132,6 +133,14 @@ const projects = [
   }
 ]
 
+const navigationLinks = [
+  { href: "/solutions", label: "Solutions" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+]
+
 export default function Portfolio() {
   const [activeCompetency, setActiveCompetency] = useState(competencies[0].title)
 
@@ -154,34 +163,31 @@ export default function Portfolio() {
                 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
               >
                 <GrassIcon className="w-6 h-6 mr-2" />
-                Home
+                <span className="hidden sm:inline">Home</span>
               </Link>
               <nav className="hidden md:flex space-x-6">
-                <Link href="/solutions" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Solutions
-                </Link>
-                <Link href="/portfolio" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Portfolio
-                </Link>
-                <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Blog
-                </Link>
-                <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  About
-                </Link>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
+                {navigationLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </nav>
             </div>
-            <Link
-              href="#"
-              className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
-            >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Get a Demo</span>
-            </Link>
+            <div className="flex items-center space-x-4">
+              <Link
+                href="#"
+                className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+              >
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="relative text-white">Get a Demo</span>
+              </Link>
+              <MobileNav links={navigationLinks} />
+            </div>
           </div>
         </header>
 
@@ -209,44 +215,44 @@ export default function Portfolio() {
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
+                  className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
                 >
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                   <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
                   <div className="relative">
-                    <div className="flex items-start gap-6">
+                    <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                       <div className="p-3 rounded-lg bg-teal-500/20">
-                        <project.icon className="w-8 h-8 text-teal-400" />
+                        <project.icon className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-                          <span className="text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                          <h3 className="text-xl sm:text-2xl font-semibold text-white">{project.title}</h3>
+                          <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
                             {project.category}
                           </span>
                         </div>
-                        <p className="text-gray-300 text-lg mb-6">{project.description}</p>
+                        <p className="text-gray-300 text-base sm:text-lg mb-4 sm:mb-6">{project.description}</p>
                         
-                        <div className="grid md:grid-cols-2 gap-8">
+                        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
                           <div>
-                            <h4 className="text-white font-medium mb-3">Impact</h4>
+                            <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
                             <ul className="space-y-2">
                               {project.impact.map((item, idx) => (
-                                <li key={idx} className="flex items-center text-gray-400">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
-                                  {item}
+                                <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
+                                  <span className="flex-1">{item}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
                           
                           <div>
-                            <h4 className="text-white font-medium mb-3">Technologies</h4>
+                            <h4 className="text-white font-medium mb-2 sm:mb-3">Technologies</h4>
                             <div className="flex flex-wrap gap-2">
                               {project.technologies.map((tech, idx) => (
                                 <span
                                   key={idx}
-                                  className="px-3 py-1 rounded-full text-sm bg-white/5 text-gray-300 border border-white/10"
+                                  className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
                                 >
                                   {tech}
                                 </span>
@@ -255,10 +261,10 @@ export default function Portfolio() {
                           </div>
                         </div>
                         
-                        <div className="mt-6">
+                        <div className="mt-4 sm:mt-6">
                           <Link
                             href="#"
-                            className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
+                            className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
                           >
                             View case study
                             <svg
@@ -352,11 +358,13 @@ export default function Portfolio() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Ready to Build Something Great?
+                  I'm looking forward to hearing from you!
                 </span>
               </h2>
               <p className="text-gray-400 mb-8">
-                Let's discuss how we can create similar results for your business through intelligent automation and AI integration.
+                The flood of possibilities AI brings to the business world is insane.<br />
+                This means the competitive clock is ticking... <span className="italic">fast</span>.<br />
+                Let's redefine the way your business operates before the competition catches up.
               </p>
               <Link
                 href="#"

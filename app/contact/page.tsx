@@ -58,8 +58,10 @@ export default function Contact() {
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-teal-400 via-violet-400 to-teal-400 bg-clip-text text-transparent animate-gradient">
-                Contact Us
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Contact Us
+                </span>
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
