@@ -115,10 +115,8 @@ export default function About() {
                 </span>
               </h1>
             </div>
-            <p className="text-gray-400 max-w-3xl mx-auto mb-8 text-lg leading-relaxed">
-              Combining cutting-edge AI expertise and proven sales leadership with 15 years of music production precision 
-              to deliver transformative business solutions. My unique background enables me to approach technical challenges 
-              with both analytical rigor and creative insight.
+            <p className="text-gray-400 max-w-3xl mx-auto mb-8 text-lg">
+              Combining AI expertise with music production and sales leadership to create innovative solutions that drive real results
             </p>
           </div>
         </section>
