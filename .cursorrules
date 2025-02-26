@@ -98,6 +98,255 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Read the file before you try to edit it.
 - Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
 
+ feature/mobile-and-navigation
+
+## Cursor learned
+
+- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
+- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
+- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
+- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+
+## Git Branching Workflow
+
+### Branch Types
+1. main (Production)
+   - Always stable and deployable
+   - Direct commits not allowed
+   - Changes come only through PR merges from dev
+   - Protected branch requiring PR reviews
+
+2. dev (Development)
+   - Main development branch
+   - Feature branches merge here first
+   - Used for preview deployments
+   - Must pass tests before merging to main
+
+3. feature/* (Feature Branches)
+   - Created from dev branch
+   - One branch per feature
+   - Format: feature/descriptive-name
+   - Merged back to dev when complete
+
+ main
+
+### Pull Request Templates
+
+1. Feature Branch to Dev:
+   ```markdown
+   Title: [Cursor] Feature Description
+   Base: dev
+   Compare: feature/your-feature-name
+   
+   ## Changes
+   - List specific changes made
+   - One change per line
+   - Be specific and clear
+   
+   ## Testing
+   - List what was tested
+   - Include preview deployment checks
+   - Note any specific test cases
+   
+   ## Notes
+   - Any additional context
+   - Breaking changes if any
+   - Dependencies or requirements
+   ```
+
+2. Dev to Main (Production):
+   ```markdown
+   Title: [Cursor] Merge dev into main for production
+   Base: main
+   Compare: dev
+   
+   ## Changes
+   - List all features being promoted to production
+   - Note any major updates or changes
+   - Reference related PR numbers if applicable
+   
+   ## Testing
+   - Confirm all changes verified in dev
+   - List preview deployments tested
+   - Note any specific production considerations
+   
+   ## Notes
+   - Any deployment requirements
+   - Breaking changes if any
+   - Required environment variables
+   ```
+
+ dev
+### Workflow Steps
+1. Starting New Feature
+   ```bash
+   git checkout dev
+   git pull origin dev
+   git checkout -b feature/your-feature-name
+   ```
+
+2. Working on Feature
+   - Make commits with clear messages
+   - Push regularly to remote
+   - Keep branch up to date with dev
+
+3. Completing Feature
+   - Push final changes
+   - Create PR to dev branch
+   - Get review and approval
+   - Merge to dev
+   - Delete feature branch
+
+4. Production Release
+   - Create PR from dev to main
+   - Review deployment preview
+   - Get final approval
+   - Merge to main
+
+### Checkpoints for Branch Management
+I will help manage these git operations at these key points:
+1. When starting new feature work
+2. When feature implementation is complete
+3. When merging to dev branch
+4. When preparing for production release
+5. When hotfixes are needed
+
+### Common Commands
+```bash
+# Update dev branch
+git checkout dev
+git pull origin dev
+
+# Create feature branch
+git checkout -b feature/name
+
+# Update feature branch with dev
+git checkout feature/name
+git merge dev
+
+# Push changes
+git push origin feature/name
+
+# Clean up after merge
+git branch -d feature/name
+```
+
+### PR Management Rules
+- All pull requests will be handled through GitHub UI
+- NO git commands for PR operations should be executed by Cursor
+- Feature branches to dev: Use squash and merge
+- Dev to main: Use regular merge
+- Always maintain clean git history
+- Include "[Cursor] " prefix in PR titles
+
+### Current Task Status
+[X] Initial Next.js setup
+[X] Portfolio page implementation
+[X] Solutions page implementation
+[X] About page creation
+[X] Timeline updates in About page
+[X] Hero section content reordering
+[X] Feature branch PR created
+[ ] Merge feature/copy-updates to dev (pending GitHub UI squash merge)
+[ ] Test in dev environment
+[ ] Prepare dev to main PR
+
+### Technical Stack
+- Next.js 14
+- Tailwind CSS
+- Framer Motion
+- Modern gradient design system
+- SEO optimizations
+
+### Design System
+- Consistent gradient treatments
+- Modern card designs
+- Interactive hover effects
+- Responsive layouts
+- SEO-optimized structure
+
+### Content Priority
+1. AI and technical expertise
+2. Sales leadership
+3. Creative background (supporting)
+
+### SEO Focus
+- Proper heading hierarchy
+- Meta descriptions
+- Alt text for images
+- Semantic HTML structure
+
+# Scratchpad
+
+## Current Task: Website Navigation and Layout Refinement
+
+### Already Implemented
+[X] Next.js 14 setup with Tailwind CSS
+[X] Modern gradient design system
+[X] Basic page structure (Home, Solutions, Portfolio, Blog, About, Contact)
+[X] Hero sections with consistent padding (pt-32 pb-16 px-4)
+[X] Mobile-first responsive design
+[X] Navigation system with mobile menu
+[X] Frosted glass effect on navigation
+[X] SEO optimization for blog posts
+[X] Portfolio showcase with project cards
+[X] Contact form implementation
+[X] Footer with social links
+
+### Current Issues Addressed
+[X] Fixed duplicate "Home" link issue
+[X] Standardized hero section padding
+[X] Resolved mobile menu navigation
+[X] Maintained consistent branding
+
+### Need to Implement
+[ ] Fix form functionality in Contact page
+[ ] Implement proper button links
+[ ] Add loading states
+[ ] Complete mobile optimization
+[ ] Set up proper meta tags for all pages
+[ ] Implement analytics
+[ ] Add proper error boundaries
+[ ] Set up proper robots.txt and sitemap.xml
+
+### Navigation Structure
+- Desktop: Full navigation bar with links
+- Mobile: Hamburger menu with slide-out navigation
+- Consistent padding and blur effects
+- Proper hierarchy and accessibility
+
+### Design System
+- Gradient treatments (teal-400 to violet-400)
+- Frosted glass effects
+- Modern card designs
+- Interactive hover states
+- Responsive text scaling
+- Consistent spacing system
+
+### Content Priority
+1. Clear navigation and user flow
+2. Professional presentation
+3. Mobile responsiveness
+4. Performance optimization
+5. SEO enhancement
+
+Priority Order:
+1. Complete button functionality
+2. Enhance mobile experience
+3. Implement loading states
+4. Add analytics
+5. Optimize SEO
+6. Add remaining features based on user feedback
+
+# Lessons
+
+## User Specified Lessons
+- You have a python3 venv in ./venv. Use it.
+- Include info useful for debugging in the program output.
+- Read the file before you try to edit it.
+- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+
+ dev
 ## Recent Lessons
 - Always merge feature branches to dev first for testing
 - Keep content management separate from code changes
