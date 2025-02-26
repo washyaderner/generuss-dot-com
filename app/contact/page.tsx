@@ -51,8 +51,10 @@ export default function Contact() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
+    console.log('Form submission started with data:', data)
     
     try {
+      console.log('Sending fetch request to /api/contact')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -61,7 +63,9 @@ export default function Contact() {
         body: JSON.stringify(data),
       })
 
+      console.log('Received response with status:', response.status)
       const responseData = await response.json()
+      console.log('Response data:', responseData)
 
       if (!response.ok) {
         console.error('Form submission error:', responseData)
@@ -74,7 +78,14 @@ export default function Contact() {
       reset()
     } catch (error) {
       console.error('Error submitting form:', error)
-      toast.error(`Failed to send message: ${error instanceof Error ? error.message : 'Please try again or contact us directly.'}`, {
+      let errorMessage = 'Please try again or contact us directly.'
+      
+      if (error instanceof Error) {
+        errorMessage = error.message
+      }
+      
+      // Show detailed error toast
+      toast.error(`Failed to send message: ${errorMessage}`, {
         duration: 5000,
       })
     } finally {
