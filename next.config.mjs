@@ -55,7 +55,7 @@ function mergeConfig(nextConfig, userConfig) {
 const isDev = process.env.NODE_ENV !== 'production'
 const CSP = `
   default-src 'self';
-  script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""};
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob: https://images.ctfassets.net;
   font-src 'self';
