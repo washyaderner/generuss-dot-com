@@ -1,0 +1,10 @@
+[Cursor] Fix contact form validation and email delivery
+
+1. Added id attributes to form inputs matching htmlFor in labels
+2. Added proper autocomplete attributes to all form inputs
+3. Updated email sending with direct delivery to multiple recipients
+4. Added robust error handling for Resend API
+5. Fixed CSP configuration in next.config.mjs
+6. Updated validation schema with appropriate character limits
+7. Created Spinner component for form submission UI
+8. Added detailed documentation in .cursorrules 

@@ -5,6 +5,7 @@ import { MobileNav } from "@/components/mobile-nav"
 import Link from "next/link"
 import "./globals.css"
 import type React from "react"
+import { Toaster } from "sonner"
 
 export const metadata = {
   title: "Touch Grass",
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Toaster richColors position="top-right" />
         <div className="min-h-screen bg-black">
           <div className="fixed inset-0 bg-gradient-to-b from-black via-black to-[#0A0A1E] z-0" />
           <CursorGradient />
