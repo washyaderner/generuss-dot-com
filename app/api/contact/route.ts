@@ -57,7 +57,10 @@ export async function POST(request: Request) {
   try {
     // Parse and validate the request body
     const body = await request.json()
+    console.log('Received form data:', JSON.stringify(body, null, 2))
+    
     const validatedFields = formSchema.parse(body)
+    console.log('Validation passed successfully')
 
     // Format the email content
     const emailContent = `
@@ -87,6 +90,8 @@ Submitted at: ${new Date().toISOString()}
       timestamp: new Date().toISOString(),
     })
 
+    console.log('Sending email via Resend with API key:', process.env.RESEND_API_KEY ? 'Key exists' : 'Key missing')
+    
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'Generuss Contact Form <hello@mail.generuss.com>',
@@ -94,6 +99,8 @@ Submitted at: ${new Date().toISOString()}
       subject: `New Contact Form Submission from ${validatedFields.firstName} ${validatedFields.lastName}`,
       text: emailContent,
     })
+
+    console.log('Resend API response:', data ? JSON.stringify(data) : 'No data returned')
 
     // Handle Resend API errors
     if (error) {
@@ -115,6 +122,7 @@ Submitted at: ${new Date().toISOString()}
       )
     }
 
+    console.log('Email sent successfully with ID:', data?.id)
     return NextResponse.json(
       { message: "Contact form submitted successfully", id: data?.id },
       { status: 200 }
@@ -122,6 +130,7 @@ Submitted at: ${new Date().toISOString()}
   } catch (error) {
     // Handle validation errors
     if (error instanceof z.ZodError) {
+      console.error('Validation error:', JSON.stringify(error.errors, null, 2))
       return NextResponse.json(
         { message: "Invalid form data", errors: error.errors },
         { status: 400 }

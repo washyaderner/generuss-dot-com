@@ -1,0 +1,1 @@
+[Cursor] Fix Content Security Policy to allow form scripts in production
