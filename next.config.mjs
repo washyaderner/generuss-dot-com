@@ -15,6 +15,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '/**',
+      },
+    ],
   },
   experimental: {
     webpackBuildWorker: true,
@@ -50,7 +57,7 @@ const CSP = `
   default-src 'self';
   script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""};
   style-src 'self' 'unsafe-inline';
-  img-src 'self' data: blob:;
+  img-src 'self' data: blob: https://images.ctfassets.net;
   font-src 'self';
   object-src 'none';
   base-uri 'self';
