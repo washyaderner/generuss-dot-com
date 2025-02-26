@@ -485,12 +485,12 @@ export default function About() {
                 I bring a unique blend of technical expertise and creative insight to every project.
               </p>
               <Link
-                href="#"
+                href="/contact"
                 className="group relative inline-flex px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Start a Conversation</span>
+                <span className="relative text-white">Send a message</span>
               </Link>
             </div>
           </div>

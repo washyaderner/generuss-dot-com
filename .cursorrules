@@ -98,257 +98,16 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Read the file before you try to edit it.
 - Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
 
-## Cursor learned
-
-- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
-- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
-- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
-- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
-
-## Git Branching Workflow
-
-### Branch Types
-1. main (Production)
-   - Always stable and deployable
-   - Direct commits not allowed
-   - Changes come only through PR merges from dev
-   - Protected branch requiring PR reviews
-
-2. dev (Development)
-   - Main development branch
-   - Feature branches merge here first
-   - Used for preview deployments
-   - Must pass tests before merging to main
-
-3. feature/* (Feature Branches)
-   - Created from dev branch
-   - One branch per feature
-   - Format: feature/descriptive-name
-   - Merged back to dev when complete
-
- main
-
-### Pull Request Templates
-
-1. Feature Branch to Dev:
-   ```markdown
-   Title: [Cursor] Feature Description
-   Base: dev
-   Compare: feature/your-feature-name
-   
-   ## Changes
-   - List specific changes made
-   - One change per line
-   - Be specific and clear
-   
-   ## Testing
-   - List what was tested
-   - Include preview deployment checks
-   - Note any specific test cases
-   
-   ## Notes
-   - Any additional context
-   - Breaking changes if any
-   - Dependencies or requirements
-   ```
-
-2. Dev to Main (Production):
-   ```markdown
-   Title: [Cursor] Merge dev into main for production
-   Base: main
-   Compare: dev
-   
-   ## Changes
-   - List all features being promoted to production
-   - Note any major updates or changes
-   - Reference related PR numbers if applicable
-   
-   ## Testing
-   - Confirm all changes verified in dev
-   - List preview deployments tested
-   - Note any specific production considerations
-   
-   ## Notes
-   - Any deployment requirements
-   - Breaking changes if any
-   - Required environment variables
-   ```
-
- dev
-### Workflow Steps
-1. Starting New Feature
-   ```bash
-   git checkout dev
-   git pull origin dev
-   git checkout -b feature/your-feature-name
-   ```
-
-2. Working on Feature
-   - Make commits with clear messages
-   - Push regularly to remote
-   - Keep branch up to date with dev
-
-3. Completing Feature
-   - Push final changes
-   - Create PR to dev branch
-   - Get review and approval
-   - Merge to dev
-   - Delete feature branch
-
-4. Production Release
-   - Create PR from dev to main
-   - Review deployment preview
-   - Get final approval
-   - Merge to main
-
-### Checkpoints for Branch Management
-I will help manage these git operations at these key points:
-1. When starting new feature work
-2. When feature implementation is complete
-3. When merging to dev branch
-4. When preparing for production release
-5. When hotfixes are needed
-
-### Common Commands
-```bash
-# Update dev branch
-git checkout dev
-git pull origin dev
-
-# Create feature branch
-git checkout -b feature/name
-
-# Update feature branch with dev
-git checkout feature/name
-git merge dev
-
-# Push changes
-git push origin feature/name
-
-# Clean up after merge
-git branch -d feature/name
-```
-
-### PR Management Rules
-- All pull requests will be handled through GitHub UI
-- NO git commands for PR operations should be executed by Cursor
-- Feature branches to dev: Use squash and merge
-- Dev to main: Use regular merge
-- Always maintain clean git history
-- Include "[Cursor] " prefix in PR titles
-
-### Current Task Status
-[X] Initial Next.js setup
-[X] Portfolio page implementation
-[X] Solutions page implementation
-[X] About page creation
-[X] Timeline updates in About page
-[X] Hero section content reordering
-[X] Feature branch PR created
-[ ] Merge feature/copy-updates to dev (pending GitHub UI squash merge)
-[ ] Test in dev environment
-[ ] Prepare dev to main PR
-
-### Technical Stack
-- Next.js 14
-- Tailwind CSS
-- Framer Motion
-- Modern gradient design system
-- SEO optimizations
-
-### Design System
-- Consistent gradient treatments
-- Modern card designs
-- Interactive hover effects
-- Responsive layouts
-- SEO-optimized structure
-
-### Content Priority
-1. AI and technical expertise
-2. Sales leadership
-3. Creative background (supporting)
-
-### SEO Focus
-- Proper heading hierarchy
-- Meta descriptions
-- Alt text for images
-- Semantic HTML structure
-
-# Scratchpad
-
-## Current Task: Website Navigation and Layout Refinement
-
-### Already Implemented
-[X] Next.js 14 setup with Tailwind CSS
-[X] Modern gradient design system
-[X] Basic page structure (Home, Solutions, Portfolio, Blog, About, Contact)
-[X] Hero sections with consistent padding (pt-32 pb-16 px-4)
-[X] Mobile-first responsive design
-[X] Navigation system with mobile menu
-[X] Frosted glass effect on navigation
-[X] SEO optimization for blog posts
-[X] Portfolio showcase with project cards
-[X] Contact form implementation
-[X] Footer with social links
-
-### Current Issues Addressed
-[X] Fixed duplicate "Home" link issue
-[X] Standardized hero section padding
-[X] Resolved mobile menu navigation
-[X] Maintained consistent branding
-
-### Need to Implement
-[ ] Fix form functionality in Contact page
-[ ] Implement proper button links
-[ ] Add loading states
-[ ] Complete mobile optimization
-[ ] Set up proper meta tags for all pages
-[ ] Implement analytics
-[ ] Add proper error boundaries
-[ ] Set up proper robots.txt and sitemap.xml
-
-### Navigation Structure
-- Desktop: Full navigation bar with links
-- Mobile: Hamburger menu with slide-out navigation
-- Consistent padding and blur effects
-- Proper hierarchy and accessibility
-
-### Design System
-- Gradient treatments (teal-400 to violet-400)
-- Frosted glass effects
-- Modern card designs
-- Interactive hover states
-- Responsive text scaling
-- Consistent spacing system
-
-### Content Priority
-1. Clear navigation and user flow
-2. Professional presentation
-3. Mobile responsiveness
-4. Performance optimization
-5. SEO enhancement
-
-Priority Order:
-1. Complete button functionality
-2. Enhance mobile experience
-3. Implement loading states
-4. Add analytics
-5. Optimize SEO
-6. Add remaining features based on user feedback
-
-# Lessons
-
-## User Specified Lessons
-- You have a python3 venv in ./venv. Use it.
-- Include info useful for debugging in the program output.
-- Read the file before you try to edit it.
-- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
-
 ## Recent Lessons
 - Always merge feature branches to dev first for testing
 - Keep content management separate from code changes
 - Use Squash and Merge for cleaner git history
 - Verify branch location after PR completion
+- When dealing with Resend API, ensure "from" email addresses use properly verified domains
+- Cloudflare Email Routing is only one-way (forwarding), not for sending emails
+- Form elements must have matching id attributes for their htmlFor label connections
+- Always add autocomplete attributes to form inputs for better accessibility and user experience
+- Use "off" for autocomplete on sensitive fields or custom fields that don't fit standard categories
 
 ## Cursor learned
 
@@ -715,3 +474,124 @@ After PR is merged:
   1. Button functionality implementation
   2. Call-to-action button links
   3. Mobile optimization
+
+## Testing Best Practices
+- Always test new features in local development environment first
+- Only deploy to production after thorough local testing passes
+- Never use production environment as a testing ground
+- Distinguish between expected development warnings (e.g. CSP, hot reload) and actual functionality issues
+- Local development testing provides:
+  - Faster iteration on fixes
+  - Safe environment for debugging
+  - Access to development tools and logs
+  - Prevention of accidental production data manipulation
+- When encountering warnings/errors:
+  1. Identify if it's a development-only warning
+  2. Verify if it affects core functionality
+  3. Test the actual feature behavior regardless of warnings
+  4. Document which warnings can be safely ignored
+
+# Scratchpad
+
+## Current Task: Contact Form Form Validation Fixes
+
+### Component Analysis (Updated)
+1. Available UI Components:
+   [X] Form component with React Hook Form integration
+   [X] Toast component for notifications (Sonner)
+   [X] Alert component for messages
+   [X] Form validation schema implemented with Zod
+   [X] Loading state component during submission (Spinner)
+
+### Implementation Plan
+1. Phase 1 - Email Configuration (Complete)
+   [X] Verify Resend API key configuration in .env (confirmed present: re_irxKt9hH_LKfLN4R8GcXk3FqCvYDj73Gy)
+   [X] Modify the "from" email address to use alternative format (changed to "Generuss Contact Form <hello@mail.generuss.com>")
+   [X] Add detailed error logging to identify specific failures
+   [X] Test email delivery with various configurations (direct API test successful!)
+   [X] Resolve frontend CSP issues
+
+2. Phase 2 - UI Enhancement (Current Focus)
+   [X] Create reusable Spinner component
+   [X] Implement improved error messaging with detailed feedback
+   [X] Add better form submission feedback
+   [X] Fix HTML validation issues in form
+   [ ] Style error states
+
+3. Phase 3 - Security & Testing
+   [X] Update CSP configuration
+   [X] Start local development server for testing
+   [X] Verify email delivery (API endpoint test successful)
+   [ ] Cross-browser testing
+
+### Form Validation Fixes
+- Added missing `id` attributes to all form inputs that match their respective `htmlFor` label attributes
+- Added appropriate `autoComplete` attributes to standard fields:
+  - `given-name` for firstName
+  - `family-name` for lastName
+  - `email` for email
+  - `organization` for companyName
+- Used `autoComplete="off"` for custom fields that don't have standard autocomplete values:
+  - businessDescription
+  - problem
+  - solution
+  - platforms
+  - timeline
+  - budget
+- These changes resolve the HTML validation warnings:
+  - "An element doesn't have an autocomplete attribute"
+  - "Incorrect use of <label for=FORM_ELEMENT>"
+- CSP warning "Content Security Policy of your site blocks the use of 'eval' in JavaScript" is expected during development and doesn't affect functionality
+
+### Recent Email Configuration Analysis
+- Current "from" email: 'Generuss Contact Form <hello@mail.generuss.com>' (updated from 'Russ Generuss <russ@mail.generuss.com>')
+- Added robust error handling with specific error messages for different Resend API error codes
+- Created custom ResendErrorResponse type for better type safety
+- Enhanced UI with reusable Spinner component and improved error feedback
+- Direct API testing confirmed email sending is working correctly
+- Fixed CSP configuration to allow frontend form submission
+- Modified recipient list to use direct delivery to multiple email addresses (russ@generuss.com and washyaderner@gmail.com)
+- Backend email functionality working correctly with all DNS records properly verified
+
+### Validation Rules (Updated)
+- firstName: min 2 chars (was 1)
+- lastName: min 2 chars (was 1)
+- email: valid email format
+- problem: min 10, max 1000 chars
+- platforms: min 4 chars (was 5)
+- timeline: min 3 chars (was 10)
+
+### Progress Tracker
+- [X] Initial Next.js setup
+- [X] Portfolio page implementation
+- [X] Solutions page implementation
+- [X] About page creation
+- [X] Timeline updates in About page
+- [X] Form validation schema implementation
+- [X] Email sending functionality
+- [X] Form submission UX improvements
+- [X] Form HTML validation fixes
+- [ ] Testing and debugging
+- [ ] Dev environment deployment
+
+### Wins and Struggles
+
+#### Wins:
+- Successfully implemented form validation with Zod and React Hook Form
+- Updated validation rules to better match user requirements
+- Identified key issues with email delivery configuration
+- Created reusable Spinner component for better user experience
+- Implemented detailed error handling for Resend API errors
+- Added robust error messages for specific error codes
+- Created proper type definitions for error handling
+- Successfully sent email through direct API testing
+- Confirmed Resend API key and "from" email configuration is working
+- Backend email functionality working correctly
+- Fixed CSP configuration to allow frontend form submission
+- Fixed HTML validation warnings with proper form attributes
+
+#### Struggles:
+- Frontend form submission previously blocked by CSP restrictions (now resolved)
+- Cloudflare Email Routing limitations (forwarding only)
+- Complexity of parsing and handling Resend API errors
+- HTML validation warnings requiring careful attribute configuration

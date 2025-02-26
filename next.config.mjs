@@ -45,4 +45,32 @@ function mergeConfig(nextConfig, userConfig) {
   }
 }
 
+const isDev = process.env.NODE_ENV !== 'production'
+const CSP = `
+  default-src 'self';
+  script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""};
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: blob:;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  connect-src 'self' https://api.resend.com;
+`
+
+nextConfig.headers = async () => {
+  return [
+    {
+      source: '/(.*)',
+      headers: [
+        {
+          key: 'Content-Security-Policy',
+          value: CSP.replace(/\n/g, ' '),
+        },
+      ],
+    },
+  ]
+}
+
 export default nextConfig
