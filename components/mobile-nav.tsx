@@ -4,6 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 interface MobileNavProps {
   links: Array<{
@@ -14,71 +16,85 @@ interface MobileNavProps {
 
 export function MobileNav({ links }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <div className="block md:hidden flex items-center h-full">
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative z-50 p-2 -mt-4 text-teal-400 hover:text-teal-300 transition-colors"
+        className="lg:hidden flex items-center px-3 py-2 rounded text-teal-200 hover:text-white"
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        aria-expanded={isOpen}
-        aria-controls="mobile-menu"
       >
-        <motion.span
-          animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute block w-5 h-0.5 bg-current transform top-[10px]"
-        />
-        <motion.span
-          animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-          transition={{ duration: 0.2 }}
-          className="absolute block w-5 h-0.5 bg-current top-[18px]"
-        />
-        <motion.span
-          animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute block w-5 h-0.5 bg-current transform top-[26px]"
-        />
+        <Menu className={cn("h-6 w-6", isOpen ? "hidden" : "block")} />
+        <X className={cn("h-6 w-6", isOpen ? "block" : "hidden")} />
       </button>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Overlay Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/95 backdrop-blur-md z-40"
+              className="fixed inset-0 bg-black backdrop-blur-none z-40"
               onClick={() => setIsOpen(false)}
               aria-hidden="true"
             />
 
             {/* Menu */}
-            <motion.nav
-              id="mobile-menu"
+            <motion.div
+              className="fixed inset-y-0 left-0 bg-black border-r border-zinc-800 w-64 p-6 flex flex-col z-50"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-3/4 max-w-sm bg-black border-r border-white/10 z-50"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="flex flex-col divide-y divide-white/10">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-lg text-gray-300 hover:text-white transition-colors py-4 px-6 first:pt-8 bg-black"
-                    onClick={() => setIsOpen(false)}
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-xl font-semibold text-white">Menu</h2>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-zinc-400 hover:text-white"
+                  aria-label="Close menu"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    {link.label}
-                  </Link>
-                ))}
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
               </div>
-            </motion.nav>
+              <nav className="flex flex-col space-y-4">
+                {links.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "text-zinc-400 hover:text-white transition-colors",
+                        isActive && "text-white font-medium"
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </motion.div>
           </>
         )}
       </AnimatePresence>

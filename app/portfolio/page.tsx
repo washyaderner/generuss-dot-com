@@ -179,7 +179,7 @@ export default function Portfolio() {
             </div>
             <div className="flex items-center space-x-4">
               <Link
-                href="#"
+                href="/contact"
                 className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
