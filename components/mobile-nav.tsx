@@ -23,11 +23,19 @@ export function MobileNav({ links }: MobileNavProps) {
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden flex items-center px-3 py-2 rounded text-teal-200 hover:text-white"
+        className="lg:hidden flex items-center justify-center py-2 rounded text-teal-200 hover:text-white"
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          height: '100%',
+          paddingLeft: '0.25rem',
+          paddingRight: '0.75rem'
+        }}
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        <Menu className={cn("h-6 w-6", isOpen ? "hidden" : "block")} />
-        <X className={cn("h-6 w-6", isOpen ? "block" : "hidden")} />
+        <Menu className={cn("h-8 w-8", isOpen ? "hidden" : "block")} />
+        <X className={cn("h-8 w-8", isOpen ? "block" : "hidden")} />
       </button>
 
       {/* Mobile Menu Overlay */}
@@ -40,24 +48,46 @@ export function MobileNav({ links }: MobileNavProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black backdrop-blur-none z-40"
+              className="fixed inset-0 bg-black z-40"
               onClick={() => setIsOpen(false)}
               aria-hidden="true"
             />
 
             {/* Menu */}
             <motion.div
-              className="fixed inset-y-0 left-0 bg-black border-r border-zinc-800 w-64 p-6 flex flex-col z-50"
+              className="fixed inset-y-0 left-0 border-r border-zinc-800 w-64 flex flex-col z-50"
+              style={{
+                backgroundColor: 'rgb(0, 0, 0)',
+                padding: '1rem 0 1rem 0',
+              }}
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-xl font-semibold text-white">Menu</h2>
+              <div 
+                className="flex flex-row justify-between items-center" 
+                style={{ 
+                  backgroundColor: 'rgb(0, 0, 0)',
+                  paddingLeft: '1.5rem',
+                  paddingRight: '1.5rem'
+                }}
+              >
+                <Link
+                  href="/"
+                  className={cn(
+                    "text-zinc-400 hover:text-white transition-colors text-lg font-medium py-3",
+                    pathname === "/" && "text-white"
+                  )}
+                  style={{ backgroundColor: 'rgb(0, 0, 0)' }}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="text-zinc-400 hover:text-white"
+                  style={{ backgroundColor: 'rgb(0, 0, 0)' }}
                   aria-label="Close menu"
                 >
                   <svg
@@ -76,21 +106,34 @@ export function MobileNav({ links }: MobileNavProps) {
                   </svg>
                 </button>
               </div>
-              <nav className="flex flex-col space-y-4">
-                {links.map((link) => {
+              <div className="w-full h-px bg-zinc-800 my-0"></div>
+              <nav 
+                className="flex flex-col" 
+                style={{ 
+                  backgroundColor: 'rgb(0, 0, 0)',
+                  paddingLeft: '1.5rem',
+                  paddingRight: '1.5rem'
+                }}
+              >
+                {links.filter(link => link.href !== "/").map((link, index, arr) => {
                   const isActive = pathname === link.href;
                   return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        "text-zinc-400 hover:text-white transition-colors",
-                        isActive && "text-white font-medium"
+                    <div key={link.href} className="flex flex-col" style={{ backgroundColor: 'rgb(0, 0, 0)' }}>
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "text-zinc-400 hover:text-white transition-colors text-lg py-3",
+                          isActive && "text-white font-medium"
+                        )}
+                        style={{ backgroundColor: 'rgb(0, 0, 0)' }}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                      {index < arr.length - 1 && (
+                        <div className="w-full h-px bg-zinc-800"></div>
                       )}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
+                    </div>
                   );
                 })}
               </nav>
