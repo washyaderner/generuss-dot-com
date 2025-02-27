@@ -14,7 +14,6 @@ export const metadata = {
 }
 
 const navigationLinks = [
-  { href: "/", label: "Home" },
   { href: "/solutions", label: "Solutions" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
@@ -53,7 +52,7 @@ export default function RootLayout({
                     aria-label="Home"
                   >
                     <GrassIcon className="w-5 h-5 text-teal-400 mr-2" />
-                    <span className="text-white font-medium">Generuss</span>
+                    <span className="text-white font-medium">Home</span>
                   </Link>
                   <nav className="hidden md:flex items-center space-x-6">
                     {navigationLinks.map((link) => (
