@@ -87,9 +87,9 @@ const projects = [
     category: "AI-Powered Knowledge Management",
     description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
     impact: [
-      "Reduced information retrieval time by 80%",
-      "Automated content summarization",
-      "Seamless integration with existing workflows"
+      "Reduces information retrieval time by 80%",
+      "Automates content summarization",
+      "Seamlessly integrates with existing workflows"
     ],
     technologies: ["Next.js", "GPT-4o", "VisionKit", "Whisper AI", "Swift"],
     icon: Brain
@@ -121,13 +121,13 @@ const projects = [
   {
     title: "Excel Performance Dashboard",
     category: "Business Intelligence",
-    description: "A sophisticated Excel-based performance tracking system for a Fortune 500 company.",
+    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
     impact: [
-      "Real-time KPI tracking",
-      "Automated report generation",
-      "Reduced reporting time by 85%"
+      "Complex pricing calculations on the fly",
+      "Proven increase in call flow efficiency",
+      "25% increase in one call close retention KPIs"
     ],
-    technologies: ["Excel", "VBA", "Power Query", "DAX", "Python"],
+    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
     icon: LineChart
   }
 ]
@@ -261,8 +261,14 @@ export default function Portfolio() {
                         
                         <div className="mt-4 sm:mt-6">
                           <Link
-                            href="#"
+                            href={project.title === "Hold My Brain" 
+                              ? "https://www.youtube.com/watch?v=6g3V9_IeiTo&list=PLJrVRkPIkRpnBuLdL0sxEyoZmJz-thK-a" 
+                              : project.title === "Excel Performance Dashboard"
+                              ? "https://www.upwork.com/freelancers/~0187db78cb531330b6?p=1895029018557018112"
+                              : "#"}
                             className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                            target={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "_blank" : undefined}
+                            rel={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "noopener noreferrer" : undefined}
                           >
                             View case study
                             <svg
