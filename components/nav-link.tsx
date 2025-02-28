@@ -16,9 +16,12 @@ export function NavLink({
   const pathname = usePathname()
   
   // Special handling for home page path - consider both "/" and empty as matching
+  // Also consider paths that start with the href to be active, useful for blog posts
   const isActive = href === '/' 
     ? pathname === '/' || pathname === ''
-    : pathname === href
+    : href === '/blog'
+      ? pathname === '/blog' || pathname.startsWith('/blog/')
+      : pathname === href
 
   // Debug logs - will appear in browser console
   console.log(`NavLink Debug - href: ${href}, pathname: ${pathname}, isActive: ${isActive}`);
