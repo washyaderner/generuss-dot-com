@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { CursorGradient } from "@/components/cursor-gradient"
-import { GrassIcon } from "@/components/grass-icon"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -18,16 +17,21 @@ const formSchema = z.object({
   companyName: z.string().optional(),
   businessDescription: z.string().optional(),
   problem: z.string()
-    .min(10, "Please provide more detail about your problem")
-    .max(1000, "Please keep your description under 1000 characters"),
-  solution: z.string().optional(),
-  platforms: z.string()
-    .min(4, "Please list at least one platform you're using")
-    .max(500, "Please keep your list under 500 characters"),
+    .max(1000, "Please keep your description under 1000 characters")
+    .optional(),
+  generalInquiry: z.string()
+    .max(1000, "Please keep your message under 1000 characters")
+    .optional(),
   timeline: z.string()
-    .min(3, "Please provide your timeline")
-    .max(500, "Please keep your timeline under 500 characters"),
+    .max(500, "Please keep your timeline under 500 characters")
+    .optional(),
   budget: z.string().optional()
+}).refine((data) => {
+  // Either problem or generalInquiry must be filled in
+  return data.problem || data.generalInquiry;
+}, {
+  message: "Please fill in either 'What problem are you trying to solve?' or 'General Inquiry'",
+  path: ["generalInquiry"] // This will show the error under generalInquiry field
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -95,7 +99,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black">
-      <div className="fixed inset-0 bg-gradient-to-b from-black via-black to-[#0A0A1E] z-0" />
+      <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
       <CursorGradient />
 
       {/* Gradient Overlay */}
@@ -111,7 +115,6 @@ export default function Contact() {
                 href="/"
                 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
               >
-                <GrassIcon className="w-6 h-6 mr-2" />
                 Home
               </Link>
               <nav className="hidden md:flex space-x-6">
@@ -127,7 +130,7 @@ export default function Contact() {
                 <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
                   About
                 </Link>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link href="/contact" className="text-sm text-teal-400 font-medium transition-colors" aria-current="page">
                   Contact
                 </Link>
               </nav>
@@ -150,12 +153,12 @@ export default function Contact() {
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Contact Us
+                  Get In Touch
                 </span>
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
-              Get in touch with us for any inquiries or support
+              Whether you have a business challenge or just want to connect, I'm here to help
             </p>
           </div>
         </section>
@@ -163,12 +166,12 @@ export default function Contact() {
         {/* Contact Form */}
         <section className="py-12 px-4">
           <div className="container mx-auto">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl mx-auto bg-gray-900/40 backdrop-blur-sm rounded-xl shadow-xl p-8">
               <form 
-                className="space-y-6"
+                className="space-y-8"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <label htmlFor="firstName" className={labelStyles}>
                       First Name <span className="text-red-500">*</span>
@@ -220,128 +223,114 @@ export default function Contact() {
                   )}
                 </div>
 
-                <div>
-                  <label htmlFor="companyName" className={labelStyles}>
-                    Company Name
-                  </label>
-                  <input
-                    id="companyName"
-                    {...register("companyName")}
-                    type="text"
-                    className={inputStyles}
-                    placeholder="Your Company Ltd."
-                    autoComplete="organization"
-                  />
-                </div>
+                {/* Two-column layout for business fields and general inquiry */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                  {/* Left column - Business focused fields */}
+                  <div className="space-y-6 bg-gray-800/30 p-6 rounded-lg">
+                    <h3 className="text-lg font-medium text-white border-b border-gray-700 pb-2 mb-4">
+                      Business Inquiry
+                    </h3>
+                    <div>
+                      <label htmlFor="companyName" className={labelStyles}>
+                        Company Name
+                      </label>
+                      <input
+                        id="companyName"
+                        {...register("companyName")}
+                        type="text"
+                        className={inputStyles}
+                        placeholder="Your Company Ltd."
+                        autoComplete="organization"
+                      />
+                    </div>
 
-                <div>
-                  <label htmlFor="businessDescription" className={labelStyles}>
-                    One sentence description of your business
-                  </label>
-                  <input
-                    id="businessDescription"
-                    {...register("businessDescription")}
-                    type="text"
-                    className={inputStyles}
-                    placeholder="We help businesses grow through AI-powered solutions"
-                    autoComplete="off"
-                  />
-                </div>
+                    <div>
+                      <label htmlFor="businessDescription" className={labelStyles}>
+                        One sentence description of your business
+                      </label>
+                      <input
+                        id="businessDescription"
+                        {...register("businessDescription")}
+                        type="text"
+                        className={inputStyles}
+                        placeholder="We help businesses grow through AI-powered solutions"
+                        autoComplete="off"
+                      />
+                    </div>
 
-                <div>
-                  <label htmlFor="problem" className={labelStyles}>
-                    What problem are you trying to solve? <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="problem"
-                    {...register("problem")}
-                    rows={4}
-                    className={inputStyles}
-                    placeholder="Describe the challenge you're facing..."
-                    autoComplete="off"
-                  ></textarea>
-                  {errors.problem && (
-                    <p className={errorStyles}>{errors.problem.message}</p>
-                  )}
-                </div>
+                    <div>
+                      <label htmlFor="problem" className={labelStyles}>
+                        Business Problem or Challenge
+                      </label>
+                      <textarea
+                        id="problem"
+                        {...register("problem")}
+                        rows={4}
+                        className={inputStyles}
+                        placeholder="Describe the specific business challenge you're facing..."
+                        autoComplete="off"
+                      ></textarea>
+                      {errors.problem && (
+                        <p className={errorStyles}>{errors.problem.message}</p>
+                      )}
+                    </div>
 
-                <div>
-                  <label htmlFor="solution" className={labelStyles}>
-                    What's your proposed solution?
-                  </label>
-                  <textarea
-                    id="solution"
-                    {...register("solution")}
-                    rows={4}
-                    className={inputStyles}
-                    placeholder="Share your ideas or requirements..."
-                    autoComplete="off"
-                  ></textarea>
-                </div>
-
-                <div>
-                  <label htmlFor="platforms" className={labelStyles}>
-                    What platforms/services are you currently using? <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="platforms"
-                    {...register("platforms")}
-                    rows={3}
-                    className={inputStyles}
-                    placeholder="List the tools and platforms in your workflow..."
-                    autoComplete="off"
-                  ></textarea>
-                  {errors.platforms && (
-                    <p className={errorStyles}>{errors.platforms.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="timeline" className={labelStyles}>
-                    Project timeline and deadlines <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="timeline"
-                    {...register("timeline")}
-                    rows={3}
-                    className={inputStyles}
-                    placeholder="When do you need this completed?"
-                    autoComplete="off"
-                  ></textarea>
-                  {errors.timeline && (
-                    <p className={errorStyles}>{errors.timeline.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="budget" className={labelStyles}>
-                    What is your projected budget?
-                  </label>
-                  <div className="mt-1">
-                    <p className="text-sm text-gray-400 mb-2">Our demo call will ensure the price is fair for both parties.</p>
-                    <input
-                      id="budget"
-                      {...register("budget")}
-                      type="text"
-                      className={inputStyles}
-                      placeholder="Optional - we can discuss during the call"
-                      autoComplete="off"
-                    />
+                    <div>
+                      <label htmlFor="timeline" className={labelStyles}>
+                        Project Timeline
+                      </label>
+                      <input
+                        id="timeline"
+                        {...register("timeline")}
+                        type="text"
+                        className={inputStyles}
+                        placeholder="When do you need this completed? (Optional)"
+                        autoComplete="off"
+                      />
+                      {errors.timeline && (
+                        <p className={errorStyles}>{errors.timeline.message}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-end">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex justify-center py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:from-teal-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105"
-                  >
-                    {isSubmitting ? (
-                      <Spinner size="sm" text="Sending..." />
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
+                  {/* Right column - General inquiry */}
+                  <div className="space-y-6 bg-gray-800/30 p-6 rounded-lg">
+                    <h3 className="text-lg font-medium text-white border-b border-gray-700 pb-2 mb-4">
+                      General Message
+                    </h3>
+                    <div>
+                      <label htmlFor="generalInquiry" className={labelStyles}>
+                        Your Message
+                        <span className="ml-1 text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="generalInquiry"
+                        {...register('generalInquiry')}
+                        rows={11}
+                        className={inputStyles}
+                        placeholder="Have questions or want to discuss something? Tell us about it here..."
+                        autoComplete="off"
+                      ></textarea>
+                      {errors.generalInquiry && (
+                        <p className={errorStyles}>{errors.generalInquiry.message}</p>
+                      )}
+                    </div>
+                    
+                    {/* Submit button moved to the bottom of the right column */}
+                    <div className="flex items-center justify-end mt-6">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="inline-flex justify-center py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:from-teal-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105"
+                      >
+                        {isSubmitting ? (
+                          <Spinner size="sm" text="Sending..." />
+                        ) : (
+                          'Send Message'
+                        )}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>

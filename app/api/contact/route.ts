@@ -33,7 +33,7 @@ function getResendErrorMessage(error: ResendErrorResponse): string {
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-// Updated validation schema with new character limits
+// Updated validation schema with simplified fields
 const formSchema = z.object({
   firstName: z.string().min(2, "Please enter at least 2 characters for first name"),
   lastName: z.string().min(2, "Please enter at least 2 characters for last name"),
@@ -41,16 +41,21 @@ const formSchema = z.object({
   companyName: z.string().optional(),
   businessDescription: z.string().optional(),
   problem: z.string()
-    .min(10, "Please provide more detail about your problem")
-    .max(1000, "Please keep your description under 1000 characters"),
-  solution: z.string().optional(),
-  platforms: z.string()
-    .min(4, "Please list at least one platform you're using")
-    .max(500, "Please keep your list under 500 characters"),
+    .max(1000, "Please keep your description under 1000 characters")
+    .optional(),
+  generalInquiry: z.string()
+    .max(1000, "Please keep your message under 1000 characters")
+    .optional(),
   timeline: z.string()
-    .min(3, "Please provide your timeline")
-    .max(500, "Please keep your timeline under 500 characters"),
+    .max(500, "Please keep your timeline under 500 characters")
+    .optional(),
   budget: z.string().optional()
+}).refine((data) => {
+  // Either problem or generalInquiry must be filled in
+  return data.problem || data.generalInquiry;
+}, {
+  message: "Please fill in either 'What problem are you trying to solve?' or 'General Inquiry'",
+  path: ["generalInquiry"] // This will show the error under generalInquiry field
 })
 
 export async function POST(request: Request) {
@@ -75,10 +80,9 @@ Business Details:
 - Description: ${validatedFields.businessDescription || 'Not provided'}
 
 Project Information:
-- Problem: ${validatedFields.problem}
-- Proposed Solution: ${validatedFields.solution || 'Not provided'}
-- Current Platforms: ${validatedFields.platforms}
-- Timeline: ${validatedFields.timeline}
+${validatedFields.problem ? `- Problem: ${validatedFields.problem}` : ''}
+${validatedFields.generalInquiry ? `- General Inquiry: ${validatedFields.generalInquiry}` : ''}
+- Timeline: ${validatedFields.timeline || 'Not provided'}
 - Budget: ${validatedFields.budget || 'Not provided'}
 
 Submitted at: ${new Date().toISOString()}
@@ -92,11 +96,18 @@ Submitted at: ${new Date().toISOString()}
 
     console.log('Sending email via Resend with API key:', process.env.RESEND_API_KEY ? 'Key exists' : 'Key missing')
     
+    // Check if the timeline suggests urgency
+    const isUrgent = validatedFields.timeline && 
+      (validatedFields.timeline.toLowerCase().includes('urgent') || 
+       validatedFields.timeline.toLowerCase().includes('asap') ||
+       validatedFields.timeline.toLowerCase().includes('immediately') ||
+       validatedFields.timeline.toLowerCase().includes('soon'));
+       
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'Generuss Contact Form <hello@mail.generuss.com>',
       to: ['russ@generuss.com', 'washyaderner@gmail.com'],
-      subject: `New Contact Form Submission from ${validatedFields.firstName} ${validatedFields.lastName}`,
+      subject: `${isUrgent ? '[URGENT] ' : ''}New ${validatedFields.problem ? 'Problem-solving' : 'General'} Inquiry from ${validatedFields.firstName} ${validatedFields.lastName}`,
       text: emailContent,
     })
 
