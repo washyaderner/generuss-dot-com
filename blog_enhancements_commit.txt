@@ -1,0 +1,8 @@
+[Cursor] Enhance blog styling and layout
+- Applied responsive padding throughout blog pages with standard px-4 md:px-6 lg:px-8
+- Added proper vertical padding to blog content areas
+- Improved image display with responsive container and proper margins
+- Removed social sharing links from blog post footers for cleaner UI
+- Enhanced content rendering with better typography and text alignment
+- Updated Contentful image URL handling and error logging
+- Fixed Next.js configuration for proper image domain support

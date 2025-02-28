@@ -1,0 +1,54 @@
+const projects = [
+  {
+    id: "hold-my-brain",
+    title: "Hold My Brain",
+    category: "AI-Powered Knowledge Management",
+    description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
+    impact: [
+      "Reduces information retrieval time by 80%",
+      "Automates content summarization",
+      "Seamlessly integrates with existing workflows"
+    ],
+    technologies: ["Next.js", "GPT-4o", "VisionKit", "Whisper AI", "Swift"],
+    icon: Brain
+  },
+  {
+    id: "excel-dashboard",
+    title: "Excel Performance Dashboard",
+    category: "Business Intelligence",
+    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
+    impact: [
+      "Complex pricing calculations on the fly",
+      "Proven increase in call flow efficiency",
+      "25% increase in one call close retention KPIs"
+    ],
+    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
+    icon: LineChart
+  },
+  {
+    id: "sales-acceleration",
+    title: "Sales Acceleration Suite (coming soon!)",
+    category: "Sales Automation",
+    description: "A comprehensive sales automation system that streamlined operations for a mid-sized tech company.",
+    impact: [
+      "Increased close rates by 45%",
+      "Reduced manual data entry by 90%",
+      "Automated lead scoring and prioritization"
+    ],
+    technologies: ["Excel VBA", "Python", "GPT-4", "n8n", "PandaDoc"],
+    icon: Rocket
+  },
+  {
+    id: "content-generation",
+    title: "Content Generation Engine (coming soon!)",
+    category: "AI Content Automation",
+    description: "An AI-powered system for generating and managing marketing content at scale.",
+    impact: [
+      "10x increase in content output",
+      "Maintained consistent brand voice",
+      "Reduced content creation costs by 60%"
+    ],
+    technologies: ["Claude", "GPT-4", "n8n", "Next.js", "Perplexity"],
+    icon: Bot
+  }
+]
