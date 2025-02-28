@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -83,19 +84,34 @@ const achievements = [
 
 const projects = [
   {
+    id: "hold-my-brain",
     title: "Hold My Brain",
     category: "AI-Powered Knowledge Management",
     description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
     impact: [
-      "Reduced information retrieval time by 80%",
-      "Automated content summarization",
-      "Seamless integration with existing workflows"
+      "Reduces information retrieval time by 80%",
+      "Automates content summarization",
+      "Seamlessly integrates with existing workflows"
     ],
     technologies: ["Next.js", "GPT-4o", "VisionKit", "Whisper AI", "Swift"],
     icon: Brain
   },
   {
-    title: "Sales Acceleration Suite",
+    id: "excel-dashboard",
+    title: "Excel Performance Dashboard",
+    category: "Business Intelligence",
+    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
+    impact: [
+      "Complex pricing calculations on the fly",
+      "Proven increase in call flow efficiency",
+      "25% increase in one call close retention KPIs"
+    ],
+    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
+    icon: LineChart
+  },
+  {
+    id: "sales-acceleration",
+    title: "Sales Acceleration Suite (coming soon!)",
     category: "Sales Automation",
     description: "A comprehensive sales automation system that streamlined operations for a mid-sized tech company.",
     impact: [
@@ -107,7 +123,8 @@ const projects = [
     icon: Rocket
   },
   {
-    title: "Content Generation Engine",
+    id: "content-generation",
+    title: "Content Generation Engine (coming soon!)",
     category: "AI Content Automation",
     description: "An AI-powered system for generating and managing marketing content at scale.",
     impact: [
@@ -117,18 +134,6 @@ const projects = [
     ],
     technologies: ["Claude", "GPT-4", "n8n", "Next.js", "Perplexity"],
     icon: Bot
-  },
-  {
-    title: "Excel Performance Dashboard",
-    category: "Business Intelligence",
-    description: "A sophisticated Excel-based performance tracking system for a Fortune 500 company.",
-    impact: [
-      "Real-time KPI tracking",
-      "Automated report generation",
-      "Reduced reporting time by 85%"
-    ],
-    technologies: ["Excel", "VBA", "Power Query", "DAX", "Python"],
-    icon: LineChart
   }
 ]
 
@@ -142,6 +147,11 @@ const navigationLinks = [
 
 export default function Portfolio() {
   const [activeCompetency, setActiveCompetency] = useState(competencies[0].title)
+  const [videoLoaded, setVideoLoaded] = useState(false)
+
+  const loadYouTubeVideo = () => {
+    setVideoLoaded(true)
+  }
 
   return (
     <div className="min-h-screen bg-black">
@@ -212,6 +222,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 gap-8 max-w-5xl mx-auto">
               {projects.map((project, index) => (
                 <div
+                  id={project.id}
                   key={index}
                   className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
                 >
@@ -222,8 +233,8 @@ export default function Portfolio() {
                       <div className="p-3 rounded-lg bg-teal-500/20">
                         <project.icon className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
                       </div>
-                      <div className="flex-1">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                      <div className="flex-1 sm:max-w-[50%]">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2 sm:flex-wrap">
                           <h3 className="text-xl sm:text-2xl font-semibold text-white">{project.title}</h3>
                           <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
                             {project.category}
@@ -231,7 +242,7 @@ export default function Portfolio() {
                         </div>
                         <p className="text-gray-300 text-base sm:text-lg mb-4 sm:mb-6">{project.description}</p>
                         
-                        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
+                        <div className="space-y-6">
                           <div>
                             <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
                             <ul className="space-y-2">
@@ -245,7 +256,7 @@ export default function Portfolio() {
                           </div>
                           
                           <div>
-                            <h4 className="text-white font-medium mb-2 sm:mb-3">Technologies</h4>
+                            <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
                             <div className="flex flex-wrap gap-2">
                               {project.technologies.map((tech, idx) => (
                                 <span
@@ -261,8 +272,14 @@ export default function Portfolio() {
                         
                         <div className="mt-4 sm:mt-6">
                           <Link
-                            href="#"
+                            href={project.title === "Hold My Brain" 
+                              ? "https://www.youtube.com/watch?v=6g3V9_IeiTo&list=PLJrVRkPIkRpnBuLdL0sxEyoZmJz-thK-a" 
+                              : project.title === "Excel Performance Dashboard"
+                              ? "https://www.upwork.com/freelancers/~0187db78cb531330b6?p=1895029018557018112"
+                              : "#"}
                             className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                            target={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "_blank" : undefined}
+                            rel={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "noopener noreferrer" : undefined}
                           >
                             View case study
                             <svg
@@ -277,6 +294,7 @@ export default function Portfolio() {
                           </Link>
                         </div>
                       </div>
+                      <div className="hidden sm:block sm:flex-1"></div>
                     </div>
                   </div>
                 </div>
@@ -345,6 +363,76 @@ export default function Portfolio() {
                     </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* YouTube Video Showcase */}
+        <section className="py-16 px-4 relative overflow-hidden">
+          <div className="container mx-auto max-w-4xl">
+            <div className="bg-gray-900/50 backdrop-blur-md rounded-xl border border-white/10 p-8">
+              <h3 className="text-2xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  "Simulation" by Russ A Buss
+                </span>
+              </h3>
+              <p className="text-gray-300 mb-6">
+                AI Music Video Produced and Assembled frame-by-frame using Midjourney and Runway
+              </p>
+              <div className="relative pt-[56.25%] w-full overflow-hidden rounded-lg border border-white/10">
+                {!videoLoaded ? (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black cursor-pointer"
+                    onClick={loadYouTubeVideo}
+                  >
+                    {/* Using local custom thumbnail image */}
+                    <Image
+                      src="/images/Simulation-Music-Video-Russ-A-Buss.png"
+                      alt="AI-Generated Music Video thumbnail"
+                      fill
+                      className="object-contain md:object-cover"
+                      priority
+                      sizes="(max-width: 768px) 100vw, 800px"
+                    />
+                    <div className="absolute inset-0 bg-black/30 hover:bg-black/20 transition-colors duration-300"></div>
+                    <div className="absolute w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-red-600 hover:bg-red-700 transition-colors z-10">
+                      <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                ) : (
+                  <iframe 
+                    className="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/QuvVf1xR_70?si=j15MwXUUjuiBAJv7&autoplay=1&rel=0" 
+                    title="AI-Generated Music Simulation by Russell Gardner"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowFullScreen
+                    loading="lazy"
+                    frameBorder="0"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  ></iframe>
+                )}
+              </div>
+              <div className="flex justify-end mt-3">
+                <a 
+                  href="https://www.youtube.com/watch?v=QuvVf1xR_70" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center text-sm text-teal-400 hover:text-teal-300 transition-colors"
+                >
+                  Open in YouTube
+                  <svg 
+                    className="w-4 h-4 ml-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>

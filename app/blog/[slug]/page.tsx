@@ -93,8 +93,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="container mx-auto">
-          <article itemScope itemType="https://schema.org/BlogPosting">
+        <div className="container mx-auto max-w-5xl px-4 md:px-6 lg:px-8">
+          <article 
+            itemScope 
+            itemType="https://schema.org/BlogPosting"
+            className="bg-gray-900/30 rounded-lg backdrop-blur-sm shadow-xl border border-gray-800/50 overflow-hidden"
+          >
             <BlogPost post={post} />
           </article>
         </div>

@@ -4,6 +4,7 @@ import { CursorGradient } from "@/components/cursor-gradient"
 
 const solutions = [
   {
+    id: "excel-optimization",
     icon: TableProperties,
     title: "Excel & AI Automation",
     description: [
@@ -18,9 +19,11 @@ const solutions = [
       "Process optimization workflows",
       "Multi-sheet calculations",
       "Performance tracking tools"
-    ]
+    ],
+    portfolioLink: "/portfolio#excel-dashboard"
   },
   {
+    id: "sales-strategy",
     icon: Rocket,
     title: "Sales Strategy & Systems",
     description: [
@@ -35,9 +38,11 @@ const solutions = [
       "Performance analytics",
       "Objection handling scripts",
       "Conversion optimization"
-    ]
+    ],
+    portfolioLink: "/portfolio#sales-acceleration"
   },
   {
+    id: "app-web-dev",
     icon: Code,
     title: "AI-Powered App & Web Development",
     description: [
@@ -52,9 +57,11 @@ const solutions = [
       "Performance optimization",
       "Modern UI/UX principles",
       "Scalable architecture"
-    ]
+    ],
+    portfolioLink: "/portfolio#hold-my-brain"
   },
   {
+    id: "business-automation",
     icon: Bot,
     title: "Business & Content Automation",
     description: [
@@ -69,7 +76,8 @@ const solutions = [
       "Integration solutions",
       "Data processing pipelines",
       "Lead management automation"
-    ]
+    ],
+    portfolioLink: "/portfolio#content-generation"
   }
 ]
 
@@ -146,6 +154,7 @@ export default function Solutions() {
             <div className="flex flex-col space-y-16 max-w-4xl mx-auto">
               {solutions.map((solution, index) => (
                 <div
+                  id={solution.id}
                   key={index}
                   className="group relative p-8 md:p-10 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
                 >
@@ -175,7 +184,7 @@ export default function Solutions() {
                     </ul>
                     <div className="mt-auto">
                       <Link
-                        href="/contact"
+                        href={solution.portfolioLink}
                         className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                       >
                         Learn more
