@@ -83,6 +83,7 @@ const achievements = [
 
 const projects = [
   {
+    id: "hold-my-brain",
     title: "Hold My Brain",
     category: "AI-Powered Knowledge Management",
     description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
@@ -95,6 +96,7 @@ const projects = [
     icon: Brain
   },
   {
+    id: "sales-acceleration",
     title: "Sales Acceleration Suite",
     category: "Sales Automation",
     description: "A comprehensive sales automation system that streamlined operations for a mid-sized tech company.",
@@ -107,6 +109,7 @@ const projects = [
     icon: Rocket
   },
   {
+    id: "content-generation",
     title: "Content Generation Engine",
     category: "AI Content Automation",
     description: "An AI-powered system for generating and managing marketing content at scale.",
@@ -119,6 +122,7 @@ const projects = [
     icon: Bot
   },
   {
+    id: "excel-dashboard",
     title: "Excel Performance Dashboard",
     category: "Business Intelligence",
     description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
@@ -212,6 +216,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 gap-8 max-w-5xl mx-auto">
               {projects.map((project, index) => (
                 <div
+                  id={project.id}
                   key={index}
                   className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
                 >

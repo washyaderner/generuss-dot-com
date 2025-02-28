@@ -19,7 +19,8 @@ const solutions = [
       "Process optimization workflows",
       "Multi-sheet calculations",
       "Performance tracking tools"
-    ]
+    ],
+    portfolioLink: "/portfolio#excel-dashboard"
   },
   {
     id: "sales-strategy",
@@ -37,7 +38,8 @@ const solutions = [
       "Performance analytics",
       "Objection handling scripts",
       "Conversion optimization"
-    ]
+    ],
+    portfolioLink: "/portfolio#sales-acceleration"
   },
   {
     id: "app-web-dev",
@@ -55,7 +57,8 @@ const solutions = [
       "Performance optimization",
       "Modern UI/UX principles",
       "Scalable architecture"
-    ]
+    ],
+    portfolioLink: "/portfolio#hold-my-brain"
   },
   {
     id: "business-automation",
@@ -73,7 +76,8 @@ const solutions = [
       "Integration solutions",
       "Data processing pipelines",
       "Lead management automation"
-    ]
+    ],
+    portfolioLink: "/portfolio#content-generation"
   }
 ]
 
@@ -180,7 +184,7 @@ export default function Solutions() {
                     </ul>
                     <div className="mt-auto">
                       <Link
-                        href="/contact"
+                        href={solution.portfolioLink}
                         className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                       >
                         Learn more
