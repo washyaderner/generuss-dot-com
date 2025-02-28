@@ -242,7 +242,7 @@ export default function Contact() {
         {/* Contact Form */}
         <section className="py-12 px-4">
           <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto bg-gray-900/40 backdrop-blur-sm rounded-xl shadow-xl p-8">
+            <div className="max-w-4xl mx-auto rounded-xl p-8">
               <form 
                 className="space-y-8"
                 onSubmit={handleSubmit(onSubmit)}
@@ -302,7 +302,7 @@ export default function Contact() {
                 {/* Two-column layout for business fields and general inquiry */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                   {/* Left column - Business focused fields */}
-                  <div className="space-y-6 bg-gray-800/30 p-6 rounded-lg">
+                  <div className="space-y-6 bg-gray-900/40 backdrop-blur-sm p-6 rounded-lg shadow-md">
                     <h3 className="text-lg font-medium text-white border-b border-gray-700 pb-2 mb-4">
                       Business Inquiry
                     </h3>
@@ -377,7 +377,7 @@ export default function Contact() {
                   </div>
 
                   {/* Right column - General inquiry */}
-                  <div className="space-y-6 bg-gray-800/30 p-6 rounded-lg">
+                  <div className="space-y-6 bg-gray-900/40 backdrop-blur-sm p-6 rounded-lg shadow-md">
                     <h3 className="text-lg font-medium text-white border-b border-gray-700 pb-2 mb-4">
                       General Message
                     </h3>
