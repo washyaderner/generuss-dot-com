@@ -27,10 +27,12 @@ const formSchema = z.object({
     .optional(),
   budget: z.string().optional()
 }).refine((data) => {
-  // Either problem or generalInquiry must be filled in
-  return data.problem || data.generalInquiry;
+  // If either field has content, validation passes
+  // This makes the form fields dynamically required - if one has content, the other becomes optional
+  return (data.problem && data.problem.trim().length > 0) || 
+         (data.generalInquiry && data.generalInquiry.trim().length > 0);
 }, {
-  message: "Please fill in either 'What problem are you trying to solve?' or 'General Inquiry'",
+  message: "Please tell us about your business challenge or leave a general message",
   path: ["generalInquiry"] // This will show the error under generalInquiry field
 })
 
@@ -38,6 +40,7 @@ type FormData = z.infer<typeof formSchema>
 
 const inputStyles = "mt-1 block w-full rounded-md border-gray-600 shadow-sm focus:border-teal-500 focus:ring-teal-500 bg-gray-700 text-white"
 const errorStyles = "mt-1 text-sm text-red-400"
+const tealErrorStyles = "mt-1 text-sm text-teal-400"
 const labelStyles = "block text-sm font-medium text-gray-400"
 
 export default function Contact() {
@@ -47,11 +50,18 @@ export default function Contact() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
     reset
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onBlur" // Validate on blur for better UX
   })
+
+  // Watch the business problem and general inquiry fields
+  const businessProblem = watch("problem");
+  const generalMessage = watch("generalInquiry");
+  const hasBusinessProblem = businessProblem && businessProblem.trim().length > 0;
+  const hasGeneralMessage = generalMessage && generalMessage.trim().length > 0;
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -261,6 +271,11 @@ export default function Contact() {
                     <div>
                       <label htmlFor="problem" className={labelStyles}>
                         Business Problem or Challenge
+                        {!hasGeneralMessage ? (
+                          <span className="ml-1 text-yellow-500">*</span>
+                        ) : (
+                          <span className="ml-1 text-gray-500">(Optional)</span>
+                        )}
                       </label>
                       <textarea
                         id="problem"
@@ -270,7 +285,9 @@ export default function Contact() {
                         placeholder="Describe the specific business challenge you're facing..."
                         autoComplete="off"
                       ></textarea>
-                      {errors.problem && (
+                      {errors.problem && errors.problem.message?.includes('business challenge or leave a general message') ? (
+                        <p className={tealErrorStyles}>{errors.problem.message}</p>
+                      ) : errors.problem && (
                         <p className={errorStyles}>{errors.problem.message}</p>
                       )}
                     </div>
@@ -301,7 +318,11 @@ export default function Contact() {
                     <div>
                       <label htmlFor="generalInquiry" className={labelStyles}>
                         Your Message
-                        <span className="ml-1 text-red-500">*</span>
+                        {!hasBusinessProblem ? (
+                          <span className="ml-1 text-yellow-500">*</span>
+                        ) : (
+                          <span className="ml-1 text-gray-500">(Optional)</span>
+                        )}
                       </label>
                       <textarea
                         id="generalInquiry"
@@ -311,7 +332,9 @@ export default function Contact() {
                         placeholder="Have questions or want to discuss something? Tell us about it here..."
                         autoComplete="off"
                       ></textarea>
-                      {errors.generalInquiry && (
+                      {errors.generalInquiry && errors.generalInquiry.message?.includes('business challenge or leave a general message') ? (
+                        <p className={tealErrorStyles}>{errors.generalInquiry.message}</p>
+                      ) : errors.generalInquiry && (
                         <p className={errorStyles}>{errors.generalInquiry.message}</p>
                       )}
                     </div>
