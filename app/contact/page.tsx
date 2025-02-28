@@ -27,10 +27,12 @@ const formSchema = z.object({
     .optional(),
   budget: z.string().optional()
 }).refine((data) => {
-  // Either problem or generalInquiry must be filled in
-  return data.problem || data.generalInquiry;
+  // If either field has content, validation passes
+  // This makes the form fields dynamically required - if one has content, the other becomes optional
+  return (data.problem && data.problem.trim().length > 0) || 
+         (data.generalInquiry && data.generalInquiry.trim().length > 0);
 }, {
-  message: "Please fill in either 'What problem are you trying to solve?' or 'General Inquiry'",
+  message: "Please tell us about your business challenge or leave a general message",
   path: ["generalInquiry"] // This will show the error under generalInquiry field
 })
 
@@ -38,7 +40,52 @@ type FormData = z.infer<typeof formSchema>
 
 const inputStyles = "mt-1 block w-full rounded-md border-gray-600 shadow-sm focus:border-teal-500 focus:ring-teal-500 bg-gray-700 text-white"
 const errorStyles = "mt-1 text-sm text-red-400"
+const tealErrorStyles = "mt-1 text-sm text-teal-400"
 const labelStyles = "block text-sm font-medium text-gray-400"
+
+// Component for glowing text animation
+const GlowingErrorMessage = ({ message }: { message: string }) => {
+  // Split by words but keep animation by letter
+  const words = message.split(' ');
+  // Calculate total length of message for timing
+  const totalChars = words.reduce((sum, word) => sum + word.length, 0);
+  const totalSpaces = words.length - 1;
+  const totalCharsWithSpaces = totalChars + totalSpaces;
+  // Time for one complete pulse to travel through the entire message
+  const pulseDuration = totalCharsWithSpaces * 0.07; // 70ms per character (30% faster)
+  
+  return (
+    <p className="mt-2 text-sm text-gray-400 overflow-hidden whitespace-pre-wrap">
+      {words.map((word, wordIndex) => (
+        <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap mr-[0.25em]">
+          {word.split('').map((char, charIndex) => {
+            // Calculate the overall position in the entire text
+            let overallIndex = 0;
+            for (let i = 0; i < wordIndex; i++) {
+              overallIndex += words[i].length + 1; // +1 for the space
+            }
+            overallIndex += charIndex;
+            
+            // Use style with proper TypeScript typing for CSS variables
+            const style = {
+              animationDelay: `${overallIndex * 0.07}s`,
+            };
+            
+            return (
+              <span 
+                key={`char-${wordIndex}-${charIndex}`} 
+                className="inline-block animate-glow-trail"
+                style={style}
+              >
+                {char}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </p>
+  );
+};
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -47,11 +94,18 @@ export default function Contact() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
     reset
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onBlur" // Validate on blur for better UX
   })
+
+  // Watch the business problem and general inquiry fields
+  const businessProblem = watch("problem");
+  const generalMessage = watch("generalInquiry");
+  const hasBusinessProblem = businessProblem && businessProblem.trim().length > 0;
+  const hasGeneralMessage = generalMessage && generalMessage.trim().length > 0;
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -99,6 +153,28 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Add the animation keyframes */}
+      <style jsx global>{`
+        @keyframes glowTrail {
+          0% {
+            color: #9CA3AF; /* gray-400 */
+            text-shadow: none;
+          }
+          10%, 20% {
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(20, 184, 166, 0.8), 0 0 20px rgba(20, 184, 166, 0.6), 0 0 30px rgba(20, 184, 166, 0.4);
+          }
+          30%, 100% {
+            color: #9CA3AF; /* gray-400 */
+            text-shadow: none;
+          }
+        }
+        
+        .animate-glow-trail {
+          animation: glowTrail 6s linear infinite; animation-delay: 4s;
+        }
+      `}</style>
+      
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
       <CursorGradient />
 
@@ -261,6 +337,11 @@ export default function Contact() {
                     <div>
                       <label htmlFor="problem" className={labelStyles}>
                         Business Problem or Challenge
+                        {!hasGeneralMessage ? (
+                          <span className="ml-1 text-yellow-500">*</span>
+                        ) : (
+                          <span className="ml-1 text-gray-500">(Optional)</span>
+                        )}
                       </label>
                       <textarea
                         id="problem"
@@ -270,7 +351,9 @@ export default function Contact() {
                         placeholder="Describe the specific business challenge you're facing..."
                         autoComplete="off"
                       ></textarea>
-                      {errors.problem && (
+                      {errors.problem && errors.problem.message?.includes('business challenge or leave a general message') ? (
+                        <GlowingErrorMessage message={errors.problem.message} />
+                      ) : errors.problem && (
                         <p className={errorStyles}>{errors.problem.message}</p>
                       )}
                     </div>
@@ -301,7 +384,11 @@ export default function Contact() {
                     <div>
                       <label htmlFor="generalInquiry" className={labelStyles}>
                         Your Message
-                        <span className="ml-1 text-red-500">*</span>
+                        {!hasBusinessProblem ? (
+                          <span className="ml-1 text-yellow-500">*</span>
+                        ) : (
+                          <span className="ml-1 text-gray-500">(Optional)</span>
+                        )}
                       </label>
                       <textarea
                         id="generalInquiry"
@@ -311,7 +398,9 @@ export default function Contact() {
                         placeholder="Have questions or want to discuss something? Tell us about it here..."
                         autoComplete="off"
                       ></textarea>
-                      {errors.generalInquiry && (
+                      {errors.generalInquiry && errors.generalInquiry.message?.includes('business challenge or leave a general message') ? (
+                        <GlowingErrorMessage message={errors.generalInquiry.message} />
+                      ) : errors.generalInquiry && (
                         <p className={errorStyles}>{errors.generalInquiry.message}</p>
                       )}
                     </div>
