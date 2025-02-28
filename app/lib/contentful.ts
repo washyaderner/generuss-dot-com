@@ -1,5 +1,4 @@
 import { createClient } from 'contentful'
-import { Document as RichTextDocument } from '@contentful/rich-text-types'
 
 // Initialize Contentful client
 const client = createClient({
@@ -29,7 +28,6 @@ export interface BlogPost {
     description: string
   }
   content: string
-  contentRichText?: RichTextDocument
   sys: {
     createdAt: string
     updatedAt: string
@@ -46,71 +44,20 @@ const BLOG_POST_CONTENT_TYPE = 'blogPost'
 function transformEntryToBlogPost(entry: any): BlogPost {
   const { fields = {}, sys = {} } = entry || {}
   
-  // Enhanced image extraction with additional logging
-  let headerImage = undefined;
-  
-  try {
-    if (fields.headerImage && fields.headerImage.fields) {
-      const fileUrl = fields.headerImage.fields.file?.url || '';
-      // Ensure URL has https: prefix
-      const url = fileUrl.startsWith('//') 
-        ? `https:${fileUrl}` 
-        : fileUrl.startsWith('/') 
-          ? `https:${fileUrl}` 
-          : fileUrl;
-      
-      headerImage = {
-        url: url,
+  // Safe extraction with fallbacks
+  const headerImage = fields.headerImage && fields.headerImage.fields
+    ? {
+        url: `https:${fields.headerImage.fields.file?.url || ''}`,
         description: fields.headerImage.fields.description || '',
       }
-      
-      log.debug('Extracted header image:', headerImage);
-    }
-  } catch (error) {
-    log.error('Error extracting header image:', error);
-  }
-  
-  // Enhance content processing
-  let content = fields.content || '';
-  
-  // Ensure image URLs have https: prefix - only if content is a string
-  if (typeof content === 'string' && content.includes('<img')) {
-    content = content.replace(/src="\/\//g, 'src="https://');
-    content = content.replace(/src="\//g, 'src="https:/');
-  }
-  
-  // Extract Rich Text content if available
-  const contentRichText = fields.contentRichText || null;
-  
-  // Enhanced logging for debugging
-  if (contentRichText) {
-    log.debug('Found Rich Text content');
-    // Log basic structure
-    if (typeof contentRichText === 'object') {
-      log.debug('Rich Text structure:', {
-        type: typeof contentRichText,
-        isNull: contentRichText === null,
-        hasNodeType: contentRichText && 'nodeType' in contentRichText,
-        nodeType: contentRichText && contentRichText.nodeType,
-        hasContent: contentRichText && 'content' in contentRichText,
-        contentIsArray: contentRichText && 'content' in contentRichText && Array.isArray(contentRichText.content)
-      });
-    } else {
-      log.debug('Rich Text is not an object:', typeof contentRichText);
-    }
-  } else if (content) {
-    log.debug('Found Markdown content');
-  } else {
-    log.debug('No content found');
-  }
+    : undefined
   
   return {
     title: fields.title || '',
     slug: fields.slug || '',
     summary: fields.summary || '',
     headerImage,
-    content,
-    contentRichText,
+    content: fields.content || '',
     sys: {
       createdAt: sys.createdAt || '',
       updatedAt: sys.updatedAt || '',
@@ -159,7 +106,6 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       content_type: BLOG_POST_CONTENT_TYPE,
       'fields.slug': slug,
       limit: 1,
-      include: 2, // Include linked assets (e.g., images)
     })
 
     if (!entries.items.length) {
@@ -167,14 +113,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       return null
     }
 
-    const post = transformEntryToBlogPost(entries.items[0])
-    log.debug('Found post:', { 
-      title: post.title, 
-      hasHeaderImage: !!post.headerImage,
-      contentLength: post.content.length
-    })
-    
-    return post
+    return transformEntryToBlogPost(entries.items[0])
   } catch (error: any) {
     log.error('Failed to fetch post:', {
       slug,
