@@ -261,7 +261,7 @@ export default function Contact() {
                       autoComplete="given-name"
                     />
                     {errors.firstName && (
-                      <p className={errorStyles}>{errors.firstName.message}</p>
+                      <GlowingErrorMessage message={errors.firstName.message || ""} />
                     )}
                   </div>
                   <div>
@@ -277,7 +277,7 @@ export default function Contact() {
                       autoComplete="family-name"
                     />
                     {errors.lastName && (
-                      <p className={errorStyles}>{errors.lastName.message}</p>
+                      <GlowingErrorMessage message={errors.lastName.message || ""} />
                     )}
                   </div>
                 </div>
@@ -295,7 +295,7 @@ export default function Contact() {
                     autoComplete="email"
                   />
                   {errors.email && (
-                    <p className={errorStyles}>{errors.email.message}</p>
+                    <GlowingErrorMessage message={errors.email.message || ""} />
                   )}
                 </div>
 
