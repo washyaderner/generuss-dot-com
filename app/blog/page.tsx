@@ -5,6 +5,8 @@ import BlogList from "@/app/components/blog/BlogList"
 import { Metadata } from 'next'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
+import { NavLink } from "@/components/nav-link"
+import { MobileNav } from "@/components/mobile-nav"
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -36,6 +38,14 @@ export const metadata: Metadata = {
 export default async function Blog() {
   try {
     const posts = await getAllPosts()
+
+    const navigationLinks = [
+      { href: "/solutions", label: "Solutions" },
+      { href: "/portfolio", label: "Portfolio" },
+      { href: "/blog", label: "Blog" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+    ]
 
     // Structured data for blog listing
     const jsonLd = {
@@ -85,32 +95,37 @@ export default async function Blog() {
                   Home
                 </Link>
                 <div className="hidden md:flex space-x-6">
-                  <Link href="/solutions" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  <NavLink href="/solutions">
                     Solutions
-                  </Link>
-                  <Link href="/portfolio" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  </NavLink>
+                  <NavLink href="/portfolio">
                     Portfolio
-                  </Link>
-                  <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors" aria-current="page">
+                  </NavLink>
+                  <NavLink href="/blog">
                     Blog
-                  </Link>
-                  <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  </NavLink>
+                  <NavLink href="/about">
                     About
-                  </Link>
-                  <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  </NavLink>
+                  <NavLink href="/contact">
                     Contact
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
-              <Link
-                href="#"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
-                aria-label="Request a demo"
-              >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" aria-hidden="true" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-                <span className="relative text-white">Get a Demo</span>
-              </Link>
+              <div className="flex items-center">
+                <Link
+                  href="#"
+                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white hidden md:flex"
+                  aria-label="Request a demo"
+                >
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" aria-hidden="true" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                  <span className="relative text-white">Get a Demo</span>
+                </Link>
+                <div className="md:hidden">
+                  <MobileNav links={navigationLinks} />
+                </div>
+              </div>
             </nav>
           </header>
 
