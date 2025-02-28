@@ -110,7 +110,7 @@ const projects = [
   },
   {
     id: "sales-acceleration",
-    title: "Sales Acceleration Suite",
+    title: "Sales Acceleration Suite (coming soon!)",
     category: "Sales Automation",
     description: "A comprehensive sales automation system that streamlined operations for a mid-sized tech company.",
     impact: [
@@ -123,7 +123,7 @@ const projects = [
   },
   {
     id: "content-generation",
-    title: "Content Generation Engine",
+    title: "Content Generation Engine (coming soon!)",
     category: "AI Content Automation",
     description: "An AI-powered system for generating and managing marketing content at scale.",
     impact: [
