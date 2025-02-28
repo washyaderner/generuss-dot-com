@@ -1,7 +1,10 @@
 'use client'
 
+import React, { useEffect } from 'react'
 import type { BlogPost as BlogPostType } from '@/app/lib/contentful'
 import Image from 'next/image'
+import Link from 'next/link'
+import MarkdownToJSX from 'markdown-to-jsx'
 
 interface BlogPostProps {
   post: BlogPostType
@@ -14,90 +17,88 @@ export default function BlogPost({ post }: BlogPostProps) {
     day: 'numeric'
   })
 
+  // Function to render content based on available format
+  const renderContent = () => {
+    // Use Markdown content if available
+    if (post.content) {
+      console.log('Using Markdown content');
+      return (
+        <div className="prose prose-lg prose-invert w-full !max-w-full prose-p:text-gray-200 prose-p:leading-relaxed prose-p:text-justify prose-headings:text-teal-400 prose-strong:text-teal-400 prose-em:text-gray-300 prose-code:bg-gray-900 prose-code:text-gray-200 prose-blockquote:border-teal-500 prose-blockquote:text-gray-300 prose-a:text-teal-400 prose-li:text-gray-200 prose-li:leading-relaxed prose-pre:bg-gray-900 prose-pre:rounded-lg">
+          <MarkdownToJSX>
+            {post.content}
+          </MarkdownToJSX>
+        </div>
+      );
+    }
+    
+    // If no content is available
+    return <p>No content available for this post.</p>;
+  }
+
+  // Process images and links after rendering
+  useEffect(() => {
+    // Find all images and make them responsive
+    const images = document.querySelectorAll('#blog-content img')
+    images.forEach((img) => {
+      img.classList.add('max-w-full', 'h-auto', 'rounded-lg', 'mx-auto')
+      // Add margin to the image using setAttribute instead of style.margin
+      img.setAttribute('style', 'margin: 2rem auto;')
+    })
+
+    // Make external links open in new tab
+    const links = document.querySelectorAll('#blog-content a')
+    links.forEach((link) => {
+      if (link.getAttribute('href')?.startsWith('http')) {
+        link.setAttribute('target', '_blank')
+        link.setAttribute('rel', 'noopener noreferrer')
+      }
+    })
+  }, [post])
+
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
-      <header className="mb-8">
-        <h1 
-          itemProp="headline"
-          className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-teal-400 to-violet-400 bg-clip-text text-transparent"
-        >
+    <div className="container mx-auto pb-12">
+      <div className="px-4 md:px-6 lg:px-8">
+        <Link href="/blog" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-200 inline-block mb-8">
+          ← Back to all articles
+        </Link>
+        
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-teal-400">
           {post.title}
         </h1>
         
-        <div className="flex items-center text-gray-400 mb-6">
-          <time 
-            dateTime={post.sys.createdAt}
-            itemProp="datePublished"
-            className="text-sm"
-          >
-            {formattedDate}
-          </time>
+        <div className="text-gray-600 dark:text-gray-300 mb-8">
+          {formattedDate}
           {post.sys.updatedAt !== post.sys.createdAt && (
-            <time 
-              dateTime={post.sys.updatedAt}
-              itemProp="dateModified"
-              className="text-sm ml-4"
-            >
-              (Updated: {new Date(post.sys.updatedAt).toLocaleDateString()})
-            </time>
+            <span className="text-sm ml-2">
+              (Updated: {new Date(post.sys.updatedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+              })})
+            </span>
           )}
         </div>
-
-        {post.headerImage && (
-          <figure className="relative w-full h-[400px] rounded-xl overflow-hidden mb-8">
-            <Image
-              src={post.headerImage.url}
-              alt={post.headerImage.description || post.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-              priority
-              itemProp="image"
-            />
-          </figure>
-        )}
-
-        <p 
-          className="text-xl text-gray-300 mb-8"
-          itemProp="description"
-        >
-          {post.summary}
-        </p>
-      </header>
-
-      <div 
-        className="prose prose-invert prose-lg max-w-none"
-        itemProp="articleBody"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
-
-      <footer className="mt-12 pt-8 border-t border-white/10">
-        <div className="flex justify-between items-center">
-          <div className="text-sm text-gray-400">
-            Share this article:
-            <div className="flex space-x-4 mt-2">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://generuss.com/blog/${post.slug}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Share on Twitter"
-              >
-                Twitter
-              </a>
-              <a
-                href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://generuss.com/blog/${post.slug}`)}&title=${encodeURIComponent(post.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Share on LinkedIn"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
+      </div>
+      
+      {post.headerImage && (
+        <div className="mb-8 px-4 md:px-6 lg:px-8">
+          <Image
+            src={post.headerImage.url}
+            alt={post.headerImage.description || post.title}
+            width={1200}
+            height={630}
+            className="rounded-lg w-full h-auto object-cover"
+            priority
+          />
         </div>
-      </footer>
-    </article>
+      )}
+      
+      <div 
+        id="blog-content" 
+        className="prose prose-lg dark:prose-invert w-full !max-w-none px-4 md:px-6 lg:px-8 py-4 md:py-6"
+      >
+        {renderContent()}
+      </div>
+    </div>
   )
 } 
