@@ -137,6 +137,11 @@ export default function RootLayout({
                           Contact
                         </Link>
                       </li>
+                      <li>
+                        <Link href="https://www.upwork.com/freelancers/~0187db78cb531330b6" className="text-gray-400 hover:text-white text-sm transition-colors" target="_blank" rel="noopener noreferrer">
+                          Upwork
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                   <div>
