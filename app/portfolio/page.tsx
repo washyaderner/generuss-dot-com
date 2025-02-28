@@ -263,10 +263,12 @@ export default function Portfolio() {
                           <Link
                             href={project.title === "Hold My Brain" 
                               ? "https://www.youtube.com/watch?v=6g3V9_IeiTo&list=PLJrVRkPIkRpnBuLdL0sxEyoZmJz-thK-a" 
+                              : project.title === "Excel Performance Dashboard"
+                              ? "https://www.upwork.com/freelancers/~0187db78cb531330b6?p=1895029018557018112"
                               : "#"}
                             className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
-                            target={project.title === "Hold My Brain" ? "_blank" : undefined}
-                            rel={project.title === "Hold My Brain" ? "noopener noreferrer" : undefined}
+                            target={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "_blank" : undefined}
+                            rel={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "noopener noreferrer" : undefined}
                           >
                             View case study
                             <svg
