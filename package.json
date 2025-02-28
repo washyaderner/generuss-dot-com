@@ -4,26 +4,6 @@
   "private": true,
   "description": "Personal website and portfolio built with modern web technologies",
   
-  /*
-   * VERSION COMPATIBILITY NOTICE:
-   * 
-   * This project requires the following environment:
-   * - Node.js >= 18.17.0 (Next.js 14 requirement)
-   * - npm >= 9.6.0
-   * 
-   * Critical dependencies:
-   * - Next.js 14.x: Core framework (requires Node.js >= 18.17.0)
-   * - React 18.x: UI library
-   * - Contentful: CMS integration
-   *   - @contentful/rich-text-react-renderer: For rendering Contentful Rich Text
-   *   - markdown-to-jsx/react-markdown: For rendering legacy Markdown content
-   *
-   * When updating dependencies:
-   * 1. Always update related packages together (e.g., all React packages)
-   * 2. Test thoroughly after updates, especially content rendering
-   * 3. Keep dependencies in sync with Node.js version requirements
-   */
-  
   "engines": {
     "node": ">=18.17.0",
     "npm": ">=9.6.0"
@@ -36,8 +16,8 @@
     "generate-og": "node scripts/generate-og-image.js"
   },
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "^16.0.1", /* Required for Contentful Rich Text content */
-    "@contentful/rich-text-types": "^17.0.0", /* Types for Contentful Rich Text format */
+    "@contentful/rich-text-react-renderer": "^16.0.1",
+    "@contentful/rich-text-types": "^17.0.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
@@ -70,43 +50,43 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
-    "contentful": "^11.5.0", /* Core Contentful SDK for fetching content */
+    "contentful": "^11.5.0",
     "date-fns": "^3.0.0",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "^10.18.0",
     "gray-matter": "^4.0.3",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "markdown-to-jsx": "^7.7.4", /* For rendering legacy Markdown content */
-    "next": "14.2.16", /* Requires Node.js >= 18.17.0 */
+    "markdown-to-jsx": "^7.7.4",
+    "next": "14.2.16",
     "next-themes": "^0.4.4",
-    "react": "^18.2.0", /* Must be compatible with next version */
+    "react": "^18.2.0",
     "react-day-picker": "8.10.1",
-    "react-dom": "^18.2.0", /* Must match react version exactly */
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.54.1",
-    "react-markdown": "^10.0.0", /* Alternative Markdown renderer */
+    "react-markdown": "^10.0.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
-    "remark": "^15.0.1", /* Markdown processing */
-    "remark-html": "^16.0.1", /* Markdown to HTML conversion */
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",
-    "zod": "^3.24.1" /* Form validation schema */
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/node-fetch": "^2.6.12",
-    "@types/react": "^18", /* Must match major react version */
-    "@types/react-dom": "^18", /* Must match major react-dom version */
-    "contentful-management": "^11.47.2", /* For managing Contentful content types */
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "contentful-management": "^11.47.2",
     "dotenv": "^16.4.7",
     "node-fetch": "^2.7.0",
     "postcss": "^8",
     "puppeteer": "^24.2.1",
-    "resend": "^4.1.2", /* Email service API */
+    "resend": "^4.1.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
