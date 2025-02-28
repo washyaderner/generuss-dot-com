@@ -164,7 +164,7 @@ export default function RootLayout({
                         </svg>
                       </Link>
                       <Link 
-                        href="https://twitter.com/russgardner" 
+                        href="https://twitter.com/DegeneRussAI" 
                         className="text-gray-400 hover:text-white transition-colors"
                         aria-label="Visit Russell Gardner's Twitter profile"
                         target="_blank" 
