@@ -1,5 +1,4 @@
 import { CursorGradient } from "@/components/cursor-gradient"
-import { GrassIcon } from "@/components/grass-icon"
 import { NavLink } from "@/components/nav-link"
 import { MobileNav } from "@/components/mobile-nav"
 import Link from "next/link"
@@ -8,9 +7,22 @@ import type React from "react"
 import { Toaster } from "sonner"
 
 export const metadata = {
-  title: "Touch Grass",
-  description: "Innovate Fast & Touch Grass - AI-powered sales solutions",
-  generator: 'v0.dev'
+  title: "GeneRuss",
+  description: "Build Fast & Touch Grass - AI-powered sales solutions",
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' }
+    ],
+    other: [
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ]
+  },
+  manifest: '/site.webmanifest'
 }
 
 const navigationLinks = [
@@ -28,10 +40,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body>
         <Toaster richColors position="top-right" />
         <div className="min-h-screen bg-black">
-          <div className="fixed inset-0 bg-gradient-to-b from-black via-black to-[#0A0A1E] z-0" />
+          <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
           <CursorGradient />
 
           {/* Gradient Overlay */}
@@ -46,14 +64,12 @@ export default function RootLayout({
                   <div className="block sm:hidden">
                     <MobileNav links={navigationLinks} />
                   </div>
-                  <Link 
-                    href="/" 
-                    className="hidden sm:flex items-center"
-                    aria-label="Home"
+                  <NavLink 
+                    href="/"
+                    className="hidden sm:flex"
                   >
-                    <GrassIcon className="w-5 h-5 text-teal-400 mr-2" />
-                    <span className="text-white font-medium">Home</span>
-                  </Link>
+                    Home
+                  </NavLink>
                   <nav className="hidden md:flex items-center space-x-6">
                     {navigationLinks.map((link) => (
                       <NavLink key={link.href} href={link.href}>
