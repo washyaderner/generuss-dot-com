@@ -96,6 +96,19 @@ const projects = [
     icon: Brain
   },
   {
+    id: "excel-dashboard",
+    title: "Excel Performance Dashboard",
+    category: "Business Intelligence",
+    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
+    impact: [
+      "Complex pricing calculations on the fly",
+      "Proven increase in call flow efficiency",
+      "25% increase in one call close retention KPIs"
+    ],
+    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
+    icon: LineChart
+  },
+  {
     id: "sales-acceleration",
     title: "Sales Acceleration Suite",
     category: "Sales Automation",
@@ -120,19 +133,6 @@ const projects = [
     ],
     technologies: ["Claude", "GPT-4", "n8n", "Next.js", "Perplexity"],
     icon: Bot
-  },
-  {
-    id: "excel-dashboard",
-    title: "Excel Performance Dashboard",
-    category: "Business Intelligence",
-    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
-    impact: [
-      "Complex pricing calculations on the fly",
-      "Proven increase in call flow efficiency",
-      "25% increase in one call close retention KPIs"
-    ],
-    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
-    icon: LineChart
   }
 ]
 
