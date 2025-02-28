@@ -24,10 +24,12 @@ export default function BlogList({ posts }: BlogListProps) {
           <div className="p-6 relative z-10">
             {post.headerImage && (
               <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
-                <img
+                <Image
                   src={post.headerImage.url}
                   alt={post.headerImage.description || post.title}
-                  className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
+                  fill
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             )}
