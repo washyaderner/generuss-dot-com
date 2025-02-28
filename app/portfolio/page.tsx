@@ -261,8 +261,12 @@ export default function Portfolio() {
                         
                         <div className="mt-4 sm:mt-6">
                           <Link
-                            href="#"
+                            href={project.title === "Hold My Brain" 
+                              ? "https://www.youtube.com/watch?v=6g3V9_IeiTo&list=PLJrVRkPIkRpnBuLdL0sxEyoZmJz-thK-a" 
+                              : "#"}
                             className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                            target={project.title === "Hold My Brain" ? "_blank" : undefined}
+                            rel={project.title === "Hold My Brain" ? "noopener noreferrer" : undefined}
                           >
                             View case study
                             <svg
