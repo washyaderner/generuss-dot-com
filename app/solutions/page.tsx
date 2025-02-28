@@ -4,6 +4,7 @@ import { CursorGradient } from "@/components/cursor-gradient"
 
 const solutions = [
   {
+    id: "excel-optimization",
     icon: TableProperties,
     title: "Excel & AI Automation",
     description: [
@@ -21,6 +22,7 @@ const solutions = [
     ]
   },
   {
+    id: "sales-strategy",
     icon: Rocket,
     title: "Sales Strategy & Systems",
     description: [
@@ -38,6 +40,7 @@ const solutions = [
     ]
   },
   {
+    id: "app-web-dev",
     icon: Code,
     title: "AI-Powered App & Web Development",
     description: [
@@ -55,6 +58,7 @@ const solutions = [
     ]
   },
   {
+    id: "business-automation",
     icon: Bot,
     title: "Business & Content Automation",
     description: [
@@ -146,6 +150,7 @@ export default function Solutions() {
             <div className="flex flex-col space-y-16 max-w-4xl mx-auto">
               {solutions.map((solution, index) => (
                 <div
+                  id={solution.id}
                   key={index}
                   className="group relative p-8 md:p-10 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
                 >
