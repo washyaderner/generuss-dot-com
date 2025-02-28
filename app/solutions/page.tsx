@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { TableProperties, Rocket, Bot, Code } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
-import { GrassIcon } from "@/components/grass-icon"
 
 const solutions = [
   {
@@ -77,7 +76,7 @@ const solutions = [
 export default function Solutions() {
   return (
     <div className="min-h-screen bg-black">
-      <div className="fixed inset-0 bg-gradient-to-b from-black via-black to-[#0A0A1E] z-0" />
+      <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
       <CursorGradient />
 
       {/* Gradient Overlay */}
@@ -93,7 +92,6 @@ export default function Solutions() {
                 href="/"
                 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
               >
-                <GrassIcon className="w-6 h-6 mr-2" />
                 Home
               </Link>
               <nav className="hidden md:flex space-x-6">

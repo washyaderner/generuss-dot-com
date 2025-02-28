@@ -130,7 +130,7 @@ export default function Contact() {
                 <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
                   About
                 </Link>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link href="/contact" className="text-sm text-teal-400 font-medium transition-colors" aria-current="page">
                   Contact
                 </Link>
               </nav>
