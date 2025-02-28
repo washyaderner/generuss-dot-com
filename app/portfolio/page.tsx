@@ -127,7 +127,7 @@ const projects = [
       "Automated report generation",
       "Reduced reporting time by 85%"
     ],
-    technologies: ["Excel", "VBA", "Power Query", "DAX", "Python"],
+    technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
     icon: LineChart
   }
 ]
