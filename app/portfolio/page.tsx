@@ -121,7 +121,7 @@ const projects = [
   {
     title: "Excel Performance Dashboard",
     category: "Business Intelligence",
-    description: "A sophisticated Excel-based performance tracking system for a Fortune 500 company.",
+    description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
     impact: [
       "Real-time KPI tracking",
       "Automated report generation",
