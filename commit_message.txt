@@ -1,6 +1,0 @@
-[Cursor] Add new assets and update page files
-
-- Add new favicon and app icons
-- Update page layouts and content
-- Remove unused placeholder images
-- Add profile image for about page

@@ -1,4 +1,0 @@
-[Cursor] Resolve merge conflict in contentful.ts
-- Keep enhanced image extraction with improved URL handling
-- Maintain Rich Text content support and processing
-- Preserve improved logging for better debugging
