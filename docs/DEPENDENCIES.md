@@ -76,6 +76,31 @@ While the codebase retains the ability to handle Rich Text content for backward 
    - Check compatibility between Contentful SDK and renderer packages
    - Test across different browsers and devices after updates
 
+## Package.json Guidelines
+
+### JSON Format Requirements
+
+JSON files (including package.json) have strict formatting requirements:
+
+1. **No Comments Allowed**: 
+   - Unlike JavaScript, JSON does not support comments
+   - Do not use `/* */` or `//` comment syntax in package.json
+   - For documentation, use README files or separate documentation files
+
+2. **Double Quotes Required**:
+   - All property names and string values must use double quotes (`"`)
+   - Single quotes (`'`) are not valid in JSON
+
+3. **No Trailing Commas**:
+   - Do not add commas after the last property in an object or array
+   - Example: `{"name": "value",}` is invalid; use `{"name": "value"}`
+
+4. **Valid Property Values**:
+   - Only strings, numbers, objects, arrays, boolean (true/false), or null
+   - No functions, undefined, or other JavaScript-specific values
+
+Violation of these rules will cause build and deployment failures, as seen in our deployment error when comments were added to package.json.
+
 ## Common Issues and Solutions
 
 ### Content Rendering Issues

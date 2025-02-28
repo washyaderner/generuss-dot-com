@@ -368,6 +368,12 @@ We are standardizing on Markdown format for all content in the application:
    - Resolution: Implemented cleanup procedures after commits
    - Prevention: Create Git hooks or workflow scripts to automatically remove temp files
 
+5. Package.json Format Errors
+   - Issue: Deployment failure due to JSON parsing error in package.json
+   - Root Cause: Adding JavaScript-style comments to a JSON file
+   - Resolution: Removed all comments from package.json
+   - Prevention: Added documentation about JSON format requirements in DEPENDENCIES.md
+
 ### Safety Measures Implementation
 
 1. Configuration File Safety
