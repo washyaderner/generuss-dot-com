@@ -123,9 +123,9 @@ const projects = [
     category: "Business Intelligence",
     description: "Bundle calculator, automated note taker, and clear cells macro, all in one.",
     impact: [
-      "Real-time KPI tracking",
-      "Automated report generation",
-      "Reduced reporting time by 85%"
+      "Complex pricing calculations on the fly",
+      "Proven increase in call flow efficiency",
+      "25% increase in one call close retention KPIs"
     ],
     technologies: ["Excel", "VBA", "VLOOKUP", "Concatenate"],
     icon: LineChart
