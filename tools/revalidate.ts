@@ -14,13 +14,16 @@ if (!REVALIDATE_TOKEN) {
   process.exit(1)
 }
 
+// Since we've checked REVALIDATE_TOKEN above, we can assert it's non-null
+const token: string = REVALIDATE_TOKEN
+
 async function revalidate(path: string) {
   try {
     const response = await fetch(`${SITE_URL}/api/revalidate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-revalidate-token': REVALIDATE_TOKEN
+        'x-revalidate-token': token
       },
       body: JSON.stringify({ path })
     })
