@@ -43,6 +43,50 @@ const errorStyles = "mt-1 text-sm text-red-400"
 const tealErrorStyles = "mt-1 text-sm text-teal-400"
 const labelStyles = "block text-sm font-medium text-gray-400"
 
+// Component for glowing text animation
+const GlowingErrorMessage = ({ message }: { message: string }) => {
+  // Split by words but keep animation by letter
+  const words = message.split(' ');
+  // Calculate total length of message for timing
+  const totalChars = words.reduce((sum, word) => sum + word.length, 0);
+  const totalSpaces = words.length - 1;
+  const totalCharsWithSpaces = totalChars + totalSpaces;
+  // Time for one complete pulse to travel through the entire message
+  const pulseDuration = totalCharsWithSpaces * 0.07; // 70ms per character (30% faster)
+  
+  return (
+    <p className="mt-2 text-sm text-gray-400 overflow-hidden whitespace-pre-wrap">
+      {words.map((word, wordIndex) => (
+        <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap mr-[0.25em]">
+          {word.split('').map((char, charIndex) => {
+            // Calculate the overall position in the entire text
+            let overallIndex = 0;
+            for (let i = 0; i < wordIndex; i++) {
+              overallIndex += words[i].length + 1; // +1 for the space
+            }
+            overallIndex += charIndex;
+            
+            // Use style with proper TypeScript typing for CSS variables
+            const style = {
+              animationDelay: `${overallIndex * 0.07}s`,
+            };
+            
+            return (
+              <span 
+                key={`char-${wordIndex}-${charIndex}`} 
+                className="inline-block animate-glow-trail"
+                style={style}
+              >
+                {char}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </p>
+  );
+};
+
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -109,6 +153,28 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Add the animation keyframes */}
+      <style jsx global>{`
+        @keyframes glowTrail {
+          0% {
+            color: #9CA3AF; /* gray-400 */
+            text-shadow: none;
+          }
+          10%, 20% {
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(20, 184, 166, 0.8), 0 0 20px rgba(20, 184, 166, 0.6), 0 0 30px rgba(20, 184, 166, 0.4);
+          }
+          30%, 100% {
+            color: #9CA3AF; /* gray-400 */
+            text-shadow: none;
+          }
+        }
+        
+        .animate-glow-trail {
+          animation: glowTrail 6s linear infinite; animation-delay: 4s;
+        }
+      `}</style>
+      
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
       <CursorGradient />
 
@@ -286,7 +352,7 @@ export default function Contact() {
                         autoComplete="off"
                       ></textarea>
                       {errors.problem && errors.problem.message?.includes('business challenge or leave a general message') ? (
-                        <p className={tealErrorStyles}>{errors.problem.message}</p>
+                        <GlowingErrorMessage message={errors.problem.message} />
                       ) : errors.problem && (
                         <p className={errorStyles}>{errors.problem.message}</p>
                       )}
@@ -333,7 +399,7 @@ export default function Contact() {
                         autoComplete="off"
                       ></textarea>
                       {errors.generalInquiry && errors.generalInquiry.message?.includes('business challenge or leave a general message') ? (
-                        <p className={tealErrorStyles}>{errors.generalInquiry.message}</p>
+                        <GlowingErrorMessage message={errors.generalInquiry.message} />
                       ) : errors.generalInquiry && (
                         <p className={errorStyles}>{errors.generalInquiry.message}</p>
                       )}
