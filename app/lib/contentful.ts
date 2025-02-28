@@ -1,4 +1,4 @@
-import { createClient, Entry, EntryCollection } from 'contentful'
+import { createClient } from 'contentful'
 
 // Initialize Contentful client
 const client = createClient({
@@ -18,7 +18,7 @@ const log = {
   }
 }
 
-// Our frontend type that matches what we use in components
+// Our frontend type for blog posts
 export interface BlogPost {
   title: string
   slug: string
@@ -34,50 +34,46 @@ export interface BlogPost {
   }
 }
 
-// Contentful's type structure
-interface BlogPostFields {
-  title: string
-  slug: string
-  summary: string
-  headerImage?: {
-    fields: {
-      file: {
-        url: string
-      }
-      description?: string
-    }
-  }
-  content: string
-}
+// Define the content type ID
+const BLOG_POST_CONTENT_TYPE = 'blogPost'
 
-// Transform Contentful entry to our frontend type
-function transformEntry(entry: Entry<BlogPostFields>): BlogPost {
-  const { fields, sys } = entry
+/**
+ * Safely transforms a Contentful entry to our frontend BlogPost type,
+ * with proper type checking and fallbacks
+ */
+function transformEntryToBlogPost(entry: any): BlogPost {
+  const { fields = {}, sys = {} } = entry || {}
+  
+  // Safe extraction with fallbacks
+  const headerImage = fields.headerImage && fields.headerImage.fields
+    ? {
+        url: `https:${fields.headerImage.fields.file?.url || ''}`,
+        description: fields.headerImage.fields.description || '',
+      }
+    : undefined
   
   return {
-    title: fields.title,
-    slug: fields.slug,
-    summary: fields.summary,
-    headerImage: fields.headerImage?.fields
-      ? {
-          url: `https:${fields.headerImage.fields.file.url}`,
-          description: fields.headerImage.fields.description || '',
-        }
-      : undefined,
-    content: fields.content,
+    title: fields.title || '',
+    slug: fields.slug || '',
+    summary: fields.summary || '',
+    headerImage,
+    content: fields.content || '',
     sys: {
-      createdAt: sys.createdAt,
-      updatedAt: sys.updatedAt,
+      createdAt: sys.createdAt || '',
+      updatedAt: sys.updatedAt || '',
     },
   }
 }
 
-// Fetch all blog posts
+/**
+ * Fetches all blog posts from Contentful
+ */
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     log.debug('Fetching all posts')
-    const entries = await client.getEntries<BlogPostFields>({
-      content_type: 'blogPost',
+    
+    const entries = await client.getEntries({
+      content_type: BLOG_POST_CONTENT_TYPE,
       order: ['-sys.createdAt'],
       include: 2,
     })
@@ -88,7 +84,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       skip: entries.skip,
     })
 
-    return entries.items.map(transformEntry)
+    return entries.items.map(transformEntryToBlogPost)
   } catch (error: any) {
     log.error('Failed to fetch posts:', {
       message: error.message,
@@ -99,12 +95,15 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   }
 }
 
-// Fetch a single blog post by slug
+/**
+ * Fetches a single blog post by its slug
+ */
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     log.debug('Fetching post:', slug)
-    const entries = await client.getEntries<BlogPostFields>({
-      content_type: 'blogPost',
+    
+    const entries = await client.getEntries({
+      content_type: BLOG_POST_CONTENT_TYPE,
       'fields.slug': slug,
       limit: 1,
     })
@@ -114,7 +113,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       return null
     }
 
-    return transformEntry(entries.items[0])
+    return transformEntryToBlogPost(entries.items[0])
   } catch (error: any) {
     log.error('Failed to fetch post:', {
       slug,
