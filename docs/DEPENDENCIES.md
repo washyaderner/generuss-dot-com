@@ -35,6 +35,16 @@ These requirements are specified in the `engines` field of package.json.
 - **react-markdown**: Alternative Markdown renderer
 - **remark & remark-html**: Processing Markdown and converting to HTML
 
+### Content Format Decision
+
+**IMPORTANT:** After evaluating both content formats, this project has standardized on **Markdown exclusively** for all content. This decision was made for the following reasons:
+- Simplifies content creation and rendering
+- Reduces complexity in components
+- Eliminates format-related bugs and inconsistencies
+- Provides a more maintainable codebase
+
+While the codebase retains the ability to handle Rich Text content for backward compatibility, all new content should be created in Markdown format only.
+
 ### Form Handling
 - **react-hook-form**: Form state management and validation
 - **zod**: Schema validation
