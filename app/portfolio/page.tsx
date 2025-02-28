@@ -87,9 +87,9 @@ const projects = [
     category: "AI-Powered Knowledge Management",
     description: "An intelligent knowledge management system that transforms various content types into structured, searchable insights.",
     impact: [
-      "Reduced information retrieval time by 80%",
-      "Automated content summarization",
-      "Seamless integration with existing workflows"
+      "Reduces information retrieval time by 80%",
+      "Automates content summarization",
+      "Seamlessly integrates with existing workflows"
     ],
     technologies: ["Next.js", "GPT-4o", "VisionKit", "Whisper AI", "Swift"],
     icon: Brain
