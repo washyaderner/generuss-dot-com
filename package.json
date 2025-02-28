@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "Personal website and portfolio built with modern web technologies",
+  
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.6.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
