@@ -5,6 +5,7 @@ import Link from "next/link"
 import "./globals.css"
 import type React from "react"
 import { Toaster } from "sonner"
+import ChatWidget from "@/app/components/ChatWidget"
 
 export const metadata = {
   title: "GeneRuss",
@@ -199,6 +200,9 @@ export default function RootLayout({
                 </div>
               </div>
             </footer>
+            
+            {/* AI Chat Widget */}
+            <ChatWidget />
           </div>
         </div>
       </body>
