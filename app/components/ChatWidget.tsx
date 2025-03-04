@@ -14,9 +14,15 @@ declare global {
   }
 }
 
+// Default webhook URL from environment
+const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat';
+
 export default function ChatWidget() {
   // Custom styles to override n8n default styling to match site theme
   useEffect(() => {
+    // Log webhook URL for debugging
+    console.log('🔗 Using n8n webhook URL:', N8N_WEBHOOK_URL);
+    
     // Flag to track if initial message has been set
     window.__n8nInitialMessageSet = false;
     
@@ -99,11 +105,11 @@ export default function ChatWidget() {
         }
       }
       
-      // Force header title with brain emoji
+      // Force header title without brain emoji
       const headerTitle = document.querySelector('.n8n-chat-panel-header-title');
-      if (headerTitle && !headerTitle.textContent?.includes('🧠')) {
-        headerTitle.textContent = '🧠 Generuss Support';
-        console.log('⚡️ Set header title with brain emoji');
+      if (headerTitle) {
+        headerTitle.textContent = 'Generuss Support';
+        console.log('⚡️ Set header title');
       }
       
       // Force all bot avatars to use our custom SVG
@@ -347,7 +353,7 @@ export default function ChatWidget() {
 
           console.log('⚙️ Setting up n8n chat with custom parameters');
           createChat({
-            webhookUrl: 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat',
+            webhookUrl: '${N8N_WEBHOOK_URL}',
             
             // Bot customization
             botName: 'Generuss Assistant',
@@ -375,7 +381,7 @@ export default function ChatWidget() {
             translations: {
               en: {
                 bubbleButtonText: 'Chat with us',
-                chatHeader: '🧠 Generuss Support',
+                chatHeader: 'Generuss Support',
                 inputPlaceholder: 'Type your message...',
                 startNewChat: 'Start new chat',
                 sendButtonText: 'Send',
