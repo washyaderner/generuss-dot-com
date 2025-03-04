@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 
-// Extend Window interface to include our custom properties
+// Define the type for the createChat function
 declare global {
   interface Window {
+    createChat?: (config: ChatConfig) => (() => void);
+    chatSessionId?: string;
     __n8nChatClickHandler: ((event: MouseEvent) => void) | null;
     __n8nChatObserver: MutationObserver | null;
     __n8nInitialMessageSet: boolean;
@@ -14,10 +16,65 @@ declare global {
   }
 }
 
+// Interface for chat configuration
+interface ChatConfig {
+  webhookUrl: string;
+  apiKey?: string;
+  botName?: string;
+  chatTitle?: string;
+  initialMessage?: string;
+  botAvatarUrl?: string;
+  theme?: {
+    primary?: string;
+    textOnPrimary?: string;
+    userMessage?: {
+      background?: string;
+      text?: string;
+    };
+    botMessage?: {
+      background?: string;
+      text?: string;
+    };
+  };
+  translations?: Record<string, any>;
+  saveHistory?: boolean;
+  messageDelay?: number;
+  enableFileUploads?: boolean;
+  enableAttachments?: boolean;
+  overrideServerConfig?: boolean;
+}
+
 // Default webhook URL from environment
 const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat';
 
 export default function ChatWidget() {
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [scriptError, setScriptError] = useState<Error | null>(null);
+  const cleanupRef = useRef<(() => void) | null>(null);
+
+  // Handle script load event
+  const handleScriptLoad = () => {
+    console.log('📜 n8n chat script loaded successfully');
+    setScriptLoaded(true);
+    
+    // Custom event to signal the script has loaded
+    document.dispatchEvent(new Event('n8n-chat-loaded'));
+    
+    // Apply customizations after a short delay
+    setTimeout(() => {
+      console.log('⏱️ Applying delayed customizations after script load');
+      if (window.__n8nOverrideStyles) {
+        window.__n8nOverrideStyles();
+      }
+    }, 1000);
+  };
+
+  // Handle script error
+  const handleScriptError = (error: Error) => {
+    console.error('❌ Error loading n8n chat script:', error);
+    setScriptError(error);
+  };
+
   // Custom styles to override n8n default styling to match site theme
   useEffect(() => {
     // Log webhook URL for debugging
@@ -334,19 +391,8 @@ export default function ChatWidget() {
         id="n8n-chat-script"
         type="module"
         strategy="afterInteractive"
-        onLoad={() => {
-          console.log('📜 n8n chat script loaded');
-          // Custom event to signal the script has loaded
-          document.dispatchEvent(new Event('n8n-chat-loaded'));
-          
-          // Apply customizations after a short delay
-          setTimeout(() => {
-            console.log('⏱️ Applying delayed customizations after script load');
-            if (window.__n8nOverrideStyles) {
-              window.__n8nOverrideStyles();
-            }
-          }, 1000);
-        }}
+        onLoad={handleScriptLoad}
+        onError={handleScriptError}
       >
         {`
           import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
@@ -410,5 +456,5 @@ export default function ChatWidget() {
         `}
       </Script>
     </>
-  )
+  );
 } 
