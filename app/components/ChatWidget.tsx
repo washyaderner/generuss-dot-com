@@ -1,190 +1,196 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 
-// Extend Window interface to include our custom properties
+// Define the type for the createChat function
 declare global {
   interface Window {
-    __n8nChatClickHandler: ((event: MouseEvent) => void) | null;
-    __n8nChatObserver: MutationObserver | null;
-    __n8nInitialMessageSet: boolean;
-    __n8nMessageObserver: MutationObserver | null;
-    __n8nOverrideStyles: (() => void) | null;
-    createChat?: (config: any) => any;
+    createChat?: (config: ChatConfig) => (() => void);
+    chatSessionId?: string;
   }
 }
 
-export default function ChatWidget() {
-  useEffect(() => {
-    // Only run this on the client side
-    if (typeof window === 'undefined') return;
+// Define the chat configuration type
+interface ChatConfig {
+  webhookUrl?: string;
+  apiKey?: string;
+  botName?: string;
+  chatTitle?: string;
+  botAvatarUrl?: string;
+  theme?: {
+    primary: string;
+    textOnPrimary: string;
+    userMessage: {
+      background: string;
+      text: string;
+    };
+    botMessage: {
+      background: string;
+      text: string;
+    };
+  };
+  showInitialMessage?: boolean;
+  initialMessages?: string[];
+  buttonPosition?: 'bottom-right' | 'bottom-left';
+  keepSessionBetweenPages?: boolean;
+}
 
-    // Clean up any existing chat widget elements
-    const cleanup = () => {
-      const existingScripts = document.querySelectorAll('script[data-n8n-chat]');
-      existingScripts.forEach(script => script.remove());
+// Default webhook URL - replace with your actual endpoint
+const DEFAULT_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || '';
+
+export default function ChatWidget() {
+  const chatInitializedRef = useRef(false);
+  const scriptLoadedRef = useRef(false);
+  const cleanupFnRef = useRef<(() => void) | null>(null);
+  
+  // Allow webhook URL to be configured
+  const [webhookUrl, setWebhookUrl] = useState<string>(DEFAULT_WEBHOOK_URL);
+  
+  const cleanupChat = () => {
+    // Only run in browser
+    if (typeof window === 'undefined') return;
+    
+    // Call the cleanup function if available
+    if (cleanupFnRef.current) {
+      try {
+        cleanupFnRef.current();
+        cleanupFnRef.current = null;
+        console.log('✅ Chat cleanup executed');
+      } catch (error) {
+        console.error('❌ Error during chat cleanup:', error);
+      }
+    } else {
+      // Fallback cleanup if the cleanup function isn't available
+      const chatButton = document.querySelector('.genruss-chat-button');
+      if (chatButton) {
+        chatButton.remove();
+      }
       
-      const existingChat = document.querySelector('.n8n-chat-bubble-button');
-      if (existingChat) {
-        existingChat.remove();
+      const chatContainer = document.querySelector('.genruss-chat-container');
+      if (chatContainer) {
+        chatContainer.remove();
       }
-    };
+    }
     
-    // Remove any existing chat elements
-    cleanup();
+    chatInitializedRef.current = false;
+  };
+
+  const initializeChat = () => {
+    if (typeof window === 'undefined') return;
     
-    // Create and add the n8n chat script directly
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.umd.js';
-    script.setAttribute('data-n8n-chat', 'true');
-    script.async = true;
-    script.onload = () => {
-      // Initialize n8n chat with our custom configuration once the script loads
-      if (window.createChat) {
-        const chat = window.createChat({
-          webhookUrl: 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat',
-          botName: 'Generuss Assistant',
-          initialMessage: 'Hey, Russ here. Let me know if you have any questions.',
-          botAvatarUrl: '/images/chat-bot-avatar.svg',
-          enableFileUploads: false,
-          enableAttachments: false,
-          messageDelay: 800,
-          saveHistory: true,
-          darkMode: true,
-          translations: {
-            header: {
-              title: 'Generuss Support',
-            },
-            chatBubble: {
-              text: 'Chat with us',
-            },
-            input: {
-              placeholder: 'Type your message...',
-              sendButtonAriaLabel: 'Send message',
-            },
-          }
-        });
-        
-        // Add custom CSS to override n8n styles
-        const injectStyles = () => {
-          // Remove any existing style element
-          const existingStyle = document.querySelector('style[data-n8n-custom-style]');
-          if (existingStyle) {
-            existingStyle.remove();
-          }
-          
-          // Create a new style element with our custom styling
-          const style = document.createElement('style');
-          style.setAttribute('data-n8n-custom-style', 'true');
-          style.textContent = `
-            /* Custom styling for n8n chat */
-            .n8n-chat-bubble-button {
-              background-color: #5bbfba !important;
-              box-shadow: 0 4px 14px rgba(91, 191, 186, 0.4) !important;
-              border: none !important;
-            }
-            
-            .n8n-chat-bubble-button:hover {
-              transform: translateY(-2px) !important;
-              box-shadow: 0 6px 20px rgba(91, 191, 186, 0.6) !important;
-            }
-            
-            .n8n-chat-header {
-              background-color: #2a2a2a !important;
-              border-bottom: 1px solid #444 !important;
-            }
-            
-            .n8n-chat-panel {
-              background-color: #1a1a1a !important;
-            }
-            
-            .n8n-chat-message-bubble-user {
-              background-color: #5bbfba !important;
-              color: white !important;
-            }
-            
-            .n8n-chat-message-bubble-bot {
-              background-color: #2a2a2a !important;
-              color: white !important;
-              border: 1px solid #444 !important;
-            }
-            
-            .n8n-chat-input {
-              background-color: #2a2a2a !important;
-              color: white !important;
-              border: 1px solid #444 !important;
-            }
-            
-            .n8n-chat-header-title::before {
-              content: "🧠 ";
-            }
-            
-            .n8n-chat-button {
-              background-color: #5bbfba !important;
-              color: white !important;
-            }
-          `;
-          
-          document.head.appendChild(style);
-        };
-        
-        // Add brain emoji to the header title
-        const addBrainEmoji = () => {
-          const headerTitles = document.querySelectorAll('.n8n-chat-header-title');
-          headerTitles.forEach(title => {
-            if (!title.textContent?.includes('🧠')) {
-              title.innerHTML = '🧠 ' + title.innerHTML;
-            }
-          });
-        };
-        
-        // Apply customizations with multiple attempts to ensure they stick
-        const applyCustomizations = () => {
-          injectStyles();
-          addBrainEmoji();
-        };
-        
-        // Apply immediately after loading
-        applyCustomizations();
-        
-        // Apply again after a short delay
-        setTimeout(applyCustomizations, 500);
-        setTimeout(applyCustomizations, 1000);
-        setTimeout(applyCustomizations, 2000);
-        
-        // Set up a mutation observer to apply customizations when the chat elements change
-        const observer = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-              applyCustomizations();
-            }
-          }
-        });
-        
-        // Start observing the document body for changes
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-        
-        // Store the observer for cleanup
-        window.__n8nChatObserver = observer;
+    // Skip if already initialized or script not loaded
+    if (chatInitializedRef.current || !scriptLoadedRef.current) {
+      return;
+    }
+    
+    // Check if createChat is available
+    if (!window.createChat) {
+      console.error('❌ createChat function not found in window object');
+      return;
+    }
+    
+    // Log the webhook URL being used (for debugging)
+    console.log('🚀 Initializing chat with n8n webhook URL:', webhookUrl || 'None - using simulated responses');
+    
+    // Clean up any existing chat instance first
+    cleanupChat();
+    
+    try {
+      // Initialize chat with configuration
+      const cleanupFn = window.createChat({
+        webhookUrl: webhookUrl, // Using the n8n webhook URL from env
+        apiKey: process.env.NEXT_PUBLIC_CHAT_API_KEY, // Optional API key
+        botName: 'GeneRuss AI',
+        chatTitle: 'Need help or have questions?',
+        botAvatarUrl: 'https://avatars.githubusercontent.com/u/65046069?v=4',
+        theme: {
+          primary: '#00FFBD',
+          textOnPrimary: '#000',
+          userMessage: {
+            background: '#444',
+            text: '#fff',
+          },
+          botMessage: {
+            background: '#222',
+            text: '#fff',
+          },
+        },
+        showInitialMessage: true,
+        initialMessages: [
+          'Hi there! 👋 I\'m GeneRuss AI, how can I help you today?',
+          webhookUrl 
+            ? 'I\'m connected to the n8n chatbot service and ready to assist you!'
+            : 'I\'m currently in demo mode. To get real responses, please configure a webhook URL.'
+        ],
+        buttonPosition: 'bottom-right',
+        keepSessionBetweenPages: true,
+      });
+      
+      // Store the cleanup function for later use
+      if (cleanupFn && typeof cleanupFn === 'function') {
+        cleanupFnRef.current = cleanupFn;
       }
-    };
+      
+      chatInitializedRef.current = true;
+      console.log('✅ Chat widget successfully connected to n8n webhook');
+    } catch (error) {
+      console.error('❌ Error initializing chat:', error);
+    }
+  };
+
+  const handleScriptLoad = () => {
+    console.log('✅ Custom chat script loaded successfully');
+    scriptLoadedRef.current = true;
     
-    // Add the script to the document
-    document.body.appendChild(script);
+    // Small delay to ensure the script is fully loaded
+    setTimeout(() => {
+      initializeChat();
+    }, 500);
+  };
+
+  const handleScriptError = (e: Error) => {
+    console.error('❌ Failed to load custom chat script:', e);
+  };
+
+  // Listen for webhook URL changes from environment variables
+  useEffect(() => {
+    // Check if the webhook URL from env is different from what we have
+    const envWebhookUrl = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || '';
+    if (envWebhookUrl !== webhookUrl) {
+      setWebhookUrl(envWebhookUrl);
+    }
+  }, [webhookUrl]);
+
+  // Re-initialize chat if webhook URL changes
+  useEffect(() => {
+    if (scriptLoadedRef.current) {
+      cleanupChat();
+      initializeChat();
+    }
+  }, [webhookUrl]);
+
+  useEffect(() => {
+    // Initialize if script already loaded
+    if (scriptLoadedRef.current) {
+      initializeChat();
+    }
     
-    // Clean up on component unmount
+    // Cleanup when component unmounts
     return () => {
-      if (window.__n8nChatObserver) {
-        window.__n8nChatObserver.disconnect();
-        window.__n8nChatObserver = null;
-      }
-      cleanup();
+      cleanupChat();
     };
   }, []);
-  
-  return null;
+
+  return (
+    <>
+      <Script
+        id="custom-chat-script"
+        src="/assets/chat.js"
+        strategy="afterInteractive"
+        onLoad={handleScriptLoad}
+        onError={handleScriptError}
+      />
+    </>
+  );
 } 
