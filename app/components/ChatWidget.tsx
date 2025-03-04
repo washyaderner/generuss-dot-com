@@ -37,7 +37,8 @@ interface ChatConfig {
 }
 
 // Default webhook URL - replace with your actual endpoint
-const DEFAULT_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || '';
+// Using the same n8n webhook URL from the CDN version
+const DEFAULT_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat';
 
 export default function ChatWidget() {
   const chatInitializedRef = useRef(false);
@@ -99,26 +100,26 @@ export default function ChatWidget() {
     try {
       // Initialize chat with configuration
       const cleanupFn = window.createChat({
-        webhookUrl: webhookUrl, // Using the n8n webhook URL from env
+        webhookUrl: webhookUrl, // Using the n8n webhook URL from env or default
         apiKey: process.env.NEXT_PUBLIC_CHAT_API_KEY, // Optional API key
         botName: 'GeneRuss AI',
-        chatTitle: 'Need help or have questions?',
-        botAvatarUrl: 'https://avatars.githubusercontent.com/u/65046069?v=4',
+        chatTitle: '🧠 Generuss Support',
+        botAvatarUrl: '/images/chat-bot-avatar.svg', // Use the same avatar from n8n version
         theme: {
-          primary: '#00FFBD',
+          primary: '#14B8A6', // Teal color to match the n8n version
           textOnPrimary: '#000',
           userMessage: {
-            background: '#444',
+            background: 'rgba(20, 184, 166, 0.2)',
             text: '#fff',
           },
           botMessage: {
-            background: '#222',
+            background: 'rgba(26, 32, 44, 0.7)',
             text: '#fff',
           },
         },
         showInitialMessage: true,
         initialMessages: [
-          'Hi there! 👋 I\'m GeneRuss AI, how can I help you today?',
+          'Hey, Russ here. Let me know if you have any questions.',
           webhookUrl 
             ? 'I\'m connected to the n8n chatbot service and ready to assist you!'
             : 'I\'m currently in demo mode. To get real responses, please configure a webhook URL.'
@@ -156,7 +157,7 @@ export default function ChatWidget() {
   // Listen for webhook URL changes from environment variables
   useEffect(() => {
     // Check if the webhook URL from env is different from what we have
-    const envWebhookUrl = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || '';
+    const envWebhookUrl = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || DEFAULT_WEBHOOK_URL;
     if (envWebhookUrl !== webhookUrl) {
       setWebhookUrl(envWebhookUrl);
     }
