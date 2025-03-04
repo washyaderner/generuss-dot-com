@@ -160,7 +160,44 @@ export default function ChatWidget() {
           import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
           createChat({
-            webhookUrl: 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat'
+            webhookUrl: 'https://washyaderner.app.n8n.cloud/webhook/a0990d27-a439-4c02-9e49-689034981a5b/chat',
+            
+            // Bot customization
+            botName: 'Generuss Assistant',
+            
+            // Initial message displayed when chat is first opened
+            initialMessage: 'Hey, Russ here. Let me know if you have any questions.',
+            
+            // UI customizations
+            chatWindowTitle: 'Generuss Chat',
+            chatBubbleText: 'Chat with us',
+            
+            // Avatar image URL - using custom teal robot/human icon that matches site style
+            botAvatarUrl: '/images/chat-bot-avatar.svg',
+            
+            // Chat behavior settings
+            enableFileUploads: false,
+            enableAttachments: false, 
+            messageDelay: 800,
+            
+            // User identification (optional - if you want to track specific users)
+            // userId: 'unique-user-id', // You can set this dynamically if you have user info
+            
+            // Save chat history in local storage - allows conversations to persist
+            // even when the chat is collapsed
+            saveHistory: true,
+            
+            // Translations - customize button and UI text
+            translations: {
+              en: {
+                bubbleButtonText: 'Chat with us',
+                chatHeader: '🧠 Generuss Support',
+                inputPlaceholder: 'Type your message...',
+                startNewChat: 'Start new chat',
+                sendButtonText: 'Send',
+                uploadFile: 'Upload file'
+              }
+            }
           });
           
           // Initialize our custom properties
