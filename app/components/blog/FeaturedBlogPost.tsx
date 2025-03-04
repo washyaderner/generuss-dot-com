@@ -45,7 +45,7 @@ export default function FeaturedBlogPost({ post }: FeaturedBlogPostProps) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-4xl mx-auto">
       {/* Structured data for SEO */}
       <script
         type="application/ld+json"
@@ -56,42 +56,43 @@ export default function FeaturedBlogPost({ post }: FeaturedBlogPostProps) {
         {/* Gradient hover effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
         
-        <div className="flex flex-col md:flex-row">
-          {/* Image section */}
+        <div className="flex flex-col">
+          {/* Image section - taller now */}
           {post.headerImage && (
-            <div className="md:w-1/2 relative h-64 md:h-auto overflow-hidden">
+            <div className="relative h-96 overflow-hidden">
               <Image
                 src={post.headerImage.url}
                 alt={post.headerImage.description || post.title}
                 fill
                 className="object-cover transform group-hover:scale-105 transition-transform duration-500"
                 priority
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 900px"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent opacity-0 md:opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+              
+              {/* Overlay title on image */}
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="flex items-center space-x-2 mb-3">
+                  <span className="px-3 py-1 bg-teal-500/30 text-teal-300 text-xs rounded-full backdrop-blur-sm">Latest Post</span>
+                  <time dateTime={post.sys.createdAt} className="text-gray-200 text-sm backdrop-blur-sm bg-black/20 px-2 py-1 rounded">{formattedDate}</time>
+                </div>
+                
+                <h2 className="text-3xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors drop-shadow-lg">
+                  {post.title}
+                </h2>
+              </div>
             </div>
           )}
           
           {/* Content section */}
-          <div className="p-6 md:w-1/2 relative z-10 flex flex-col h-full justify-between">
-            <div>
-              <div className="flex items-center space-x-2 mb-3">
-                <span className="px-3 py-1 bg-teal-500/20 text-teal-400 text-xs rounded-full">Latest Post</span>
-                <time dateTime={post.sys.createdAt} className="text-gray-400 text-sm">{formattedDate}</time>
-              </div>
-              
-              <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">
-                {post.title}
-              </h2>
-              
-              <p className="text-gray-300 mb-6 line-clamp-3">
-                {post.summary}
-              </p>
-            </div>
+          <div className="p-8 relative z-10 flex flex-col">
+            <p className="text-gray-300 mb-8 text-lg">
+              {post.summary}
+            </p>
             
             <Link 
               href={`/blog/${post.slug}`}
-              className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
+              className="self-end inline-flex items-center px-4 py-2 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 rounded-lg transition-all"
               aria-label={`Read full article: ${post.title}`}
             >
               <span>Read full article</span>
