@@ -5,6 +5,7 @@ import Link from "next/link"
 import "./globals.css"
 import type React from "react"
 import { Toaster } from "sonner"
+import ChatWidget from "@/app/components/ChatWidget"
 
 export const metadata = {
   title: "GeneRuss",
@@ -41,6 +42,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://chat-widget.n8n.io https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self' https://*.n8n.cloud https://chat-widget.n8n.io;"
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -199,6 +204,9 @@ export default function RootLayout({
                 </div>
               </div>
             </footer>
+            
+            {/* AI Chat Widget */}
+            <ChatWidget />
           </div>
         </div>
       </body>

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "description": "Personal website and portfolio built with modern web technologies",
-  
   "engines": {
     "node": ">=18.17.0",
     "npm": ">=9.6.0"
@@ -19,6 +18,7 @@
     "@contentful/rich-text-react-renderer": "^16.0.1",
     "@contentful/rich-text-types": "^17.0.0",
     "@hookform/resolvers": "^3.9.1",
+    "@n8n/chat": "^0.27.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
