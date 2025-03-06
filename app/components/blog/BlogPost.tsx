@@ -23,7 +23,7 @@ export default function BlogPost({ post }: BlogPostProps) {
     if (post.content) {
       console.log('Using Markdown content');
       return (
-        <div className="prose prose-lg prose-invert w-full !max-w-full prose-p:text-gray-200 prose-p:leading-relaxed prose-p:text-justify prose-headings:text-teal-400 prose-strong:text-teal-400 prose-em:text-gray-300 prose-code:bg-gray-900 prose-code:text-gray-200 prose-blockquote:border-teal-500 prose-blockquote:text-gray-300 prose-a:text-teal-400 prose-li:text-gray-200 prose-li:leading-relaxed prose-pre:bg-gray-900 prose-pre:rounded-lg">
+        <div className="prose prose-lg prose-invert w-full !max-w-full prose-p:text-gray-200 prose-p:leading-relaxed prose-p:text-justify prose-headings:text-gray-200 prose-strong:text-gray-200 prose-em:text-gray-300 prose-code:bg-gray-900 prose-code:text-gray-200 prose-blockquote:border-gray-500 prose-blockquote:text-gray-300 prose-a:text-teal-400 prose-li:text-gray-200 prose-li:leading-relaxed prose-pre:bg-gray-900 prose-pre:rounded-lg">
           <MarkdownToJSX>
             {post.content}
           </MarkdownToJSX>
@@ -58,11 +58,11 @@ export default function BlogPost({ post }: BlogPostProps) {
   return (
     <div className="container mx-auto pb-12">
       <div className="px-4 md:px-6 lg:px-8">
-        <Link href="/blog" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-200 inline-block mb-8">
+        <Link href="/blog" className="text-teal-400 hover:text-teal-300 inline-block mb-8">
           ← Back to all articles
         </Link>
         
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-teal-400">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-200">
           {post.title}
         </h1>
         
