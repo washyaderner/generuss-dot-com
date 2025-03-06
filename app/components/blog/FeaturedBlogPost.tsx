@@ -77,7 +77,7 @@ export default function FeaturedBlogPost({ post }: FeaturedBlogPostProps) {
                   <time dateTime={post.sys.createdAt} className="text-gray-200 text-sm backdrop-blur-sm bg-black/20 px-2 py-1 rounded">{formattedDate}</time>
                 </div>
                 
-                <h2 className="text-3xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors drop-shadow-lg">
+                <h2 className="text-3xl font-bold text-white mb-2 group-hover:text-white transition-colors drop-shadow-lg">
                   {post.title}
                 </h2>
               </div>

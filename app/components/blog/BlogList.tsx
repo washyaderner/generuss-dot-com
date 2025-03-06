@@ -34,7 +34,7 @@ export default function BlogList({ posts }: BlogListProps) {
               </div>
             )}
             
-            <h2 className="text-xl font-semibold mb-2 text-white group-hover:text-teal-400 transition-colors">
+            <h2 className="text-xl font-semibold mb-2 text-white group-hover:text-white transition-colors">
               {post.title}
             </h2>
             
