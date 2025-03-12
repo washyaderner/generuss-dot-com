@@ -84,6 +84,34 @@ const achievements = [
 
 const projects = [
   {
+    id: "ai-agent-chatbot",
+    title: "Website AI Chat Agents",
+    category: "Conversational AI",
+    description: "Everybody is excited about website AI chatbots, because they can automatically answer customer questions about your business and schedule appointments. They are really fun to play around with, and they are all the hype in 2025. The image above is from an actual agent chatbot I created—so yes, it could be customized for your site. However, before you decide to dive into that rabbit hole, scroll down and read the next card about the Superior Alternative to Chat Agents. That approach is a lot more accurate, and yields much higher conversion rates and customer satisfaction.",
+    impact: [
+      "New and exciting AI tech",
+      "Highly customizable",
+      "Familiar chat box interface",
+      "Trending solution in 2025"
+    ],
+    technologies: ["n8n", "OpenAI", "Claude", "Next.js", "Google Calendar API"],
+    icon: Bot
+  },
+  {
+    id: "agent-alternative",
+    title: "Superior Alternative to Chat Agents",
+    category: "Reliable AI Solution",
+    description: "Now let's talk about a more effective approach. This may not be as pretty or flashy as an AI chatbot agent, but it's 100x more effective. The structured webhook flow replaces unreliable AI agents with a precise, procedural automation pipeline. A webhook captures the initial input, an AI node processes only specific structured data (e.g., date conversion), and a final action node executes the task, such as creating a calendar event.\n\nThis approach eliminates ambiguity, ensuring near-total reliability, faster execution, and seamless debugging. Unlike AI agents, which introduce unpredictable behavior and failure rates of up to 5%, this method delivers deterministic results, making it the superior choice for mission-critical business automation. This example is just scratching the surface of ways you can leverage AI automation to help you maximize customer satisfaction.",
+    impact: [
+      "Easily customizable to any business process",
+      "90%+ higher accuracy and consistency",
+      "More reliable customer service",
+      "Eliminates risks of AI misinterpretations"
+    ],
+    technologies: ["n8n", "OpenAI", "Claude", "Next.js", "Google Calendar API"],
+    icon: Bot
+  },
+  {
     id: "hold-my-brain",
     title: "Hold My Brain",
     category: "AI-Powered Knowledge Management",
@@ -216,89 +244,197 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* Portfolio Grid */}
-        <section className="py-24 px-4">
+        {/* Featured AI Agent Card */}
+        <section className="pb-16 px-4">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 gap-8 max-w-5xl mx-auto">
-              {projects.map((project, index) => (
-                <div
-                  id={project.id}
-                  key={index}
-                  className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01]"
-                >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
-                  <div className="relative">
-                    <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                      <div className="p-3 rounded-lg bg-teal-500/20">
-                        <project.icon className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
-                      </div>
-                      <div className="flex-1 sm:max-w-[50%]">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2 sm:flex-wrap">
-                          <h3 className="text-xl sm:text-2xl font-semibold text-white">{project.title}</h3>
-                          <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
-                            {project.category}
-                          </span>
-                        </div>
-                        <p className="text-gray-300 text-base sm:text-lg mb-4 sm:mb-6">{project.description}</p>
-                        
-                        <div className="space-y-6">
-                          <div>
-                            <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
-                            <ul className="space-y-2">
-                              {project.impact.map((item, idx) => (
-                                <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
-                                  <span className="flex-1">{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          
-                          <div>
-                            <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {project.technologies.map((tech, idx) => (
-                                <span
-                                  key={idx}
-                                  className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-4 sm:mt-6">
-                          <Link
-                            href={project.title === "Hold My Brain" 
-                              ? "https://www.youtube.com/watch?v=6g3V9_IeiTo&list=PLJrVRkPIkRpnBuLdL0sxEyoZmJz-thK-a" 
-                              : project.title === "Excel Performance Dashboard"
-                              ? "https://www.upwork.com/freelancers/~0187db78cb531330b6?p=1895029018557018112"
-                              : "#"}
-                            className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
-                            target={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "_blank" : undefined}
-                            rel={(project.title === "Hold My Brain" || project.title === "Excel Performance Dashboard") ? "noopener noreferrer" : undefined}
-                          >
-                            View case study
-                            <svg
-                              className="w-4 h-4 ml-2"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="hidden sm:block sm:flex-1"></div>
+            <div className="max-w-5xl mx-auto">
+              <div
+                id={projects[0].id}
+                className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-12"
+              >
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
+                <div className="relative">
+                  {/* Image Section - Now at the top */}
+                  <div className="w-full mb-6 rounded-lg overflow-hidden">
+                    <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
+                      <Image
+                        src="/images/AI-Agent-Chat-Bot.png"
+                        alt="AI Agent Chatbot"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
                     </div>
                   </div>
+                  
+                  {/* Header with icon, title and category */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-teal-500/20 shrink-0">
+                      <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
+                    </div>
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-white">{projects[0].title}</h3>
+                        <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
+                          {projects[0].category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Description */}
+                  <div className="mb-6">
+                    <p className="text-gray-300 text-base sm:text-lg">
+                      {projects[0].description}
+                    </p>
+                  </div>
+                  
+                  {/* Two column layout for Impact and Tech */}
+                  <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
+                      <ul className="space-y-2">
+                        {projects[0].impact.map((item, idx) => (
+                          <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
+                            <span className="flex-1">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[0].technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* View demonstration link */}
+                  <div className="flex justify-end">
+                    <Link
+                      href="#"
+                      className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                    >
+                      View demonstration
+                      <svg
+                        className="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
-              ))}
+              </div>
+              
+              {/* Second project card - Superior Alternative */}
+              <div
+                id={projects[1].id}
+                className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mt-16"
+              >
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
+                <div className="relative">
+                  {/* Image Section - Now at the top */}
+                  <div className="w-full mb-6 rounded-lg overflow-hidden">
+                    <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
+                      <Image
+                        src="/images/Agent-Alternative-Website-Chat.png"
+                        alt="Superior Alternative to Chat Agents"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Header with icon, title and category */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-teal-500/20 shrink-0">
+                      <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
+                    </div>
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-white">{projects[1].title}</h3>
+                        <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
+                          {projects[1].category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Description */}
+                  <div className="mb-6">
+                    <p className="text-gray-300 text-base sm:text-lg">
+                      Now let's talk about a more effective approach. This may not be as pretty or flashy as an AI chatbot agent, but it's 100x more effective. The structured webhook flow replaces unreliable AI agents with a precise, procedural automation pipeline. A webhook captures the initial input, an AI node processes only specific structured data (e.g., date conversion), and a final action node executes the task, such as creating a calendar event.
+                    </p>
+                    <p className="text-gray-300 text-base sm:text-lg mt-4">
+                      This approach eliminates ambiguity, ensuring near-total reliability, faster execution, and seamless debugging. Unlike AI agents, which introduce unpredictable behavior and failure rates of up to 5%, this method delivers deterministic results, making it the superior choice for mission-critical business automation. This example is just scratching the surface of ways you can leverage AI automation to help you maximize customer satisfaction.
+                    </p>
+                  </div>
+                  
+                  {/* Two column layout for Impact and Tech */}
+                  <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
+                      <ul className="space-y-2">
+                        {projects[1].impact.map((item, idx) => (
+                          <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
+                            <span className="flex-1">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[1].technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* View demonstration link */}
+                  <div className="flex justify-end">
+                    <Link
+                      href="#"
+                      className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                    >
+                      View demonstration
+                      <svg
+                        className="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
