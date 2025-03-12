@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { TableProperties, Rocket, Bot, Code } from "lucide-react"
+import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -50,22 +50,22 @@ const navigationLinks = [
 
 const solutions = [
   {
-    icon: TableProperties,
-    title: "Excel & AI Automation",
+    icon: Bot,
+    title: "Business & Content Automation",
     description:
-      "Excel mastery meets AI innovation—turning complex tasks into effortless automation for faster, smarter, and more profitable results.",
+      "Workflows, sales, and content—automated. Scale faster with AI-driven business & content automation that eliminates inefficiencies and drives results.",
   },
   {
     icon: Rocket,
     title: "Sales Strategy & Systems",
     description:
-      "Sales isn't a numbers game—it's a strategy game. I build smarter training, automation, and scripts that help teams close faster, sell more, and work less.",
+      "Sales isn't a just numbers game—it's a strategy game. I build smarter training, optimized workflows, and targeted scripts that help teams close faster, sell more, and work smarter.",
   },
   {
-    icon: Bot,
-    title: "Business & Content Automation",
+    icon: UserPlus,
+    title: "Personalized Lead Generation",
     description:
-      "Workflows, sales, and content—automated. Scale faster with AI-driven business & content automation that eliminates inefficiencies and drives results.",
+      "Targeted, AI-powered, data-driven lead campaigns with precise personalization workflows, driving higher conversions and stronger long-term customer relationships.",
   },
   {
     icon: Code,
@@ -132,14 +132,18 @@ export default async function Home() {
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
-                ⚡{" "}
-                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Build Fast & Touch Grass
-                </span>
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
+                    <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
+                  </div>
+                  <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+                    Scale Fast, Touch Grass
+                  </span>
+                </div>
               </h1>
             </div>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
-              Merging sales strategy and psychology with highly effective tools
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl">
+              Using automation to reduce bottlenecks and maximize profitability
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
