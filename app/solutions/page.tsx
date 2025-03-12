@@ -1,26 +1,26 @@
 import Link from "next/link"
-import { TableProperties, Rocket, Bot, Code } from "lucide-react"
+import { Rocket, Bot, Code, UserPlus, Music } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 
 const solutions = [
   {
-    id: "excel-optimization",
-    icon: TableProperties,
-    title: "Excel & AI Automation",
+    id: "business-automation",
+    icon: Bot,
+    title: "Business & Content Automation",
     description: [
-      "For over 20 years, I've been building robust automation systems in Excel. Today, I leverage AI to supercharge my problem-solving, creating high-efficiency tools that cut wasted time, optimize workflows, and drive better results. My approach blends deep Excel expertise with cutting-edge AI, ensuring that businesses get faster, smarter, and more scalable solutions.",
+      "Automation isn't just about saving time—it's about removing bottlenecks, increasing efficiency, and amplifying results. I design custom automation systems that optimize sales workflows, streamline operations, and enhance content production, allowing businesses to focus on growth instead of manual tasks.",
       
-      "Most of my clients choose to work with me because of my ability to simplify complex problems, my relentless focus on efficiency, and my attention to detail. Whether it's streamlining multi-sheet calculations, enhancing sales performance, or automating repetitive tasks, I design solutions that make an impact where it matters most."
+      "By integrating n8n, Apify, Loom, GPT-4o, Claude, Perplexity, Google Sheets, and PandaDoc, I build solutions that handle data processing, lead management, content generation, and sales enablement—all without the repetitive work. Whether you're looking to automate deal flow, create high-quality social content at scale, or build smarter sales systems, I deliver custom-tailored automation that drives measurable results."
     ],
     features: [
-      "Custom Excel formulas and macros",
-      "AI-powered data analysis",
-      "Automated reporting systems",
-      "Process optimization workflows",
-      "Multi-sheet calculations",
-      "Performance tracking tools"
+      "Workflow automation",
+      "Content generation systems",
+      "Business process optimization",
+      "Integration solutions",
+      "Data processing pipelines",
+      "Lead management automation"
     ],
-    portfolioLink: "/portfolio#excel-dashboard"
+    portfolioLink: "/portfolio#content-generation"
   },
   {
     id: "sales-strategy",
@@ -42,6 +42,25 @@ const solutions = [
     portfolioLink: "/portfolio#sales-acceleration"
   },
   {
+    id: "lead-generation",
+    icon: UserPlus,
+    title: "Personalized Lead Generation",
+    description: [
+      "I combine powerful lead scraping tools with AI-powered automation systems to create highly personalized cold email campaigns that deliver exceptional results. By gathering and analyzing prospect data intelligently, I'm able to create outreach that feels individually crafted, even at scale.",
+      
+      "This approach generates extremely high conversion rates while requiring minimal ongoing effort. The systems I build continue working in the background, identifying ideal prospects, personalizing communication, and maximizing response rates—all while you focus on closing deals rather than hunting for them."
+    ],
+    features: [
+      "Multi-platform lead scraping and enrichment",
+      "AI-powered personalization engines",
+      "Automated outreach sequences",
+      "Response pattern analysis",
+      "A/B testing frameworks",
+      "Conversion optimization strategies"
+    ],
+    portfolioLink: "/portfolio#lead-generation"
+  },
+  {
     id: "app-web-dev",
     icon: Code,
     title: "AI-Powered App & Web Development",
@@ -61,23 +80,23 @@ const solutions = [
     portfolioLink: "/portfolio#hold-my-brain"
   },
   {
-    id: "business-automation",
-    icon: Bot,
-    title: "Business & Content Automation",
+    id: "music-production",
+    icon: Music,
+    title: "Music Production",
     description: [
-      "Automation isn't just about saving time—it's about removing bottlenecks, increasing efficiency, and amplifying results. I design custom automation systems that optimize sales workflows, streamline operations, and enhance content production, allowing businesses to focus on growth instead of manual tasks.",
+      "With over a decade of experience in music production, I bring a unique blend of technical expertise and creative vision to every project. From composition and arrangement to mixing and mastering, I create professional-quality tracks that resonate with listeners while maintaining the artist's authentic sound and vision.",
       
-      "By integrating n8n, Apify, Loom, GPT-4o, Claude, Perplexity, Google Sheets, and PandaDoc, I build solutions that handle data processing, lead management, content generation, and sales enablement—all without the repetitive work. Whether you're looking to automate deal flow, create high-quality social content at scale, or build smarter sales systems, I deliver custom-tailored automation that drives measurable results."
+      "My approach combines traditional production techniques with cutting-edge tools and AI assistance for tasks like stem separation, intelligent mastering, and audio restoration. Whether you're looking to produce a single track, score for media, or develop a comprehensive sonic identity for your brand, I deliver premium audio that stands out in today's crowded soundscape."
     ],
     features: [
-      "Workflow automation",
-      "Content generation systems",
-      "Business process optimization",
-      "Integration solutions",
-      "Data processing pipelines",
-      "Lead management automation"
+      "Full-service music production",
+      "Composition and arrangement",
+      "Professional mixing and mastering",
+      "Sound design and audio branding",
+      "AI-assisted audio processing",
+      "Commercial-ready deliverables"
     ],
-    portfolioLink: "/portfolio#content-generation"
+    portfolioLink: "/portfolio#music-production"
   }
 ]
 
