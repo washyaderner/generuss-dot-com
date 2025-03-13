@@ -24,22 +24,34 @@ const nextConfig = {
    * Images Configuration
    * Controls how Next.js handles and optimizes images.
    * 
-   * ⚠️ CAUTION: The 'domains' array has caused merge conflicts.
-   * When adding new domains, always:
-   * 1. Check if the domain already exists in the array
+   * ⚠️ CAUTION: The image configuration has caused merge conflicts.
+   * When adding new patterns, always:
+   * 1. Check if the pattern already exists
    * 2. Add comments explaining what each domain is used for
    * 3. Make sure to merge with the latest changes from dev branch
    * 
-   * Current domains:
+   * Current remote patterns:
    * - img.youtube.com: For YouTube thumbnail images
    * - i.ytimg.com: For YouTube video thumbnails and previews
    * - images.ctfassets.net: For Contentful CMS images
    */
   images: {
-    domains: [
-      'img.youtube.com',     // YouTube thumbnail images
-      'i.ytimg.com',         // YouTube video thumbnails and previews
-      'images.ctfassets.net' // Contentful CMS images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '**',
+      },
     ],
   },
 
