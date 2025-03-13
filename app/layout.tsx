@@ -36,6 +36,9 @@ const navigationLinks = [
   { href: "/contact", label: "Contact" },
 ]
 
+// Generate timestamp once for all resources to ensure consistent caching
+const cacheBuster = `?v=${Date.now()}`
+
 export default function RootLayout({
   children,
 }: {
@@ -48,11 +51,12 @@ export default function RootLayout({
           httpEquiv="Content-Security-Policy"
           content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://chat-widget.n8n.io https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self' https://*.n8n.cloud https://chat-widget.n8n.io;"
         />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* Add cache busting parameter to favicon resources */}
+        <link rel="icon" href={`/favicon.ico${cacheBuster}`} />
+        <link rel="icon" href={`/favicon-96x96.png${cacheBuster}`} sizes="96x96" type="image/png" />
+        <link rel="icon" href={`/favicon.svg${cacheBuster}`} type="image/svg+xml" />
+        <link rel="apple-touch-icon" href={`/apple-touch-icon.png${cacheBuster}`} />
+        <link rel="manifest" href={`/site.webmanifest${cacheBuster}`} />
       </head>
       <body>
         <Toaster richColors position="top-right" />
