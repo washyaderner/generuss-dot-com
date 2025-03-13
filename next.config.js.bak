@@ -4,11 +4,6 @@
  * IMPORTANT: This configuration file is critical for the application.
  * Changes to this file can affect build processes, deployment, and functionality.
  * 
- * ⚠️ DEVELOPMENT ENVIRONMENT NOTE:
- * If you experience issues with the dev server constantly restarting due to
- * detected changes in this file, create a .env.local file with:
- * NEXT_SKIP_WATCHING_CONFIG=true
- * 
  * MERGE CONFLICTS: This file has previously caused merge conflicts between branches.
  * Always check with the team before modifying shared configuration sections.
  */

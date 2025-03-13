@@ -49,9 +49,11 @@ Personal website and portfolio built with modern web technologies.
 generuss-dot-com/
 ├── app/                # Next.js app directory
 ├── components/         # Reusable UI components
+├── docs/              # Documentation
 ├── hooks/             # Custom React hooks
 ├── lib/               # Utility functions and configurations
 ├── public/            # Static assets
+├── scripts/           # Development utilities
 └── styles/            # Global styles and Tailwind config
 ```
 
@@ -60,6 +62,23 @@ generuss-dot-com/
 - Run `npm run dev` to start the development server
 - Run `npm run build` to create a production build
 - Run `npm run start` to start the production server
+
+### Development Utilities
+
+We provide several utility scripts to help with common development tasks:
+
+- `scripts/fix-environment.sh` - Fix common development environment issues
+- `scripts/restart-dev.sh` - Restart the development server with a clean environment
+- `scripts/clean-ports.sh` - Kill processes on ports 3000 and 3001
+- `scripts/create-favicon-files.sh` - Create placeholder favicon files if missing
+
+If you encounter issues with the development server, try running:
+
+```bash
+./scripts/fix-environment.sh
+```
+
+For more information on common issues and solutions, check the [Common Issues Documentation](docs/COMMON_ISSUES.md).
 
 ## Deployment
 
@@ -71,6 +90,15 @@ This site is deployed on Vercel and uses Cloudflare for DNS management.
 2. Commit your changes (`git commit -m '[Cursor] Add some amazing feature'`)
 3. Push to the branch (`git push origin feature/amazing-feature`)
 4. Open a Pull Request
+
+## Troubleshooting
+
+If you encounter any issues while running the project:
+
+1. Check the [Common Issues Documentation](docs/COMMON_ISSUES.md)
+2. Try running the fix script: `./scripts/fix-environment.sh`
+3. Clear caches: `rm -rf .next` and clear browser cache
+4. Make sure you have the latest changes from the repository
 
 ## License
 
