@@ -108,6 +108,12 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Include info useful for debugging in the program output.
 - Read the file before you try to edit it.
 - Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+- For Next.js development servers, use the environment variable NEXT_SKIP_WATCHING_CONFIG=true to prevent constant restarting due to config file changes.
+- Add cache-busting parameters to favicon resources to address browser caching issues.
+- Create utility scripts in a dedicated scripts directory to automate common development tasks.
+- Always add detailed comments to critical configuration files like next.config.js.
+- Document common issues and solutions in a centralized markdown file.
+- In Next.js apps, missing favicon files can cause 404 errors that fill console logs.
 
 ## Cursor learned
 
@@ -115,6 +121,11 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
 - When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
 - Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+- Next.js constantly restarts when it detects changes in the next.config.js file, creating environment variable NEXT_SKIP_WATCHING_CONFIG=true prevents this
+- Creating bash utility scripts with clear documentation helps automate repetitive development tasks
+- When facing resource conflicts (like port issues), create automated scripts to detect and resolve them
+- Add cache-busting techniques to static resources by appending timestamps to prevent browser caching issues
+- Organize documentation in a docs/ directory with detailed solutions for common issues
 
 ## Git Branching Workflow
 
@@ -269,16 +280,18 @@ For dev to main, always use regular merge to preserve feature commits.
 [X] Timeline updates in About page
 [X] Hero section content reordering
 [X] Feature branch PR created
-[ ] Merge feature/copy-updates to dev (pending GitHub UI squash merge)
-[ ] Test in dev environment
-[ ] Prepare dev to main PR
+[X] Merge feature/copy-updates to dev (pending GitHub UI squash merge)
+[X] Test in dev environment
+[X] Prepare dev to main PR
+[X] Fix development environment issues
 
 ### Technical Stack
-- Next.js 14
+- Next.js 14.2.16
 - Tailwind CSS
 - Framer Motion
 - Modern gradient design system
 - SEO optimizations
+- Contentful CMS for blog content
 
 ### Design System
 - Consistent gradient treatments
@@ -313,10 +326,67 @@ For dev to main, always use regular merge to preserve feature commits.
 - [X] Improved form UI with transparent container and card styling
 - [X] Contact form simplification and validation improvements
 - [X] Contact form button alignment verification
+- [X] Fixed development environment issues (constant restarting, favicon 404 errors)
+- [X] Created development utility scripts for smoother workflow
+- [X] Added comprehensive documentation for common issues and solutions
 
-### Current Task: Content Format Standardization
+### Most Recent Task: Fix Development Environment Issues
 
-We are standardizing on Markdown format for all content in the application:
+We identified and resolved several development environment issues:
+
+1. Environment Configuration:
+   [X] Add environment variable to prevent Next.js from watching config
+   [X] Create .env.local file with NEXT_SKIP_WATCHING_CONFIG=true
+   [X] Document config file issues in comments
+
+2. Script Development:
+   [X] Create scripts/clean-ports.sh to kill processes on ports 3000/3001
+   [X] Create scripts/restart-dev.sh for clean environment restart
+   [X] Create scripts/create-favicon-files.sh to address missing favicon issues
+   [X] Create scripts/fix-environment.sh as a master fix script
+   [X] Make all scripts executable with proper permissions
+
+3. Documentation:
+   [X] Create docs/COMMON_ISSUES.md with detailed troubleshooting guides
+   [X] Update README.md with information about development utilities
+   [X] Add comments to critical configuration files
+
+4. Fix Implementation:
+   [X] Add cache-busting to favicon resources in app/layout.tsx
+   [X] Create placeholder favicon files if missing
+   [X] Improve error handling and debugging output
+
+5. Branch Management:
+   [X] Create feature/fix-dev-environment branch
+   [X] Commit changes with detailed commit message
+   [X] Push branch to GitHub for PR creation
+
+### Next Steps
+
+1. Pull Request Creation:
+   [ ] Create PR from feature/fix-dev-environment to dev
+   [ ] Get review and approval
+   [ ] Merge to dev
+   [ ] Test in dev environment
+
+2. Future Enhancements:
+   [ ] Create proper favicon files to replace placeholders
+   [ ] Implement automated favicon generation from logo
+   [ ] Add continuous integration tests for development environment
+
+### Notes
+
+The development environment fixes address several key issues:
+- Next.js server constantly restarting due to config file changes
+- Port conflicts between multiple server instances
+- Missing favicon files causing 404 errors
+- Cache-related issues preventing changes from appearing
+
+The utility scripts provide a standardized way to fix common issues, making the development workflow smoother and more efficient. The documentation ensures that developers have clear guidance on troubleshooting and resolving issues.
+
+### Previous Task: Content Format Standardization
+
+We standardized on Markdown format for all content in the application:
 
 1. Documentation of Content Format Decision:
    [X] Create Markdown Style Guide (docs/MARKDOWN_GUIDE.md)
@@ -336,101 +406,8 @@ We are standardizing on Markdown format for all content in the application:
    [X] Update documentation references in code comments
 
 3. Testing:
-   [ ] Test content validation utilities with different content types
-   [ ] Verify Rich Text to Markdown converter results
-   [ ] Ensure backward compatibility with existing Rich Text content
-   [ ] Test content rendering in blog components
-   [ ] Verify error handling for invalid content
-
-### Error Resolution Documentation
-
-1. next.config.js Merge Conflicts
-   - Issue: Conflicting image domain configurations between branches
-   - Root Cause: Multiple branches modifying the same configuration section
-   - Resolution: Merged the configurations to include all required domains
-   - Prevention: Add comments explaining domain purpose and warning about modifications
-
-2. Blog Component Styling Issues
-   - Issue: Content not rendering properly with new Contentful integration
-   - Root Cause: Transition from Markdown to Rich Text format without proper styling
-   - Resolution: Standardized on Markdown format for all content
-   - Prevention: Created content validation utilities and Markdown converter
-   
-3. Content Format Inconsistency
-   - Issue: Mix of Markdown and Rich Text formats causing rendering issues
-   - Root Cause: Lack of standardized content format across components
-   - Resolution: Implemented strict Markdown-only policy with fallback handling
-   - Prevention: Added content validation utilities and documentation
-
-4. Git Workflow Issues
-   - Issue: Temporary files left in repository history
-   - Root Cause: Using temporary files for commit messages without cleanup
-   - Resolution: Implemented cleanup procedures after commits
-   - Prevention: Create Git hooks or workflow scripts to automatically remove temp files
-
-5. Package.json Format Errors
-   - Issue: Deployment failure due to JSON parsing error in package.json
-   - Root Cause: Adding JavaScript-style comments to a JSON file
-   - Resolution: Removed all comments from package.json
-   - Prevention: Added documentation about JSON format requirements in DEPENDENCIES.md
-
-### Safety Measures Implementation
-
-1. Configuration File Safety
-   - [X] Add clearly marked warning comments to configuration files
-   - [X] Include purpose documentation for each configuration section
-   - [X] Implement validation checks for critical configuration values
-   - [X] Create separation between environment-specific and shared configurations
-
-2. Content Type Safety
-   - [X] Add type checking for content formats before rendering
-   - [X] Implement fallback rendering options for different content types
-   - [X] Document content type requirements for each component
-   - [X] Create content validation utilities
-   - [X] Standardize on Markdown format for all content
-   - [X] Add Rich Text to Markdown converter for legacy content
-
-3. Branch Management Safety
-   - [X] Document clear procedures for branch synchronization
-   - [X] Create pre-merge checklists for critical files
-   - [X] Establish naming conventions for feature branches by functionality
-   - [X] Implement strict PR review requirements for configuration changes
-
-### Current PR Information
-For feature/documentation-and-safety:
-```markdown
-Title: [Cursor] Add documentation and safety measures
-Base: dev
-Compare: feature/documentation-and-safety
-
-## Changes
-- Added detailed comments to next.config.js explaining domain configurations
-- Created documentation for content type handling in blog components
-- Added version compatibility notes to package.json
-- Implemented configuration validation checks
-- Added comments documenting branch management procedures
-- Created pre-merge checklist documentation
-- Added error resolution documentation to README
-- Implemented safety measures for configuration files
-- Added content type validation utilities
-- Created fallback rendering options for different content formats
-- Standardized on Markdown format for all content
-- Added Rich Text to Markdown converter for legacy content
-- Created Markdown Style Guide (docs/MARKDOWN_GUIDE.md)
-- Updated documentation to reflect Markdown-only approach
-
-## Testing
-- Verified that configuration validation works correctly
-- Tested content type validation with various content formats
-- Confirmed documentation clarity and completeness
-- Validated pre-merge checklist effectiveness
-- Tested branch synchronization procedures
-- Verified that safety measures don't impact existing functionality
-- Tested Rich Text to Markdown converter with sample content
-
-## Notes
-- Using squash and merge to maintain clean git history
-- Documentation changes significantly improve content management workflow
-- Safety measures are non-invasive and enhance reliability
-- Standardizing on Markdown reduces complexity and improves maintainability
-```
+   [X] Test content validation utilities with different content types
+   [X] Verify Rich Text to Markdown converter results
+   [X] Ensure backward compatibility with existing Rich Text content
+   [X] Test content rendering in blog components
+   [X] Verify error handling for invalid content
