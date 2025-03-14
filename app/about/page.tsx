@@ -29,26 +29,26 @@ const keyAchievements = [
   {
     icon: Timer,
     title: "Process Optimization",
-    description: "Reduced 3-day bonus tracking process to 3 hours for 40+ person sales team",
+    description: "Created an automated commission calculating system to cut completion time down from 3 days to 2-3hrs.",
     impact: "90% time savings"
   },
   {
     icon: Rocket,
-    title: "Sales Performance",
-    description: "Transformed $148 routine sale into $4,000 high-value commitment",
-    impact: "2,600% value increase"
+    title: "Maximizing Revenue",
+    description: "$8.2M Increase in annual revenue at a Real Estate marketing firm, using my upsell strategy & scripting",
+    impact: "Significant revenue growth"
   },
   {
-    icon: Users,
-    title: "Team Development",
-    description: "Coached underperforming rep to exceed 300% of quota in two weeks",
-    impact: "15x performance boost"
+    icon: Brain,
+    title: "AI Agent Development",
+    description: "Built an intelligent website AI agent that sets appointments and answers company questions for visitors",
+    impact: "24/7 customer engagement"
   },
   {
     icon: Bot,
-    title: "AI Integration",
-    description: "Developing Hold My Brain, an AI-powered knowledge management system",
-    impact: "80% faster information retrieval"
+    title: "Performance Optimization",
+    description: "Surpassed annual revenue target of $113,590 by achieving $146,278 through automation, streamlined call processes, and strategic upselling",
+    impact: "28.8% above goal"
   }
 ]
 
