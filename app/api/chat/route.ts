@@ -1,13 +1,67 @@
 import { NextResponse } from 'next/server'
+import OpenAI from 'openai'
 
-// Get the webhook URL from environment variables
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || ''
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+})
 
-// Sample responses for testing without a webhook
+// System prompt for the chat bot
+const SYSTEM_PROMPT = `You are Russ, the AI assistant for Generuss.com. You are a Spartan, witty, and direct communicator who keeps responses short and engaging.
+
+Business Context:
+- Generuss is an automation and web design company
+- Services include:
+  * Web Design & Development
+  * AI & Automation Solutions
+  * Custom Software Development
+  * Process Optimization
+  * Digital Transformation
+
+Core Values:
+- Innovation
+- Efficiency
+- Quality
+- Customer Success
+
+Key Information:
+- Based in the Pacific timezone
+- Focus on business automation and web solutions
+- Professional yet approachable tone
+- Direct and concise communication style
+
+Instructions:
+1. Keep responses short and conversational
+2. Use more formal language with casual phrases
+3. Guide users to book meetings when appropriate
+4. Collect necessary information for meetings:
+   - First name
+   - Email address
+   - Preferred date (in YYYY-MM-DD format)
+   - Preferred time (in HH:MM format, Pacific time)
+   - Meeting topic/details
+5. Confirm all details before finalizing
+6. Maintain a professional yet friendly tone
+7. Focus on business value and solutions
+8. Use Pacific timezone for scheduling
+9. Keep responses under 2-3 sentences when possible
+10. Use emojis sparingly and only when appropriate
+
+When scheduling a meeting:
+1. First ask for the person's name and email
+2. Then ask for their preferred date and time
+3. Finally, ask for the meeting topic
+4. Confirm all details before scheduling
+5. If any information is missing or incorrect, ask for clarification
+6. After scheduling, provide the meeting link and confirmation
+
+Remember: You are representing Generuss.com, a professional automation and web design company.`
+
+// Sample responses for testing without API key
 const mockResponses = [
   "I'm here to help with any questions about our services or solutions. What would you like to know?",
   "Thanks for reaching out! I'd be happy to help you with your inquiry.",
-  "That's a great question. Our AI-powered solutions can help streamline your sales operations.",
+  "That's a great question. Our AI-powered solutions can help streamline your operations.",
   "I can help explain how our services can benefit your specific business needs.",
   "We offer various solutions tailored to different industries. Could you tell me more about your business?",
   "Our team has extensive experience in implementing AI solutions across multiple sectors.",
@@ -24,9 +78,7 @@ const mockResponses = [
  */
 export async function POST(request: Request) {
   try {
-    // Parse the request body
-    const body = await request.json()
-    const { message, sessionId = `session_${Date.now()}`, messages = [] } = body
+    const { message, sessionId = `session_${Date.now()}`, messages = [] } = await request.json()
     
     if (!message) {
       return NextResponse.json(
@@ -38,9 +90,9 @@ export async function POST(request: Request) {
     // Log the received message for debugging
     console.log(`[Chat API] Received message: ${message} (sessionId: ${sessionId})`)
     
-    // If no webhook URL is configured, return a mock response
-    if (!N8N_WEBHOOK_URL) {
-      console.log('[Chat API] No webhook URL configured, returning mock response')
+    // If no OpenAI API key is configured, return a mock response
+    if (!process.env.OPENAI_API_KEY) {
+      console.log('[Chat API] No OpenAI API key configured, returning mock response')
       
       // Get a deterministic but seemingly random response based on the message
       const mockIndex = Math.abs(
@@ -56,117 +108,122 @@ export async function POST(request: Request) {
       })
     }
     
-    // Prepare the payload for n8n
-    const payload = {
-      message,
-      sessionId,
-      messages: messages, // Forward conversation history
-      timestamp: new Date().toISOString(),
-      source: 'website_chat'
-    }
-    
-    // Send the payload to n8n
     try {
-      console.log(`[Chat API] Sending request to webhook: ${N8N_WEBHOOK_URL}`)
-      console.log(`[Chat API] Payload:`, JSON.stringify(payload))
+      // Format conversation history for OpenAI
+      const formattedMessages = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...messages
+          .filter((msg: any) => msg.content && typeof msg.content === 'string' && !msg.content.startsWith('[{'))
+          .map((msg: any) => ({
+            role: msg.sender === 'user' ? 'user' : 'assistant',
+            content: msg.content
+          })),
+        { role: 'user', content: message }
+      ]
       
-      const response = await fetch(N8N_WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+      console.log(`[Chat API] Sending request to OpenAI with ${formattedMessages.length} messages`)
+      
+      // Get response from OpenAI
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o", // Using GPT-4o for best performance
+        messages: formattedMessages,
+        temperature: 0.7,
+        max_tokens: 300, // Allowing for longer responses if needed
       })
       
-      const responseText = await response.text()
-      console.log(`[Chat API] Raw response from webhook:`, responseText)
+      const response = completion.choices[0].message.content || "I'm not sure how to respond to that."
       
-      if (!response.ok) {
-        console.error(`[Chat API] Error from webhook: ${response.status} ${response.statusText}`)
-        console.error(`[Chat API] Response body: ${responseText}`)
-        
-        // Instead of throwing error, return a friendly message
-        return NextResponse.json({
-          message: "I'm having trouble connecting to my brain right now. Please try again in a moment.",
-          sessionId,
-          error: `Webhook error: ${response.status}`
-        })
-      }
+      console.log(`[Chat API] OpenAI response: ${response.substring(0, 100)}${response.length > 100 ? '...' : ''}`)
       
-      // Parse the response from n8n
-      let data
-      try {
-        data = JSON.parse(responseText)
-        console.log(`[Chat API] Webhook response data:`, JSON.stringify(data).substring(0, 200))
-        
-        // Check if we got a raw data response with headers and body (improper n8n config)
-        if (data.headers && data.body && !data.message) {
-          console.log('[Chat API] Received raw request data instead of processed response')
-          
-          // Extract the user's message from the request data
-          const userMessage = data.body.message
-          
-          // Create a proper response
-          return NextResponse.json({
-            message: `I received your message: "${userMessage}". The AI is still being configured. Please check back soon for full functionality.`,
-            sessionId
-          })
-        }
-        
-        // Format the response based on the structure from n8n
-        let formattedResponse
-        
-        if (typeof data === 'string') {
-          // Handle string responses
-          formattedResponse = { message: data, sessionId }
-        } else if (data.message) {
-          // Handle message property
-          formattedResponse = { 
-            message: data.message, 
-            sessionId: data.sessionId || sessionId,
-            metadata: data.metadata // Forward any metadata from n8n
-          }
-        } else if (data.content) {
-          // Handle content property
-          formattedResponse = { 
-            message: data.content, 
-            sessionId: data.sessionId || sessionId,
-            metadata: data.metadata
-          }
-        } else {
-          // Default to stringifying the response
-          formattedResponse = { 
-            message: JSON.stringify(data).substring(0, 200) + "...", 
-            sessionId 
+      // Check for appointment info in the response
+      let metadata = undefined
+      if (response.toLowerCase().includes('appointment') || 
+          response.toLowerCase().includes('schedule') || 
+          response.toLowerCase().includes('meeting')) {
+        // Extract potential appointment details
+        const appointmentData = {
+          type: 'appointment',
+          data: {
+            name: extractInfo(response, 'name'),
+            email: extractInfo(response, 'email'),
+            date: extractInfo(response, 'date'),
+            time: extractInfo(response, 'time'),
+            topic: extractInfo(response, 'topic'),
           }
         }
         
-        console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
-        
-        return NextResponse.json(formattedResponse)
-      } catch (parseError) {
-        console.error(`[Chat API] JSON parse error:`, parseError)
-        // If response is not JSON, use the text as the message
-        return NextResponse.json({
-          message: responseText || "I received a response, but it wasn't in the expected format.",
-          sessionId
-        })
+        // Only include metadata if we have key appointment details
+        if (appointmentData.data.name && appointmentData.data.email) {
+          metadata = appointmentData
+          console.log('[Chat API] Detected appointment request:', metadata)
+        }
       }
-    } catch (fetchError: any) {
-      console.error('[Chat API] Fetch error:', fetchError.message)
+      
       return NextResponse.json({
-        message: "Sorry, I'm unable to respond right now. Please try again later.",
+        message: response,
         sessionId,
-        error: `Fetch error: ${fetchError.message}`
+        metadata
+      })
+    } catch (aiError: any) {
+      console.error('[Chat API] OpenAI API error:', aiError.message)
+      
+      return NextResponse.json({
+        message: "I'm having trouble connecting to my brain right now. Please try again in a moment.",
+        sessionId,
+        error: `OpenAI error: ${aiError.message}`
       })
     }
   } catch (error: any) {
-    console.error('[Chat API] Error:', error.message)
+    console.error('[Chat API] Request error:', error.message)
     
     return NextResponse.json({
       message: "I encountered an error processing your message. Please try again.",
       error: 'Failed to process message',
       details: error.message
-    }, { status: 200 }) // Changed to 200 to prevent client-side errors
+    }, { status: 200 }) // Using 200 instead of 500 to prevent client-side errors
   }
+}
+
+// Helper function to extract information from AI response
+function extractInfo(text: string, infoType: string): string | undefined {
+  // Name extraction
+  if (infoType === 'name') {
+    const nameMatch = text.match(/name:?\s*([^\n,.]+)/i) || 
+                      text.match(/([A-Z][a-z]+ [A-Z][a-z]+)/) ||
+                      text.match(/([A-Z][a-z]+)/);
+    return nameMatch?.[1]?.trim();
+  }
+  
+  // Email extraction
+  if (infoType === 'email') {
+    const emailMatch = text.match(/email:?\s*([^\s,]+@[^\s,]+\.[^\s,]+)/i) ||
+                      text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/i);
+    return emailMatch?.[1]?.trim();
+  }
+  
+  // Date extraction - looking for YYYY-MM-DD format and similar variations
+  if (infoType === 'date') {
+    const dateMatch = text.match(/date:?\s*(\d{4}-\d{2}-\d{2})/i) ||
+                      text.match(/date:?\s*([^\n,]+)/i) ||
+                      text.match(/(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i) ||
+                      text.match(/(\d{1,2}(st|nd|rd|th)? of [A-Za-z]+)/i);
+    return dateMatch?.[1]?.trim();
+  }
+  
+  // Time extraction
+  if (infoType === 'time') {
+    const timeMatch = text.match(/time:?\s*([^\n,]+)/i) ||
+                      text.match(/(\d{1,2}:\d{2}\s*(?:am|pm)?)/i);
+    return timeMatch?.[1]?.trim();
+  }
+  
+  // Topic extraction
+  if (infoType === 'topic') {
+    const topicMatch = text.match(/topic:?\s*([^\n.]+)/i) ||
+                       text.match(/regarding:?\s*([^\n.]+)/i) ||
+                       text.match(/about:?\s*([^\n.]+)/i);
+    return topicMatch?.[1]?.trim();
+  }
+  
+  return undefined;
 } 
