@@ -302,7 +302,7 @@ export default function NativeChatBot() {
         <div className="relative">
           <button
             aria-label="Open chat"
-            className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-violet-600 text-white"
+            className="w-14 h-14 flex items-center justify-center rounded-full bg-teal-500 text-white border border-white/10 shadow-teal-500/20"
           >
             <FaCommentDots size={24} />
           </button>
@@ -324,26 +324,26 @@ export default function NativeChatBot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] bg-gray-900/90 backdrop-blur-md rounded-lg shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-700"
+            className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] bg-black/90 backdrop-blur-md rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-white/10 shadow-teal-500/20"
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
             {/* Header */}
-            <div className="p-4 bg-gradient-to-r from-teal-500 to-violet-600 flex justify-between items-center">
-              <h3 className="text-white font-medium">Generuss AI Assistant</h3>
+            <div className="p-4 border-b border-white/10 bg-gradient-to-r from-black to-slate-900 flex justify-between items-center">
+              <h3 className="text-white font-medium">Generuss Assistant</h3>
               <div className="flex gap-2">
                 <button
                   onClick={clearHistory}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Clear history"
                 >
                   <FaTrash size={16} />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Close chat"
                 >
                   <FaTimes size={18} />
@@ -352,7 +352,7 @@ export default function NativeChatBot() {
             </div>
             
             {/* Messages Container */}
-            <div className="flex-1 p-4 overflow-y-auto bg-gray-800/50">
+            <div className="flex-1 p-4 overflow-y-auto bg-slate-900/50 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               <AnimatePresence initial={false}>
                 {messages.map((msg) => (
                   <motion.div
@@ -363,12 +363,12 @@ export default function NativeChatBot() {
                     className={`mb-4 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-lg p-3 ${
+                      className={`max-w-[80%] rounded-xl p-3 ${
                         msg.sender === 'user'
-                          ? 'bg-gradient-to-r from-teal-500 to-violet-600 text-white'
+                          ? 'bg-teal-500/20 text-white rounded-tr-none border border-teal-500/30'
                           : msg.id.startsWith('error') 
-                            ? 'bg-red-900/40 border border-red-700 text-white' 
-                            : 'bg-gray-700 text-white'
+                            ? 'bg-red-900/20 border border-red-500/30 text-white rounded-tl-none' 
+                            : 'bg-slate-800/60 text-white rounded-tl-none border border-white/10'
                       }`}
                     >
                       {msg.id.startsWith('error') ? (
@@ -390,20 +390,20 @@ export default function NativeChatBot() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-4 flex justify-start"
                   >
-                    <div className="bg-gray-700 rounded-lg p-3 max-w-[80%]">
+                    <div className="bg-slate-800/60 rounded-xl p-3 max-w-[80%] rounded-tl-none border border-white/10">
                       <div className="flex space-x-1">
                         <motion.div
-                          className="w-2 h-2 bg-gray-400 rounded-full"
+                          className="w-2 h-2 bg-teal-400 rounded-full"
                           animate={{ y: [0, -5, 0] }}
                           transition={{ repeat: Infinity, duration: 0.8, delay: 0 }}
                         />
                         <motion.div
-                          className="w-2 h-2 bg-gray-400 rounded-full"
+                          className="w-2 h-2 bg-teal-400 rounded-full"
                           animate={{ y: [0, -5, 0] }}
                           transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }}
                         />
                         <motion.div
-                          className="w-2 h-2 bg-gray-400 rounded-full"
+                          className="w-2 h-2 bg-teal-400 rounded-full"
                           animate={{ y: [0, -5, 0] }}
                           transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }}
                         />
@@ -416,7 +416,7 @@ export default function NativeChatBot() {
             </div>
             
             {/* Input Container */}
-            <div className="p-3 bg-gray-800 border-t border-gray-700">
+            <div className="p-3 border-t border-white/10 bg-gradient-to-r from-black to-slate-900/80">
               {hasError && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
@@ -434,16 +434,16 @@ export default function NativeChatBot() {
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Type your message..."
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="flex-1 bg-gray-700 border border-gray-600 rounded-l-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-teal-500"
+                  placeholder="Type your message..."
+                  className="flex-1 bg-slate-800/50 border border-white/10 rounded-l-full py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputMessage.trim()}
-                  className="bg-gradient-to-r from-teal-500 to-violet-600 text-white px-3 rounded-r-md hover:opacity-90 disabled:opacity-50 transition-opacity"
+                  className="bg-teal-500 text-white px-3 rounded-r-full hover:bg-teal-600 disabled:opacity-50 transition-colors"
                 >
                   <FaPaperPlane />
                 </button>
