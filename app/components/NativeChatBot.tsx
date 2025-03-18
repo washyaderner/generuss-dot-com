@@ -459,6 +459,9 @@ export default function NativeChatBot() {
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
                   className="flex-1 bg-slate-800/50 border border-white/10 rounded-l-full py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                  id="chat-message-input"
+                  name="chat-message-input"
+                  aria-label="Chat message"
                 />
                 <button
                   onClick={handleSendMessage}
