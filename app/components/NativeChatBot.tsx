@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaCommentDots, FaTimes, FaPaperPlane, FaTrash } from 'react-icons/fa'
+import { FaCommentDots, FaTimes, FaPaperPlane, FaSyncAlt } from 'react-icons/fa'
 
 // Message type definition
 interface ChatMessage {
@@ -339,7 +339,7 @@ export default function NativeChatBot() {
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Clear history"
                 >
-                  <FaTrash size={16} />
+                  <FaSyncAlt size={16} />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -425,7 +425,7 @@ export default function NativeChatBot() {
                   className="text-red-400 text-xs mb-2"
                 >
                   <GlowingText 
-                    message="Connection error. Please check your internet connection and try again." 
+                    message="Connection error. Please check your internet connection and try again later." 
                     isError={true} 
                   />
                 </motion.div>
