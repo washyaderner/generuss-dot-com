@@ -10,6 +10,10 @@ interface ChatMessage {
   content: string
   sender: 'user' | 'bot'
   timestamp: number
+  metadata?: {
+    type?: string
+    data?: any
+  }
 }
 
 // GlowingText component for animated text effects
@@ -257,9 +261,16 @@ export default function NativeChatBot() {
           id: `bot-${Date.now()}`,
           content: data.message,
           sender: 'bot',
-          timestamp: new Date().getTime()
+          timestamp: new Date().getTime(),
+          metadata: data.metadata
         }
         setMessages(prev => [...prev, botResponse])
+        
+        // Handle any metadata from n8n (e.g., for appointment scheduling)
+        if (data.metadata?.type === 'appointment' && data.metadata.data) {
+          // Here you can handle appointment data if n8n provides it
+          console.log('Appointment data received:', data.metadata.data)
+        }
       } else {
         throw new Error('No message in response')
       }
