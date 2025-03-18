@@ -98,6 +98,52 @@ export async function POST(request: Request) {
       try {
         data = JSON.parse(responseText)
         console.log(`[Chat API] Webhook response data:`, JSON.stringify(data).substring(0, 200))
+        
+        // Check if we got a raw data response with headers and body (improper n8n config)
+        if (data.headers && data.body && !data.message) {
+          console.log('[Chat API] Received raw request data instead of processed response')
+          
+          // Extract the user's message from the request data
+          const userMessage = data.body.message
+          
+          // Create a proper response
+          return NextResponse.json({
+            message: `I received your message: "${userMessage}". The AI is still being configured. Please check back soon for full functionality.`,
+            sessionId
+          })
+        }
+        
+        // Format the response based on the structure from n8n
+        let formattedResponse
+        
+        if (typeof data === 'string') {
+          // Handle string responses
+          formattedResponse = { message: data, sessionId }
+        } else if (data.message) {
+          // Handle message property
+          formattedResponse = { 
+            message: data.message, 
+            sessionId: data.sessionId || sessionId,
+            metadata: data.metadata // Forward any metadata from n8n
+          }
+        } else if (data.content) {
+          // Handle content property
+          formattedResponse = { 
+            message: data.content, 
+            sessionId: data.sessionId || sessionId,
+            metadata: data.metadata
+          }
+        } else {
+          // Default to stringifying the response
+          formattedResponse = { 
+            message: JSON.stringify(data).substring(0, 200) + "...", 
+            sessionId 
+          }
+        }
+        
+        console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
+        
+        return NextResponse.json(formattedResponse)
       } catch (parseError) {
         console.error(`[Chat API] JSON parse error:`, parseError)
         // If response is not JSON, use the text as the message
@@ -106,38 +152,6 @@ export async function POST(request: Request) {
           sessionId
         })
       }
-      
-      // Format the response based on the structure from n8n
-      let formattedResponse
-      
-      if (typeof data === 'string') {
-        // Handle string responses
-        formattedResponse = { message: data, sessionId }
-      } else if (data.message) {
-        // Handle message property
-        formattedResponse = { 
-          message: data.message, 
-          sessionId: data.sessionId || sessionId,
-          metadata: data.metadata // Forward any metadata from n8n
-        }
-      } else if (data.content) {
-        // Handle content property
-        formattedResponse = { 
-          message: data.content, 
-          sessionId: data.sessionId || sessionId,
-          metadata: data.metadata
-        }
-      } else {
-        // Default to stringifying the response
-        formattedResponse = { 
-          message: JSON.stringify(data), 
-          sessionId 
-        }
-      }
-      
-      console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
-      
-      return NextResponse.json(formattedResponse)
     } catch (fetchError: any) {
       console.error('[Chat API] Fetch error:', fetchError.message)
       return NextResponse.json({
