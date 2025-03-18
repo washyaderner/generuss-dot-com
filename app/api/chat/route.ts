@@ -1,21 +1,52 @@
 import { NextResponse } from 'next/server'
+import OpenAI from 'openai'
 
-// Get the webhook URL from environment variables
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL || ''
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+})
 
-// Sample responses for testing without a webhook
-const mockResponses = [
-  "I'm here to help with any questions about our services or solutions. What would you like to know?",
-  "Thanks for reaching out! I'd be happy to help you with your inquiry.",
-  "That's a great question. Our AI-powered solutions can help streamline your sales operations.",
-  "I can help explain how our services can benefit your specific business needs.",
-  "We offer various solutions tailored to different industries. Could you tell me more about your business?",
-  "Our team has extensive experience in implementing AI solutions across multiple sectors.",
-  "I'd recommend scheduling a demo to see our platform in action. Would that interest you?",
-  "Let me know if you'd like more information about our pricing or implementation process.",
-  "We can definitely help with that challenge. Many of our clients have faced similar issues.",
-  "I'm gathering some relevant information about that. Is there anything specific you're looking for?"
-]
+// System prompt for the chat bot
+const SYSTEM_PROMPT = `You are Russ, the AI assistant for Generuss.com. You are a Spartan, witty, and direct communicator who keeps responses short and engaging.
+
+Business Context:
+- Generuss is an automation and web design company
+- Services include:
+  * Web Design & Development
+  * AI & Automation Solutions
+  * Custom Software Development
+  * Process Optimization
+  * Digital Transformation
+
+Core Values:
+- Innovation
+- Efficiency
+- Quality
+- Customer Success
+
+Key Information:
+- Based in the Pacific timezone
+- Focus on business automation and web solutions
+- Professional yet approachable tone
+- Direct and concise communication style
+
+Instructions:
+1. Keep responses short and conversational
+2. Use more formal language with casual phrases
+3. Guide users to book meetings when appropriate
+4. Collect necessary information for meetings:
+   - First name
+   - Email address
+   - Preferred date/time
+   - Meeting topic/details
+5. Confirm all details before finalizing
+6. Maintain a professional yet friendly tone
+7. Focus on business value and solutions
+8. Use Pacific timezone for scheduling
+9. Keep responses under 2-3 sentences when possible
+10. Use emojis sparingly and only when appropriate
+
+Remember: You are representing Generuss.com, a professional automation and web design company.`
 
 /**
  * Handler for POST requests to the chat endpoint.
@@ -24,98 +55,45 @@ const mockResponses = [
  */
 export async function POST(request: Request) {
   try {
-    // Parse the request body
-    const body = await request.json()
-    const { message, sessionId = `session_${Date.now()}` } = body
+    const { message, sessionId } = await request.json()
     
-    if (!message) {
-      return NextResponse.json(
-        { error: 'Message is required' },
-        { status: 400 }
-      )
-    }
+    // Get conversation history from the request
+    const conversationHistory = await request.json().then(body => body.messages || [])
     
-    // Log the received message for debugging
-    console.log(`[Chat API] Received message: ${message} (sessionId: ${sessionId})`)
-    
-    // If no webhook URL is configured, return a mock response
-    if (!N8N_WEBHOOK_URL) {
-      console.log('[Chat API] No webhook URL configured, returning mock response')
-      
-      // Get a deterministic but seemingly random response based on the message
-      const mockIndex = Math.abs(
-        Array.from(message as string).reduce((acc, char) => acc + char.charCodeAt(0), 0)
-      ) % mockResponses.length
-      
-      // Add a slight delay to simulate processing time (300-1500ms)
-      await new Promise(resolve => setTimeout(resolve, 300 + Math.random() * 1200))
-      
-      return NextResponse.json({
-        message: mockResponses[mockIndex],
-        sessionId
-      })
-    }
-    
-    // Prepare the payload for n8n
-    const payload = {
-      message,
-      sessionId,
-      timestamp: new Date().toISOString(),
-      source: 'website_chat'
-    }
-    
-    // Send the payload to n8n
-    const response = await fetch(N8N_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+    // Format conversation history for OpenAI
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...conversationHistory.map((msg: any) => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.content
+      })),
+      { role: 'user', content: message }
+    ]
+
+    // Get response from OpenAI
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 150, // Keep responses concise
     })
-    
-    if (!response.ok) {
-      console.error(`[Chat API] Error from webhook: ${response.status} ${response.statusText}`)
-      throw new Error(`Webhook responded with ${response.status}`)
-    }
-    
-    // Parse the response from n8n
-    const data = await response.json()
-    
-    // Format the response based on the structure from n8n
-    let formattedResponse
-    
-    if (typeof data === 'string') {
-      // Handle string responses
-      formattedResponse = { message: data, sessionId }
-    } else if (data.message) {
-      // Handle message property
-      formattedResponse = { 
-        message: data.message, 
-        sessionId: data.sessionId || sessionId 
-      }
-    } else if (data.content) {
-      // Handle content property
-      formattedResponse = { 
-        message: data.content, 
-        sessionId: data.sessionId || sessionId 
-      }
-    } else {
-      // Default to stringifying the response
-      formattedResponse = { 
-        message: JSON.stringify(data), 
-        sessionId 
-      }
-    }
-    
-    console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
-    
-    return NextResponse.json(formattedResponse)
-  } catch (error: any) {
-    console.error('[Chat API] Error:', error.message)
-    
-    return NextResponse.json({
-      error: 'Failed to process message',
-      details: error.message
-    }, { status: 500 })
+
+    const response = completion.choices[0].message.content
+
+    // Log the interaction for debugging
+    console.log('Chat interaction:', {
+      sessionId,
+      userMessage: message,
+      botResponse: response,
+      timestamp: new Date().toISOString()
+    })
+
+    return NextResponse.json({ message: response })
+  } catch (error) {
+    console.error('Chat API error:', error)
+    return NextResponse.json(
+      { error: 'Failed to process message' },
+      { status: 500 }
+    )
   }
 } 

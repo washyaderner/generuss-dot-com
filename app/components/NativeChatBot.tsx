@@ -233,12 +233,13 @@ export default function NativeChatBot() {
     setIsTyping(true)
     
     try {
-      // Send message to our API route which will forward to n8n
+      // Send message to our API route with conversation history
       const response = await fetch('/api/chat', {
         method: 'POST',
         body: JSON.stringify({ 
           message: userMessage,
-          sessionId
+          sessionId,
+          messages: messages // Send the full conversation history
         }),
         headers: { 'Content-Type': 'application/json' }
       })
