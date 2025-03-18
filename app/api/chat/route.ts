@@ -66,59 +66,93 @@ export async function POST(request: Request) {
     }
     
     // Send the payload to n8n
-    const response = await fetch(N8N_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-    
-    if (!response.ok) {
-      console.error(`[Chat API] Error from webhook: ${response.status} ${response.statusText}`)
-      throw new Error(`Webhook responded with ${response.status}`)
+    try {
+      console.log(`[Chat API] Sending request to webhook: ${N8N_WEBHOOK_URL}`)
+      console.log(`[Chat API] Payload:`, JSON.stringify(payload))
+      
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      
+      const responseText = await response.text()
+      console.log(`[Chat API] Raw response from webhook:`, responseText)
+      
+      if (!response.ok) {
+        console.error(`[Chat API] Error from webhook: ${response.status} ${response.statusText}`)
+        console.error(`[Chat API] Response body: ${responseText}`)
+        
+        // Instead of throwing error, return a friendly message
+        return NextResponse.json({
+          message: "I'm having trouble connecting to my brain right now. Please try again in a moment.",
+          sessionId,
+          error: `Webhook error: ${response.status}`
+        })
+      }
+      
+      // Parse the response from n8n
+      let data
+      try {
+        data = JSON.parse(responseText)
+        console.log(`[Chat API] Webhook response data:`, JSON.stringify(data).substring(0, 200))
+      } catch (parseError) {
+        console.error(`[Chat API] JSON parse error:`, parseError)
+        // If response is not JSON, use the text as the message
+        return NextResponse.json({
+          message: responseText || "I received a response, but it wasn't in the expected format.",
+          sessionId
+        })
+      }
+      
+      // Format the response based on the structure from n8n
+      let formattedResponse
+      
+      if (typeof data === 'string') {
+        // Handle string responses
+        formattedResponse = { message: data, sessionId }
+      } else if (data.message) {
+        // Handle message property
+        formattedResponse = { 
+          message: data.message, 
+          sessionId: data.sessionId || sessionId,
+          metadata: data.metadata // Forward any metadata from n8n
+        }
+      } else if (data.content) {
+        // Handle content property
+        formattedResponse = { 
+          message: data.content, 
+          sessionId: data.sessionId || sessionId,
+          metadata: data.metadata
+        }
+      } else {
+        // Default to stringifying the response
+        formattedResponse = { 
+          message: JSON.stringify(data), 
+          sessionId 
+        }
+      }
+      
+      console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
+      
+      return NextResponse.json(formattedResponse)
+    } catch (fetchError: any) {
+      console.error('[Chat API] Fetch error:', fetchError.message)
+      return NextResponse.json({
+        message: "Sorry, I'm unable to respond right now. Please try again later.",
+        sessionId,
+        error: `Fetch error: ${fetchError.message}`
+      })
     }
-    
-    // Parse the response from n8n
-    const data = await response.json()
-    
-    // Format the response based on the structure from n8n
-    let formattedResponse
-    
-    if (typeof data === 'string') {
-      // Handle string responses
-      formattedResponse = { message: data, sessionId }
-    } else if (data.message) {
-      // Handle message property
-      formattedResponse = { 
-        message: data.message, 
-        sessionId: data.sessionId || sessionId,
-        metadata: data.metadata // Forward any metadata from n8n
-      }
-    } else if (data.content) {
-      // Handle content property
-      formattedResponse = { 
-        message: data.content, 
-        sessionId: data.sessionId || sessionId,
-        metadata: data.metadata
-      }
-    } else {
-      // Default to stringifying the response
-      formattedResponse = { 
-        message: JSON.stringify(data), 
-        sessionId 
-      }
-    }
-    
-    console.log(`[Chat API] Response: ${formattedResponse.message.substring(0, 100)}${formattedResponse.message.length > 100 ? '...' : ''}`)
-
-    return NextResponse.json(formattedResponse)
   } catch (error: any) {
     console.error('[Chat API] Error:', error.message)
     
     return NextResponse.json({
+      message: "I encountered an error processing your message. Please try again.",
       error: 'Failed to process message',
       details: error.message
-    }, { status: 500 })
+    }, { status: 200 }) // Changed to 200 to prevent client-side errors
   }
 } 

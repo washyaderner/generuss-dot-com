@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://washyaderner.app.n8n.cloud https://*.googleapis.com; connect-src 'self' https://washyaderner.app.n8n.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self'; object-src 'none'"
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://washyaderner.app.n8n.cloud https://*.googleapis.com; connect-src 'self' https://washyaderner.app.n8n.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self'; object-src 'none'"
   }
 }
 
@@ -68,11 +68,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://chat-widget.n8n.io https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self' https://*.n8n.cloud https://chat-widget.n8n.io;"
-        />
-        {/* Add cache busting parameter to favicon resources */}
         <link rel="icon" href={`/favicon.ico${cacheBuster}`} />
         <link rel="icon" href={`/favicon-96x96.png${cacheBuster}`} sizes="96x96" type="image/png" />
         <link rel="icon" href={`/favicon.svg${cacheBuster}`} type="image/svg+xml" />
