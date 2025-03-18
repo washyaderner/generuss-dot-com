@@ -100,15 +100,12 @@ export default function NativeChatBot() {
     }
   }, [])
 
-  // Save messages to localStorage when they change
+  // Save messages to localStorage whenever they change
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('chat_messages', JSON.stringify(messages.map(msg => ({
-        ...msg,
-        timestamp: msg.timestamp.toISOString()
-      }))))
+      localStorage.setItem('chat_messages', JSON.stringify(messages));
     }
-  }, [messages])
+  }, [messages]);
 
   // Welcome message when the chat first opens
   useEffect(() => {
