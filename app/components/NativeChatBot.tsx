@@ -64,10 +64,11 @@ export default function NativeChatBot() {
   const [sessionId, setSessionId] = useState<string>('')
   const [hasError, setHasError] = useState(false)
   const [unreadCount, setUnreadCount] = useState(0)
+  const [showNotification, setShowNotification] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Initialize session ID
+  // Initialize session ID and start notification timer
   useEffect(() => {
     // Check if we have a session ID in localStorage
     const storedSessionId = localStorage.getItem('chat_session_id')
@@ -98,6 +99,13 @@ export default function NativeChatBot() {
         localStorage.removeItem('chat_messages')
       }
     }
+
+    // Start timer to show notification after one minute
+    const timer = setTimeout(() => {
+      setShowNotification(true)
+    }, 60000) // 60000ms = 1 minute
+
+    return () => clearTimeout(timer)
   }, [])
 
   // Save messages to localStorage whenever they change
@@ -189,7 +197,7 @@ export default function NativeChatBot() {
 
   // Increment unread count when new bot messages arrive and chat is closed
   useEffect(() => {
-    if (!isOpen && messages.length > 0) {
+    if (!isOpen && messages.length > 0 && showNotification) {
       const newBotMessages = messages.filter(m => m.sender === 'bot')
       const readCount = parseInt(localStorage.getItem('readMessageCount') || '0')
       if (newBotMessages.length > readCount) {
@@ -201,7 +209,7 @@ export default function NativeChatBot() {
       const botMessageCount = messages.filter(m => m.sender === 'bot').length
       localStorage.setItem('readMessageCount', botMessageCount.toString())
     }
-  }, [messages, isOpen])
+  }, [messages, isOpen, showNotification])
 
   // Handle sending a message
   const handleSendMessage = async () => {
@@ -290,7 +298,7 @@ export default function NativeChatBot() {
       {/* Chat Bubble Button */}
       <motion.div
         className={`fixed bottom-6 right-6 z-50 shadow-lg rounded-full ${
-          unreadCount > 0 ? 'animate-pulse-bubble' : ''
+          unreadCount > 0 && showNotification ? 'animate-pulse-bubble' : ''
         }`}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -308,7 +316,7 @@ export default function NativeChatBot() {
           </button>
           
           {/* Unread messages badge */}
-          {unreadCount > 0 && (
+          {unreadCount > 0 && showNotification && (
             <motion.div 
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
