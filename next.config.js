@@ -64,13 +64,8 @@ const nextConfig = {
    * Headers Configuration
    * Defines custom HTTP headers for routes.
    * 
-   * ⚠️ IMPORTANT: Content Security Policy (CSP) settings below allow 'unsafe-eval'
-   * for the n8n chat widget to function properly. This directive is necessary because
-   * the n8n chat widget uses 'eval' internally.
-   * 
-   * The CSP is carefully scoped to balance security and functionality:
-   * - script-src includes 'unsafe-eval' to allow the chat widget to function
-   * - connect-src includes n8n domains to allow API communication
+   * ⚠️ IMPORTANT: Content Security Policy (CSP) settings below include:
+   * - connect-src includes OpenAI API domain for chat functionality
    * - All other directives maintain strict security policies
    */
   async headers() {
@@ -82,8 +77,8 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://chat-widget.n8n.io https://cdn.jsdelivr.net https://unpkg.com;
-              connect-src 'self' https://*.n8n.cloud https://chat-widget.n8n.io;
+              script-src 'self' 'unsafe-inline' 'unsafe-eval';
+              connect-src 'self' https://api.openai.com;
               style-src 'self' 'unsafe-inline';
               img-src 'self' blob: data: https://images.ctfassets.net https://img.youtube.com https://i.ytimg.com;
               font-src 'self';
