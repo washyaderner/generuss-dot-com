@@ -329,85 +329,69 @@ For dev to main, always use regular merge to preserve feature commits.
 - [X] Fixed development environment issues (constant restarting, favicon 404 errors)
 - [X] Created development utility scripts for smoother workflow
 - [X] Added comprehensive documentation for common issues and solutions
+- [X] Implemented native chat bot with OpenAI integration
 
-### Most Recent Task: Fix Development Environment Issues
+### Most Recent Task: Chat Bot Implementation
 
-We identified and resolved several development environment issues:
+We've implemented a native chat bot for Generuss.com with the following features:
 
-1. Environment Configuration:
-   [X] Add environment variable to prevent Next.js from watching config
-   [X] Create .env.local file with NEXT_SKIP_WATCHING_CONFIG=true
-   [X] Document config file issues in comments
+1. Front-end UI:
+   [X] Dark-themed chat bubble that matches site design
+   [X] Smooth animations for opening/closing chat
+   [X] Typing indicators for better UX
+   [X] Notification badge showing unread messages
+   [X] 1-minute delay before showing notifications
+   [X] Auto-scrolling to latest messages
+   [X] Support for error handling
+   [X] Mobile-responsive design
 
-2. Script Development:
-   [X] Create scripts/clean-ports.sh to kill processes on ports 3000/3001
-   [X] Create scripts/restart-dev.sh for clean environment restart
-   [X] Create scripts/create-favicon-files.sh to address missing favicon issues
-   [X] Create scripts/fix-environment.sh as a master fix script
-   [X] Make all scripts executable with proper permissions
+2. Back-end Integration:
+   [X] Custom API route for handling chat messages
+   [X] Direct OpenAI integration with GPT-4o model
+   [X] System prompt defining business context and voice
+   [X] Message history tracking for conversation context
+   [X] Session management via localStorage
+   [X] Mock responses for testing without API key
+   [X] Error handling and graceful fallbacks
 
-3. Documentation:
-   [X] Create docs/COMMON_ISSUES.md with detailed troubleshooting guides
-   [X] Update README.md with information about development utilities
-   [X] Add comments to critical configuration files
+3. Lessons Learned:
+   [X] n8n webhook integration was problematic due to:
+     - Complex configuration requirements
+     - Response formatting issues
+     - Need for extra "Set" nodes to format data
+     - Difficulty debugging webhook responses
+   [X] Direct OpenAI integration is more reliable and easier to control
+   [X] Content Security Policy (CSP) requires careful configuration
+   [X] Fixed formatting of messages and responses
+   [X] Added metadata extraction for appointment scheduling
 
-4. Fix Implementation:
-   [X] Add cache-busting to favicon resources in app/layout.tsx
-   [X] Create placeholder favicon files if missing
-   [X] Improve error handling and debugging output
+4. Requirements for Production:
+   - OpenAI API key (to use real AI responses)
+   - For calendar integration:
+     - Google Client ID
+     - Google Client Secret
+     - Google Refresh Token
 
-5. Branch Management:
-   [X] Create feature/fix-dev-environment branch
-   [X] Commit changes with detailed commit message
-   [X] Push branch to GitHub for PR creation
+5. Future Enhancements:
+   - Full calendar integration implementation
+   - Admin panel for chat history review
+   - Custom training with company-specific data
+   - Analytics for popular questions/topics
 
 ### Next Steps
 
-1. Pull Request Creation:
-   [ ] Create PR from feature/fix-dev-environment to dev
-   [ ] Get review and approval
-   [ ] Merge to dev
-   [ ] Test in dev environment
+1. OpenAI Integration:
+   - Add OpenAI API key to `.env.local` file
+   - Test chat with real AI responses
+   - Fine-tune system prompt based on feedback
 
-2. Future Enhancements:
-   [ ] Create proper favicon files to replace placeholders
-   [ ] Implement automated favicon generation from logo
-   [ ] Add continuous integration tests for development environment
+2. Optional Google Calendar Integration:
+   - Set up Google Calendar API credentials
+   - Implement the calendar API endpoints
+   - Connect appointment requests to calendar events
+   - Add email notifications for appointments
 
-### Notes
-
-The development environment fixes address several key issues:
-- Next.js server constantly restarting due to config file changes
-- Port conflicts between multiple server instances
-- Missing favicon files causing 404 errors
-- Cache-related issues preventing changes from appearing
-
-The utility scripts provide a standardized way to fix common issues, making the development workflow smoother and more efficient. The documentation ensures that developers have clear guidance on troubleshooting and resolving issues.
-
-### Previous Task: Content Format Standardization
-
-We standardized on Markdown format for all content in the application:
-
-1. Documentation of Content Format Decision:
-   [X] Create Markdown Style Guide (docs/MARKDOWN_GUIDE.md)
-   [X] Update documentation to reflect Markdown-only approach
-   [X] Create content validation utilities to handle different format types
-   [X] Add Rich Text to Markdown converter for legacy content
-   [X] Update content handlers to prefer Markdown by default
-   [X] Document content format decisions in DEPENDENCIES.md
-
-2. Implementation Steps:
-   [X] Fix linter errors in content validation utilities
-   [X] Update ContentNode type definitions
-   [X] Ensure backward compatibility with existing content
-   [X] Create proper type guards for content format checking
-   [X] Modify safeContentHandler to prioritize Markdown format
-   [X] Add Rich Text to Markdown converter
-   [X] Update documentation references in code comments
-
-3. Testing:
-   [X] Test content validation utilities with different content types
-   [X] Verify Rich Text to Markdown converter results
-   [X] Ensure backward compatibility with existing Rich Text content
-   [X] Test content rendering in blog components
-   [X] Verify error handling for invalid content
+3. Documentation:
+   - Add usage instructions to README.md
+   - Document API key requirements
+   - Update deployment notes

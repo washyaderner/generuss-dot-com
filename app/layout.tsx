@@ -5,27 +5,45 @@ import Link from "next/link"
 import "./globals.css"
 import type React from "react"
 import { Toaster } from "sonner"
-import ChatWidget from "@/app/components/ChatWidget"
+import NativeChatBot from "@/app/components/NativeChatBot"
+import { Metadata } from "next"
 
-export const metadata = {
-  title: "GeneRuss",
-  description: "Build Fast & Touch Grass - AI-powered sales solutions",
-  generator: 'v0.dev',
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Generuss',
+    default: 'Generuss | AI & Automation Solutions',
+  },
+  description: 'Accelerate your business with AI & Automation solutions from Generuss.',
+  keywords: ['AI', 'Automation', 'Web Design', 'Digital Transformation', 'Generuss'],
+  metadataBase: new URL('https://generuss.com/'),
+  openGraph: {
+    title: 'Generuss | AI & Automation Solutions',
+    description: 'Accelerate your business with AI & Automation solutions.',
+    url: 'https://generuss.com/',
+    siteName: 'Generuss',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Generuss | AI & Automation Solutions',
+    description: 'Accelerate your business with AI & Automation solutions.',
+    creator: '@generuss',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon.svg', type: 'image/svg+xml' }
+      { url: `/favicon.ico?v=${Date.now()}` },
+      { url: `/favicon-16x16.png?v=${Date.now()}`, sizes: '16x16', type: 'image/png' },
+      { url: `/favicon-32x32.png?v=${Date.now()}`, sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png' }
+      { url: `/apple-touch-icon.png?v=${Date.now()}` },
     ],
-    other: [
-      { url: '/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/web-app-manifest-512x512.png', sizes: '512x512', type: 'image/png' }
-    ]
   },
-  manifest: '/site.webmanifest'
 }
 
 const navigationLinks = [
@@ -49,9 +67,8 @@ export default function RootLayout({
       <head>
         <meta
           httpEquiv="Content-Security-Policy"
-          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://chat-widget.n8n.io https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self' https://*.n8n.cloud https://chat-widget.n8n.io;"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com; connect-src 'self' https://api.openai.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self'; object-src 'none'"
         />
-        {/* Add cache busting parameter to favicon resources */}
         <link rel="icon" href={`/favicon.ico${cacheBuster}`} />
         <link rel="icon" href={`/favicon-96x96.png${cacheBuster}`} sizes="96x96" type="image/png" />
         <link rel="icon" href={`/favicon.svg${cacheBuster}`} type="image/svg+xml" />
@@ -213,7 +230,7 @@ export default function RootLayout({
             </footer>
             
             {/* AI Chat Widget */}
-            <ChatWidget />
+            <NativeChatBot />
           </div>
         </div>
       </body>

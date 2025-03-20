@@ -304,28 +304,62 @@ function extractInfo(message: string) {
 }
 
 /**
- * Handler for GET requests to check availability
+ * Handler for GET requests to check calendar availability
  */
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const date = searchParams.get('date');
+    const url = new URL(request.url);
+    const date = url.searchParams.get('date');
     
-    if (!date) {
+    // Check if we have Google Calendar credentials
+    const isConfigured = !!(
+      process.env.GOOGLE_CLIENT_ID && 
+      process.env.GOOGLE_CLIENT_SECRET && 
+      process.env.GOOGLE_REFRESH_TOKEN
+    );
+    
+    if (!isConfigured) {
+      console.warn('[Calendar API] Missing Google Calendar credentials');
       return NextResponse.json({
-        error: 'Date parameter is required'
-      }, { status: 400 });
+        available: true,
+        configured: false,
+        // Generate mock data if not configured
+        mockData: date ? {
+          date: date,
+          availableSlots: ['9:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'],
+          formattedDate: 'Tomorrow'  // Simplified mock data
+        } : null
+      });
     }
     
-    // Check availability for the requested date
-    const availability = await checkAvailability(date);
+    // If a date is provided, check availability
+    if (date) {
+      try {
+        const availability = await checkAvailability(date);
+        return NextResponse.json({
+          available: true,
+          configured: true,
+          ...availability
+        });
+      } catch (error: any) {
+        return NextResponse.json({
+          available: false,
+          configured: true,
+          error: error.message
+        }, { status: 200 }); // Using 200 to prevent client-side errors
+      }
+    }
     
-    return NextResponse.json(availability);
+    // Default response if no date provided
+    return NextResponse.json({
+      available: true,
+      configured: true
+    });
   } catch (error: any) {
     console.error('[Calendar API] Error in GET request:', error.message);
-    
     return NextResponse.json({
+      available: false,
       error: error.message
     }, { status: 200 }); // Using 200 to prevent client-side errors
   }
-} 
+}
