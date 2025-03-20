@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { google } from 'googleapis'
 
+
 //  Configure Google OAuth2 client
+
+// Configure Google OAuth2 client
+
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET
@@ -42,9 +46,15 @@ async function createCalendarEvent(appointmentDetails: any) {
       if (dateParts.length === 3) {
         // Try different formats
         dateObj = new Date(
+
           parseInt(dateParts[2].length === 4 ? dateParts[2] : `20${dateParts[2]}`),
           parseInt(dateParts[0]) - 1,
           parseInt(dateParts[1])
+
+          dateParts[2].length === 4 ? dateParts[2] : `20${dateParts[2]}`, 
+          parseInt(dateParts[0]) - 1, 
+          dateParts[1]
+
         )
       }
       
@@ -150,9 +160,15 @@ async function checkAvailability(dateString: string) {
       if (dateParts.length === 3) {
         // Try different formats (MM/DD/YYYY or similar)
         dateObj = new Date(
+
           parseInt(dateParts[2].length === 4 ? dateParts[2] : `20${dateParts[2]}`),
           parseInt(dateParts[0]) - 1,
           parseInt(dateParts[1])
+
+          dateParts[2].length === 4 ? dateParts[2] : `20${dateParts[2]}`, 
+          parseInt(dateParts[0]) - 1, 
+          dateParts[1]
+
         );
       }
       
