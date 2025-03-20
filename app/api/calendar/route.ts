@@ -247,25 +247,22 @@ export async function POST(request: Request) {
     // Check if we have Google Calendar credentials
     if (!process.env.GOOGLE_CLIENT_ID || 
         !process.env.GOOGLE_CLIENT_SECRET || 
-        !process.env.GOOGLE_REFRESH_TOKEN) {
-      console.log('[Calendar API] Missing credentials, using mock data')
-      return NextResponse.json({
-        success: true,
-        error: 'Calendar integration not configured',
-        mockData: true,
-        eventLink: 'https://example.com/calendar',
-      })
-    }
-    
-    // Create the calendar event
-    const result = await createCalendarEvent(data.appointmentDetails)
-    
-    return NextResponse.json(result)
-  } catch (error: any) {
-    console.error('[Calendar API] Request error:', error.message)
-    
-    // Return a 200 response with error details to prevent client from breaking
-    return NextResponse.json({
+!process.env.GOOGLE_REFRESH_TOKEN) {
+console.log('[Calendar API] Missing credentials, using mock data')
+return NextResponse.json({
+success: true,
+error: 'Calendar integration not configured',
+mockData: true,
+eventLink: 'https://example.com/calendar',
+})
+}
+// Create the calendar event
+const result = await createCalendarEvent(data.appointmentDetails)
+return NextResponse.json(result)
+} catch (error: any) {
+console.error('[Calendar API] Request error:', error.message)
+// Return a 200 response with error details to prevent client from breaking
+return NextResponse.json({
       success: false,
       error: 'Failed to process appointment request',
       details: error.message
@@ -325,6 +322,61 @@ export async function GET(request: Request) {
     console.error('[Calendar API] Error in GET request:', error.message);
     
     return NextResponse.json({
+ * Handler for GET requests to check calendar availability
+ */
+export async function GET(request: Request) {
+  try {
+    const url = new URL(request.url);
+    const date = url.searchParams.get('date');
+    
+    // Check if we have Google Calendar credentials
+    const isConfigured = !!(
+      process.env.GOOGLE_CLIENT_ID && 
+      process.env.GOOGLE_CLIENT_SECRET && 
+      process.env.GOOGLE_REFRESH_TOKEN
+    );
+    
+    if (!isConfigured) {
+      console.warn('[Calendar API] Missing Google Calendar credentials');
+      return NextResponse.json({
+        available: true,
+        configured: false,
+        // Generate mock data if not configured
+        mockData: date ? {
+          date: date,
+          availableSlots: ['9:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'],
+          formattedDate: 'Tomorrow'  // Simplified mock data
+        } : null
+      });
+    }
+    
+    // If a date is provided, check availability
+    if (date) {
+      try {
+        const availability = await checkAvailability(date);
+        return NextResponse.json({
+          available: true,
+          configured: true,
+          ...availability
+        });
+      } catch (error: any) {
+        return NextResponse.json({
+          available: false,
+          configured: true,
+          error: error.message
+        });
+      }
+    }
+    
+    // Default response if no date provided
+    return NextResponse.json({
+      available: true,
+      configured: true
+    });
+  } catch (error: any) {
+    console.error('[Calendar API] Error in GET request:', error.message);
+    return NextResponse.json({
+      available: false,
       error: error.message
     }, { status: 200 }); // Using 200 to prevent client-side errors
   }
