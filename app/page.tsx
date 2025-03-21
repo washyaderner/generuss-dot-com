@@ -6,6 +6,10 @@ import { NavLink } from "@/components/nav-link"
 import { getAllPosts } from "@/app/lib/contentful"
 import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
 import { Metadata } from "next"
+import { motion } from "framer-motion"
+import { fadeInVariants } from "@/lib/animations/variants"
+import { AnimatedText } from "@/components/ui/animated-text"
+import { AnimatedCard, AnimatedCardGrid } from "@/components/ui/animated-card"
 
 // This sets revalidation time to 1 hour
 export const revalidate = 3600
@@ -131,37 +135,126 @@ export default async function Home() {
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
-                <div className="relative flex items-center justify-center">
-                  <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
-                    <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
-                  </div>
-                  <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                    Scale Fast, Touch Grass
-                  </span>
-                </div>
-              </h1>
+              <div className="relative flex items-center justify-center mb-6">
+                <motion.div 
+                  className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: -20 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                >
+                  <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
+                </motion.div>
+                <AnimatedText
+                  text="Scale Fast, Touch Grass" 
+                  type="gradient"
+                  as="h1"
+                  className="text-4xl md:text-5xl lg:text-7xl font-bold"
+                />
+              </div>
             </div>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl">
-              Using automation to reduce bottlenecks and maximize profitability
-            </p>
+            <AnimatedText
+              text="Using automation to reduce bottlenecks and maximize profitability"
+              className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl"
+              delay={0.2}
+            />
+            
+            {/* Video Feature */}
+            <motion.div
+              className="max-w-4xl mx-auto mb-10 relative overflow-hidden rounded-xl"
+              variants={fadeInVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 blur-xl z-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              />
+              <div className="absolute inset-0 border border-white/10 rounded-xl z-10" />
+              
+              {/* Glowing corners */}
+              <motion.div 
+                className="absolute top-0 left-0 w-16 h-16 bg-teal-500/30 blur-xl z-0"
+                animate={{ 
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 4,
+                  repeatType: "reverse" 
+                }}
+              />
+              <motion.div 
+                className="absolute bottom-0 right-0 w-16 h-16 bg-purple-500/30 blur-xl z-0"
+                animate={{ 
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 4,
+                  repeatType: "reverse",
+                  delay: 2 
+                }}
+              />
+              
+              <video 
+                className="w-full h-auto relative z-1 rounded-xl"
+                controls
+                muted
+                autoPlay
+                loop
+                playsInline
+              >
+                <source src="/images/GeneRuss-and-Crystal-Seed-Tour.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Video label */}
+              <motion.div
+                className="absolute bottom-4 left-4 bg-black/70 px-3 py-1 rounded-full z-20 backdrop-blur-sm border border-white/10"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+              >
+                <p className="text-white text-sm font-medium flex items-center">
+                  <span className="inline-block w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse-bubble"></span>
+                  Live Demo
+                </p>
+              </motion.div>
+            </motion.div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/solutions"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
               >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Explore Solutions</span>
-              </Link>
-              <Link
-                href="/contact"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                <Link
+                  href="/solutions"
+                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                >
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative text-white">Explore Solutions</span>
+                </Link>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4 }}
               >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Schedule a Demo</span>
-              </Link>
+                <Link
+                  href="/contact"
+                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                >
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative text-white">Schedule a Demo</span>
+                </Link>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -169,31 +262,33 @@ export default async function Home() {
         {/* Solutions Grid */}
         <section className="py-24 px-4">
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent animate-gradient">
-              Time Is Money
-            </h2>
-            <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              We focus on evaluating and optimizing sales workflows for small to mid-sized businesses. Drawing on
-              extensive experience in sales, startup operations, and process automation, we build tailored strategies
-              that reduce workload, refine lead generation, and boost conversion rates—often in less time than most
-              people expect.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <AnimatedText
+              text="Time Is Money"
+              type="gradient"
+              as="h2"
+              className="text-3xl md:text-5xl font-bold text-center mb-4"
+            />
+            <AnimatedText
+              text="We focus on evaluating and optimizing sales workflows for small to mid-sized businesses. Drawing on extensive experience in sales, startup operations, and process automation, we build tailored strategies that reduce workload, refine lead generation, and boost conversion rates—often in less time than most people expect."
+              className="text-gray-400 text-center max-w-2xl mx-auto mb-16"
+            />
+            
+            <AnimatedCardGrid columns="grid-cols-1 md:grid-cols-2" className="max-w-5xl mx-auto">
               {solutions.map((solution, index) => (
-                <div
+                <AnimatedCard
                   key={index}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                  index={index}
+                  className="h-full"
+                  cardClassName="border-white/10 backdrop-blur-sm bg-black/40 h-full"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                  <div className="relative">
+                  <div className="relative h-full">
                     <solution.icon className="w-10 h-10 text-teal-400 mb-4" />
                     <h3 className="text-xl font-semibold text-white mb-2">{solution.title}</h3>
                     <p className="text-gray-400">{solution.description}</p>
                   </div>
-                </div>
+                </AnimatedCard>
               ))}
-            </div>
+            </AnimatedCardGrid>
           </div>
         </section>
 
@@ -201,15 +296,16 @@ export default async function Home() {
         {latestPost && (
           <section className="py-16 px-4" aria-labelledby="latest-insights">
             <div className="container mx-auto">
-              <h2 
-                id="latest-insights" 
-                className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent"
-              >
-                Latest Insights
-              </h2>
-              <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
-                Practical advice and strategies to level up your business and sales processes
-              </p>
+              <AnimatedText
+                text="Latest Insights"
+                type="gradient"
+                as="h2"
+                className="text-3xl md:text-4xl font-bold text-center mb-4"
+              />
+              <AnimatedText
+                text="Practical advice and strategies to level up your business and sales processes"
+                className="text-gray-400 text-center max-w-2xl mx-auto mb-10"
+              />
               
               <FeaturedBlogPost post={latestPost} />
               
@@ -232,26 +328,32 @@ export default async function Home() {
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 relative">
-                🔥{" "}
-                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Success = Skill + Leverage + Consistency
-                </span>
-              </h2>
+              <AnimatedText
+                text="🔥 Success = Skill + Leverage + Consistency"
+                type="gradient"
+                as="h2"
+                className="text-4xl md:text-5xl font-bold relative mb-6"
+              />
             </div>
-            <p className="text-gray-400 max-w-3xl mx-auto mb-8 text-sm md:text-base">
-              If you're ready to streamline your sales operations, or you just want to explore how AI and automation
-              could reshape your results—reach out here. I'm committed to making your sales process more efficient and
-              profitable. Let's talk about the specific challenges you face and how we can solve them together.
-            </p>
-            <Link
-              href="/contact"
-              className="group relative inline-flex px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+            <AnimatedText
+              text="If you're ready to streamline your sales operations, or you just want to explore how AI and automation could reshape your results—reach out here. I'm committed to making your sales process more efficient and profitable. Let's talk about the specific challenges you face and how we can solve them together."
+              className="text-gray-400 max-w-3xl mx-auto mb-8 text-sm md:text-base"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
             >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Let's Talk</span>
-            </Link>
+              <Link
+                href="/contact"
+                className="group relative inline-flex px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+              >
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                <span className="relative text-white">Let's Talk</span>
+              </Link>
+            </motion.div>
           </div>
         </section>
       </div>
