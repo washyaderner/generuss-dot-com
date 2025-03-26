@@ -1,5 +1,1 @@
-[Cursor] Ensure TypeScript date parsing fix is applied
-
-- Enforce rebuild to ensure all TypeScript errors are fixed
-- Verify date parsing is properly using parseInt for all parameters
-- Maintain consistent code style in calendar API route 
+[Cursor] Update lead personalization card description with enhanced content
