@@ -6,7 +6,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChevronRight, BarChart, Zap, Users, Database, Brain, Bot, Rocket, TableProperties, Code, LineChart } from "lucide-react"
+import { ChevronRight, BarChart, Zap, Users, Database, Brain, Bot, Rocket, TableProperties, Code, LineChart, MessageSquare } from "lucide-react"
 import { MobileNav } from "@/components/mobile-nav"
 
 const competencies = [
@@ -87,14 +87,14 @@ const projects = [
     id: "personalized-lead-enrichment",
     title: "Personalized Lead Gen & Enrichment",
     category: "Sales Automation & Lead Intelligence",
-    description: "This transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information. \n\nThe system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics. \n\nUnlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced. This approach focuses high quality copy in sections, rather than telling an LLM to just blurt out the whole thing. The result is a massive increase in conversion rates.",
+    description: "This automation transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information. \n\nThe system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics. \n\nUnlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced. This approach focuses high quality copy in sections, rather than telling an LLM to just blurt out the whole thing. The result is a massive increase in conversion rates.",
     impact: [
       "50-300% improvement in cold email reply rates",
       "Scalable personalization for thousands of leads",
       "Elimination of manual research & writing time",
       "Higher-quality conversations with genuinely interested prospects"
     ],
-    technologies: ["n8n", "OpenAI", "Apollo", "LeadMagic API", "Google Sheets", "Zapier"],
+    technologies: ["n8n", "OpenAI", "Apollo", "LeadMagic API", "Google Sheets"],
     icon: Users
   },
   {
@@ -112,18 +112,18 @@ const projects = [
     icon: Bot
   },
   {
-    id: "native-chat-implementation",
+    id: "native-chat-bot",
     title: "Native AI Chat Integration",
-    category: "Custom Conversational Interface",
-    description: "While third-party AI chat solutions like n8n offer flashy interfaces, they come with significant drawbacks in customization, reliability, and brand coherence. Our custom-built native chat implementation solves these critical issues by integrating directly into your website's codebase. This approach provides pixel-perfect design control that matches your brand identity, eliminates dependency on external platforms, and allows for seamless user experiences with animations and transitions that feel like an organic part of your site.\n\nThe technical architecture delivers direct OpenAI integration with a carefully crafted system prompt defining your business voice and context. Session management via localStorage provides conversation persistence, while comprehensive error handling ensures graceful fallbacks. Unlike third-party solutions that often feel bolted-on, this native implementation includes thoughtful UX features like typing indicators, notification badges, auto-scrolling messages, and mobile responsiveness—all while maintaining complete control over data privacy and security.",
+    category: "AI Integration",
+    description: "A superior alternative to n8n AI agent chatbots, this native implementation delivers a seamless, branded experience directly integrated into the website. Unlike webhook-based solutions that require complex n8n workflow configuration and introduce latency, this approach provides instant responses and reliable performance.\n\nThe native chat bot maintains full conversation context and supports rich features like typing indicators and notification badges. It can be styled to match your brand perfectly and loads efficiently as part of the site bundle.\n\nBy eliminating the n8n middleware layer, this solution reduces complexity while improving reliability. The direct OpenAI integration enables faster responses and better error handling, creating a premium user experience.",
     impact: [
-      "100% design control to match your brand identity",
-      "Improved reliability with direct API integration",
-      "Enhanced user experience with custom animations",
-      "Complete data ownership and privacy compliance"
+      "Instant response times vs 2-3s webhook delays",
+      "Zero configuration complexity",
+      "Full conversation context retention",
+      "Seamless brand integration"
     ],
-    technologies: ["Next.js", "OpenAI API", "React", "Local Storage", "Framer Motion"],
-    icon: Bot
+    technologies: ["Next.js", "OpenAI API", "React", "Local Storage", "Framer Motion", "Google Calendar API"],
+    icon: MessageSquare
   },
   {
     id: "hold-my-brain",
@@ -300,7 +300,7 @@ export default function Portfolio() {
                   {/* Description */}
                   <div className="mb-6">
                     <p className="text-gray-300 text-base sm:text-lg">
-                      This transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information.
+                      This automation transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information.
                     </p>
                     <p className="text-gray-300 text-base sm:text-lg mt-4">
                       The system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics.
@@ -460,100 +460,106 @@ export default function Portfolio() {
         </section>
 
         {/* Superior Alternative Card - Now the third card */}
-        <div
-          id={projects[2].id}
-          className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-12"
-        >
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-          <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
-          <div className="relative">
-            {/* Image Section - Now at the top */}
-            <div className="w-full mb-6 rounded-lg overflow-hidden">
-              <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
-                <Image
-                  src="/images/GeneRuss-Chat-Bot-Native.png"
-                  alt="Native AI Chat Integration"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-            
-            {/* Header with icon, title and category */}
-            <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 rounded-lg bg-teal-500/20 shrink-0">
-                <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
-              </div>
-              <div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                  <h3 className="text-xl sm:text-2xl font-semibold text-white">{projects[2].title}</h3>
-                  <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
-                    {projects[2].category}
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Description */}
-            <div className="mb-6">
-              <p className="text-gray-300 text-base sm:text-lg">
-                While third-party AI chat solutions like n8n offer flashy interfaces, they come with significant drawbacks in customization, reliability, and brand coherence. Our custom-built native chat implementation solves these critical issues by integrating directly into your website's codebase. This approach provides pixel-perfect design control that matches your brand identity, eliminates dependency on external platforms, and allows for seamless user experiences with animations and transitions that feel like an organic part of your site.
-              </p>
-              <p className="text-gray-300 text-base sm:text-lg mt-4">
-                The technical architecture delivers direct OpenAI integration with a carefully crafted system prompt defining your business voice and context. Session management via localStorage provides conversation persistence, while comprehensive error handling ensures graceful fallbacks. Unlike third-party solutions that often feel bolted-on, this native implementation includes thoughtful UX features like typing indicators, notification badges, auto-scrolling messages, and mobile responsiveness—all while maintaining complete control over data privacy and security.
-              </p>
-            </div>
-            
-            {/* Two column layout for Impact and Tech */}
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-              <div>
-                <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
-                <ul className="space-y-2">
-                  {projects[2].impact.map((item, idx) => (
-                    <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
-                      <span className="flex-1">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
-                <div className="flex flex-wrap gap-2">
-                  {projects[2].technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            {/* View demonstration link */}
-            <div className="flex justify-end">
-              <Link
-                href="#"
-                className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+        <section className="pb-16 px-4">
+          <div className="container mx-auto">
+            <div className="max-w-5xl mx-auto">
+              <div
+                id={projects[2].id}
+                className="group relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-12"
               >
-                View demonstration
-                <svg
-                  className="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-gray-900/50 backdrop-blur-md border border-white/10" />
+                <div className="relative">
+                  {/* Image Section - Now at the top */}
+                  <div className="w-full mb-6 rounded-lg overflow-hidden">
+                    <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
+                      <Image
+                        src="/images/GeneRuss-Chat-Bot-Native.png"
+                        alt="Native AI Chat Integration"
+                        fill
+                        className="object-cover object-right"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Header with icon, title and category */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-teal-500/20 shrink-0">
+                      <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-teal-400" />
+                    </div>
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-white">{projects[2].title}</h3>
+                        <span className="inline-block text-sm px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 whitespace-nowrap">
+                          {projects[2].category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Description */}
+                  <div className="mb-6">
+                    <p className="text-gray-300 text-base sm:text-lg">
+                      While third-party AI chat solutions like n8n offer flashy interfaces, they come with significant drawbacks in customization, reliability, and brand coherence. Our custom-built native chat implementation solves these critical issues by integrating directly into your website's codebase. This approach provides pixel-perfect design control that matches your brand identity, eliminates dependency on external platforms, and allows for seamless user experiences with animations and transitions that feel like an organic part of your site.
+                    </p>
+                    <p className="text-gray-300 text-base sm:text-lg mt-4">
+                      The technical architecture delivers direct OpenAI integration with a carefully crafted system prompt defining your business voice and context. Session management via localStorage provides conversation persistence, while comprehensive error handling ensures graceful fallbacks. Unlike third-party solutions that often feel bolted-on, this native implementation includes thoughtful UX features like typing indicators, notification badges, auto-scrolling messages, and mobile responsiveness—all while maintaining complete control over data privacy and security.
+                    </p>
+                  </div>
+                  
+                  {/* Two column layout for Impact and Tech */}
+                  <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Impact</h4>
+                      <ul className="space-y-2">
+                        {projects[2].impact.map((item, idx) => (
+                          <li key={idx} className="flex items-start text-sm sm:text-base text-gray-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 mt-1.5" />
+                            <span className="flex-1">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-white font-medium mb-2 sm:mb-3">Tech</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[2].technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* View demonstration link */}
+                  <div className="flex justify-end">
+                    <Link
+                      href="#"
+                      className="inline-flex items-center text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors"
+                    >
+                      View demonstration
+                      <svg
+                        className="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
 
       {/* Creative Background Section */}
