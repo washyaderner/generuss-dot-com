@@ -85,7 +85,7 @@ const achievements = [
 const projects = [
   {
     id: "personalized-lead-enrichment",
-    title: "AI-Powered Lead Personalization Engine",
+    title: "Personalized Lead Gen & Enrichment",
     category: "Sales Automation & Lead Intelligence",
     description: "Transform cold outreach with deep personalization at scale. This automation pipeline scrapes valuable lead data from Apollo and enriches it with LeadMagic's comprehensive LinkedIn profile information. The system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics. Unlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced.",
     impact: [
