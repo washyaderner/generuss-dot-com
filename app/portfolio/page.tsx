@@ -87,7 +87,7 @@ const projects = [
     id: "personalized-lead-enrichment",
     title: "Personalized Lead Gen & Enrichment",
     category: "Sales Automation & Lead Intelligence",
-    description: "Transform cold outreach with deep personalization at scale. This automation pipeline scrapes valuable lead data from Apollo and enriches it with LeadMagic's comprehensive LinkedIn profile information. The system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics. Unlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced.",
+    description: "This transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information. \n\nThe system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics. \n\nUnlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced. This approach focuses high quality copy in sections, rather than telling an LLM to just blurt out the whole thing. The result is a massive increase in conversion rates.",
     impact: [
       "50-300% improvement in cold email reply rates",
       "Scalable personalization for thousands of leads",
@@ -300,7 +300,13 @@ export default function Portfolio() {
                   {/* Description */}
                   <div className="mb-6">
                     <p className="text-gray-300 text-base sm:text-lg">
-                      {projects[0].description}
+                      This transforms cold outreach from a copy-paste empty feel, to a deeply enriched and personalized approach. What it does is pulls leads from Apollo scraped via Apify, and enriches it with LeadMagic's comprehensive LinkedIn profile information.
+                    </p>
+                    <p className="text-gray-300 text-base sm:text-lg mt-4">
+                      The system then leverages advanced AI to generate tailored email components—from attention-grabbing subject lines to personalized ice breakers based on the lead's career history, role, and interests. The result is a frictionless system that delivers highly customized outreach for thousands of prospects, dramatically improving reply rates and conversion metrics.
+                    </p>
+                    <p className="text-gray-300 text-base sm:text-lg mt-4">
+                      Unlike generic mail merge tools, this solution creates genuinely individualized communications that resonate with decision-makers, making each interaction feel personally crafted rather than mass-produced. This approach focuses high quality copy in sections, rather than telling an LLM to just blurt out the whole thing. The result is a massive increase in conversion rates.
                     </p>
                   </div>
                   
