@@ -465,7 +465,7 @@ export default function Portfolio() {
             <div className="w-full mb-6 rounded-lg overflow-hidden">
               <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
                 <Image
-                  src="/images/Agent-Alternative-Website-Chat.png"
+                  src="/images/GeneRuss-Chat-Bot-Native.png"
                   alt="Native AI Chat Integration"
                   fill
                   className="object-cover"
