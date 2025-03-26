@@ -99,30 +99,30 @@ const projects = [
   },
   {
     id: "ai-agent-chatbot",
-    title: "Website AI Chat Agents",
-    category: "Conversational AI",
-    description: "Everybody is excited about website AI chatbots, because they can automatically answer customer questions about your business and schedule appointments. They are really fun to play around with, and they are all the hype in 2025. The image above is from an actual agent chatbot I created—so yes, it could be customized for your site. However, before you decide to dive into that rabbit hole, scroll down and read the next card about the Superior Alternative to Chat Agents. That approach is a lot more accurate, and yields much higher conversion rates and customer satisfaction.",
+    title: "3rd-Party AI Chat Solutions",
+    category: "Platform-Based Chatbots",
+    description: "Third-party AI chatbots from platforms like n8n are popular because they can answer customer questions and schedule appointments without custom development. They're easy to set up and demonstrate, but come with significant limitations in terms of customization and brand integration. While these solutions make for impressive demos, they often create a disconnect in user experience, as they don't fully match your website's design language. The implementation shown above demonstrates both the appeal and limitations of these plug-and-play options. For a more integrated approach that truly becomes part of your website, scroll down to see our Native AI Chat Integration, which delivers a seamless experience while maintaining complete design control.",
     impact: [
-      "New and exciting AI tech",
-      "Highly customizable",
-      "Familiar chat box interface",
-      "Trending solution in 2025"
+      "Quick implementation with minimal coding",
+      "Pre-built conversation flows",
+      "Managed infrastructure without hosting concerns",
+      "Basic appointment scheduling capabilities"
     ],
     technologies: ["n8n", "OpenAI", "Claude", "Next.js", "Google Calendar API"],
     icon: Bot
   },
   {
-    id: "agent-alternative",
-    title: "Superior Alternative to Chat Agents",
-    category: "Reliable AI Solution",
-    description: "Now let's talk about a more effective approach. This may not be as pretty or flashy as an AI chatbot agent, but it's 100x more effective. The structured webhook flow replaces unreliable AI agents with a precise, procedural automation pipeline. A webhook captures the initial input, an AI node processes only specific structured data (e.g., date conversion), and a final action node executes the task, such as creating a calendar event.\n\nThis approach eliminates ambiguity, ensuring near-total reliability, faster execution, and seamless debugging. Unlike AI agents, which introduce unpredictable behavior and failure rates of up to 5%, this method delivers deterministic results, making it the superior choice for mission-critical business automation. This example is just scratching the surface of ways you can leverage AI automation to help you maximize customer satisfaction.",
+    id: "native-chat-implementation",
+    title: "Native AI Chat Integration",
+    category: "Custom Conversational Interface",
+    description: "While third-party AI chat solutions like n8n offer flashy interfaces, they come with significant drawbacks in customization, reliability, and brand coherence. Our custom-built native chat implementation solves these critical issues by integrating directly into your website's codebase. This approach provides pixel-perfect design control that matches your brand identity, eliminates dependency on external platforms, and allows for seamless user experiences with animations and transitions that feel like an organic part of your site.\n\nThe technical architecture delivers direct OpenAI integration with a carefully crafted system prompt defining your business voice and context. Session management via localStorage provides conversation persistence, while comprehensive error handling ensures graceful fallbacks. Unlike third-party solutions that often feel bolted-on, this native implementation includes thoughtful UX features like typing indicators, notification badges, auto-scrolling messages, and mobile responsiveness—all while maintaining complete control over data privacy and security.",
     impact: [
-      "Easily customizable to any business process",
-      "90%+ higher accuracy and consistency",
-      "More reliable customer service",
-      "Eliminates risks of AI misinterpretations"
+      "100% design control to match your brand identity",
+      "Improved reliability with direct API integration",
+      "Enhanced user experience with custom animations",
+      "Complete data ownership and privacy compliance"
     ],
-    technologies: ["n8n", "OpenAI", "Claude", "Next.js", "Google Calendar API"],
+    technologies: ["Next.js", "OpenAI API", "React", "Local Storage", "Framer Motion"],
     icon: Bot
   },
   {
@@ -367,7 +367,7 @@ export default function Portfolio() {
                     <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
                       <Image
                         src="/images/AI-Agent-Chat-Bot.png"
-                        alt="AI Agent Chatbot"
+                        alt="Third-Party AI Chat Solutions"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 800px"
@@ -393,7 +393,10 @@ export default function Portfolio() {
                   {/* Description */}
                   <div className="mb-6">
                     <p className="text-gray-300 text-base sm:text-lg">
-                      {projects[1].description}
+                      Third-party AI chatbots from platforms like n8n are popular because they can answer customer questions and schedule appointments without custom development. They're easy to set up and demonstrate, but come with significant limitations in terms of customization and brand integration. While these solutions make for impressive demos, they often create a disconnect in user experience, as they don't fully match your website's design language.
+                    </p>
+                    <p className="text-gray-300 text-base sm:text-lg mt-4">
+                      The implementation shown above demonstrates both the appeal and limitations of these plug-and-play options. For a more integrated approach that truly becomes part of your website, scroll down to see our Native AI Chat Integration, which delivers a seamless experience while maintaining complete design control.
                     </p>
                   </div>
                   
@@ -463,7 +466,7 @@ export default function Portfolio() {
               <div className="relative w-full pt-[45%]"> {/* 16:9 aspect ratio */}
                 <Image
                   src="/images/Agent-Alternative-Website-Chat.png"
-                  alt="Superior Alternative to Chat Agents"
+                  alt="Native AI Chat Integration"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 800px"
@@ -489,10 +492,10 @@ export default function Portfolio() {
             {/* Description */}
             <div className="mb-6">
               <p className="text-gray-300 text-base sm:text-lg">
-                Now let's talk about a more effective approach. This may not be as pretty or flashy as an AI chatbot agent, but it's 100x more effective. The structured webhook flow replaces unreliable AI agents with a precise, procedural automation pipeline. A webhook captures the initial input, an AI node processes only specific structured data (e.g., date conversion), and a final action node executes the task, such as creating a calendar event.
+                While third-party AI chat solutions like n8n offer flashy interfaces, they come with significant drawbacks in customization, reliability, and brand coherence. Our custom-built native chat implementation solves these critical issues by integrating directly into your website's codebase. This approach provides pixel-perfect design control that matches your brand identity, eliminates dependency on external platforms, and allows for seamless user experiences with animations and transitions that feel like an organic part of your site.
               </p>
               <p className="text-gray-300 text-base sm:text-lg mt-4">
-                This approach eliminates ambiguity, ensuring near-total reliability, faster execution, and seamless debugging. Unlike AI agents, which introduce unpredictable behavior and failure rates of up to 5%, this method delivers deterministic results, making it the superior choice for mission-critical business automation. This example is just scratching the surface of ways you can leverage AI automation to help you maximize customer satisfaction.
+                The technical architecture delivers direct OpenAI integration with a carefully crafted system prompt defining your business voice and context. Session management via localStorage provides conversation persistence, while comprehensive error handling ensures graceful fallbacks. Unlike third-party solutions that often feel bolted-on, this native implementation includes thoughtful UX features like typing indicators, notification badges, auto-scrolling messages, and mobile responsiveness—all while maintaining complete control over data privacy and security.
               </p>
             </div>
             
