@@ -136,16 +136,13 @@ export default async function Home() {
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
-                  <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
-                    Scale Fast, Touch Grass
+                  <span className="text-3xl md:text-4xl lg:text-5xl max-w-4xl relative metallic-text glowing-pulse">
+                    Automation to Delete Friction & Increase Profit
                   </span>
                 </div>
               </h1>
             </div>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl">
-              Using automation to reduce bottlenecks and maximize profitability
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link
                 href="/solutions"
                 className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
@@ -255,6 +252,41 @@ export default async function Home() {
           </div>
         </section>
       </div>
+
+      <style jsx>{`
+        .metallic-text {
+          background: linear-gradient(to right, #888, #ddd, #bbb, #eee, #aaa, #ccc);
+          -webkit-background-clip: text;
+          color: transparent;
+          text-shadow: 0 0 5px rgba(255,255,255,0.1);
+        }
+        
+        .glowing-pulse {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .glowing-pulse::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+          animation: pulse 3s infinite;
+          pointer-events: none;
+        }
+        
+        @keyframes pulse {
+          0% {
+            left: -50%;
+          }
+          100% {
+            left: 150%;
+          }
+        }
+      `}</style>
     </div>
   )
 }
