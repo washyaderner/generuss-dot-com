@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
@@ -6,6 +8,8 @@ import { NavLink } from "@/components/nav-link"
 import { getAllPosts } from "@/app/lib/contentful"
 import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
 import { Metadata } from "next"
+import { useEffect, useState } from "react"
+import { BlogPost } from "@/app/lib/contentful"
 
 // This sets revalidation time to 1 hour
 export const revalidate = 3600
@@ -75,10 +79,26 @@ const solutions = [
   },
 ]
 
-export default async function Home() {
-  // Fetch the latest blog post
-  const posts = await getAllPosts()
-  const latestPost = posts.length > 0 ? posts[0] : null
+export default function Home() {
+  // State for blog posts
+  const [latestPost, setLatestPost] = useState<BlogPost | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // Fetch blog posts on client side
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const posts = await getAllPosts()
+        setLatestPost(posts.length > 0 ? posts[0] : null)
+      } catch (error) {
+        console.error("Error fetching blog posts:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    fetchPosts()
+  }, [])
   
   return (
     <div className="min-h-screen bg-black">
@@ -198,7 +218,7 @@ export default async function Home() {
         </section>
 
         {/* Latest Blog Post Section */}
-        {latestPost && (
+        {!isLoading && latestPost && (
           <section className="py-16 px-4" aria-labelledby="latest-insights">
             <div className="container mx-auto">
               <h2 
@@ -255,6 +275,9 @@ export default async function Home() {
           </div>
         </section>
       </div>
+      
+      {/* Mobile Navigation */}
+      <MobileNav links={navigationLinks} />
     </div>
   )
 }
