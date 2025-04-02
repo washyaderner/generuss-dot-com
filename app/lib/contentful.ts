@@ -98,6 +98,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       return [];
     }
     
+    // Using array syntax for order parameter to match expected type
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
       order: ['-sys.createdAt'],
@@ -134,6 +135,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       return null;
     }
     
+    // Using modern syntax to avoid deprecation warnings
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
       'fields.slug': slug,
