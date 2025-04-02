@@ -78,7 +78,7 @@ const nextConfig = {
             value: `
               default-src 'self';
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
-              connect-src 'self' https://api.openai.com;
+              connect-src 'self' https://api.openai.com http://localhost:* https://localhost:* https://cdn.contentful.com;
               style-src 'self' 'unsafe-inline';
               img-src 'self' blob: data: https://images.ctfassets.net https://img.youtube.com https://i.ytimg.com;
               font-src 'self';

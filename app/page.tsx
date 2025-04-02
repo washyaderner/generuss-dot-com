@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
@@ -5,40 +7,8 @@ import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
 import { getAllPosts } from "@/app/lib/contentful"
 import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
-import { Metadata } from "next"
-
-// This sets revalidation time to 1 hour
-export const revalidate = 3600
-
-// Generate metadata for SEO
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Generuss - AI & Automation Solutions for Sales Growth',
-    description: 'Expert solutions in sales strategy, AI automation, and business process optimization. Build better systems, save time, and grow revenue.',
-    openGraph: {
-      title: 'Generuss - AI & Automation Solutions for Sales Growth',
-      description: 'Expert solutions in sales strategy, AI automation, and business process optimization. Build better systems, save time, and grow revenue.',
-      url: 'https://generuss.com',
-      siteName: 'Generuss',
-      images: [
-        {
-          url: 'https://generuss.com/og-image.jpg', // Update with actual OG image
-          width: 1200,
-          height: 630,
-          alt: 'Generuss - AI & Automation Solutions'
-        }
-      ],
-      locale: 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Generuss - AI & Automation Solutions for Sales Growth',
-      description: 'Expert solutions in sales strategy, AI automation, and business process optimization.',
-      images: ['https://generuss.com/twitter-image.jpg'], // Update with actual Twitter image
-    }
-  }
-}
+import { useEffect, useState } from "react"
+import { BlogPost } from "@/app/lib/contentful"
 
 const navigationLinks = [
   { href: "/solutions", label: "Solutions" },
@@ -75,10 +45,26 @@ const solutions = [
   },
 ]
 
-export default async function Home() {
-  // Fetch the latest blog post
-  const posts = await getAllPosts()
-  const latestPost = posts.length > 0 ? posts[0] : null
+export default function Home() {
+  // State for blog posts
+  const [latestPost, setLatestPost] = useState<BlogPost | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // Fetch blog posts on client side
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const posts = await getAllPosts()
+        setLatestPost(posts.length > 0 ? posts[0] : null)
+      } catch (error) {
+        console.error("Error fetching blog posts:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    fetchPosts()
+  }, [])
   
   return (
     <div className="min-h-screen bg-black">
@@ -198,7 +184,7 @@ export default async function Home() {
         </section>
 
         {/* Latest Blog Post Section */}
-        {latestPost && (
+        {!isLoading && latestPost && (
           <section className="py-16 px-4" aria-labelledby="latest-insights">
             <div className="container mx-auto">
               <h2 
@@ -255,6 +241,9 @@ export default async function Home() {
           </div>
         </section>
       </div>
+      
+      {/* Mobile Navigation */}
+      <MobileNav links={navigationLinks} />
     </div>
   )
 }
