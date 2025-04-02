@@ -77,8 +77,8 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval';
-              connect-src 'self' https://api.openai.com http://localhost:* https://localhost:* https://cdn.contentful.com;
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel.live https://*.vercel.app https://*.googleapis.com;
+              connect-src 'self' https://api.openai.com http://localhost:* https://localhost:* https://cdn.contentful.com https://*.vercel.live https://*.vercel.app;
               style-src 'self' 'unsafe-inline';
               img-src 'self' blob: data: https://images.ctfassets.net https://img.youtube.com https://i.ytimg.com;
               font-src 'self';

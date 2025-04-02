@@ -49,15 +49,24 @@ export default function Home() {
   // State for blog posts
   const [latestPost, setLatestPost] = useState<BlogPost | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
   
   // Fetch blog posts on client side
   useEffect(() => {
     async function fetchPosts() {
       try {
+        if (!process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || 
+            !process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN) {
+          console.warn("Contentful credentials missing. Skipping blog post fetch.");
+          setIsLoading(false);
+          return;
+        }
+        
         const posts = await getAllPosts()
         setLatestPost(posts.length > 0 ? posts[0] : null)
       } catch (error) {
         console.error("Error fetching blog posts:", error)
+        setHasError(true)
       } finally {
         setIsLoading(false)
       }
@@ -184,7 +193,7 @@ export default function Home() {
         </section>
 
         {/* Latest Blog Post Section */}
-        {!isLoading && latestPost && (
+        {!isLoading && !hasError && latestPost && (
           <section className="py-16 px-4" aria-labelledby="latest-insights">
             <div className="container mx-auto">
               <h2 

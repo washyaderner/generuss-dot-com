@@ -1,11 +1,5 @@
 import { createClient } from 'contentful'
 
-// Initialize Contentful client
-const client = createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || process.env.CONTENTFUL_SPACE_ID || '',
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || process.env.CONTENTFUL_ACCESS_TOKEN || '',
-})
-
 // Helper function for environment-based logging
 const log = {
   debug: (...args: any[]) => {
@@ -17,6 +11,33 @@ const log = {
     console.error('[Contentful]', ...args)
   }
 }
+
+// Get Contentful credentials with fallbacks
+const getContentfulCredentials = () => {
+  const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || 
+                 process.env.CONTENTFUL_SPACE_ID || '';
+  
+  const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || 
+                     process.env.CONTENTFUL_ACCESS_TOKEN || '';
+  
+  // Log warning if credentials are missing
+  if (!spaceId || !accessToken) {
+    log.error('Missing Contentful credentials', { 
+      hasSpaceId: !!spaceId, 
+      hasAccessToken: !!accessToken,
+      env: process.env.NODE_ENV
+    });
+  }
+  
+  return { spaceId, accessToken };
+}
+
+// Initialize Contentful client
+const { spaceId, accessToken } = getContentfulCredentials();
+const client = createClient({
+  space: spaceId,
+  accessToken: accessToken,
+});
 
 // Our frontend type for blog posts
 export interface BlogPost {

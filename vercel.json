@@ -1,0 +1,12 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "dev": true
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "${CONTENTFUL_SPACE_ID}",
+    "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "${CONTENTFUL_ACCESS_TOKEN}"
+  }
+} 
