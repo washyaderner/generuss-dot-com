@@ -32,12 +32,11 @@ const getContentfulCredentials = () => {
   return { spaceId, accessToken };
 }
 
-// Initialize Contentful client
+// Initialize Contentful client with safety checks
 const { spaceId, accessToken } = getContentfulCredentials();
-const client = createClient({
-  space: spaceId,
-  accessToken: accessToken,
-});
+const client = spaceId && accessToken 
+  ? createClient({ space: spaceId, accessToken })
+  : null;
 
 // Our frontend type for blog posts
 export interface BlogPost {
@@ -93,6 +92,12 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     log.debug('Fetching all posts')
     
+    // If client is null (missing credentials), return empty array
+    if (!client) {
+      log.error('Contentful client not initialized due to missing credentials');
+      return [];
+    }
+    
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
       order: ['-sys.createdAt'],
@@ -122,6 +127,12 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     log.debug('Fetching post:', slug)
+    
+    // If client is null (missing credentials), return null
+    if (!client) {
+      log.error('Contentful client not initialized due to missing credentials');
+      return null;
+    }
     
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
