@@ -45,19 +45,32 @@ const solutions = [
   },
 ]
 
-export default function Home() {
-  // State for blog posts
+// Move BlogSection to a separate client component
+function BlogSection() {
   const [latestPost, setLatestPost] = useState<BlogPost | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
+  const [hasBlogFeature, setHasBlogFeature] = useState(true)
   
-  // Fetch blog posts on client side
+  // Fetch blog posts on client side only
   useEffect(() => {
     async function fetchPosts() {
       try {
+        const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+        const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+        
+        if (!spaceId || !accessToken) {
+          console.warn("Contentful credentials missing. Skipping blog post fetch.");
+          setIsLoading(false);
+          setHasBlogFeature(false);
+          return;
+        }
+        
         const posts = await getAllPosts()
         setLatestPost(posts.length > 0 ? posts[0] : null)
       } catch (error) {
         console.error("Error fetching blog posts:", error)
+        setHasError(true)
       } finally {
         setIsLoading(false)
       }
@@ -65,6 +78,45 @@ export default function Home() {
     
     fetchPosts()
   }, [])
+
+  // Don't render anything during initial loading to prevent hydration mismatch
+  if (isLoading) return null;
+  
+  // Don't render if feature is disabled or there's an error
+  if (!hasBlogFeature || hasError || !latestPost) return null;
+  
+  return (
+    <section className="py-16 px-4" aria-labelledby="latest-insights">
+      <div className="container mx-auto">
+        <h2 
+          id="latest-insights" 
+          className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent"
+        >
+          Latest Insights
+        </h2>
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
+          Practical advice and strategies to level up your business and sales processes
+        </p>
+        
+        <FeaturedBlogPost post={latestPost} />
+        
+        <div className="flex justify-center mt-10">
+          <Link
+            href="/blog"
+            className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+          >
+            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
+            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="relative text-white">View All Articles</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  // Removed blog-related state from here
   
   return (
     <div className="min-h-screen bg-black">
@@ -183,35 +235,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Latest Blog Post Section */}
-        {!isLoading && latestPost && (
-          <section className="py-16 px-4" aria-labelledby="latest-insights">
-            <div className="container mx-auto">
-              <h2 
-                id="latest-insights" 
-                className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent"
-              >
-                Latest Insights
-              </h2>
-              <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
-                Practical advice and strategies to level up your business and sales processes
-              </p>
-              
-              <FeaturedBlogPost post={latestPost} />
-              
-              <div className="flex justify-center mt-10">
-                <Link
-                  href="/blog"
-                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
-                >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">View All Articles</span>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* Latest Blog Post Section - Now as a separate client component */}
+        <BlogSection />
 
         {/* CTA Section */}
         <section className="py-24 px-4">
