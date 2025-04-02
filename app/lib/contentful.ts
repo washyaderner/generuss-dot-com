@@ -1,11 +1,5 @@
 import { createClient } from 'contentful'
 
-// Initialize Contentful client
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID!,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
-})
-
 // Helper function for environment-based logging
 const log = {
   debug: (...args: any[]) => {
@@ -17,6 +11,32 @@ const log = {
     console.error('[Contentful]', ...args)
   }
 }
+
+// Get Contentful credentials with fallbacks
+const getContentfulCredentials = () => {
+  const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || 
+                 process.env.CONTENTFUL_SPACE_ID || '';
+  
+  const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || 
+                     process.env.CONTENTFUL_ACCESS_TOKEN || '';
+  
+  // Log warning if credentials are missing
+  if (!spaceId || !accessToken) {
+    log.error('Missing Contentful credentials', { 
+      hasSpaceId: !!spaceId, 
+      hasAccessToken: !!accessToken,
+      env: process.env.NODE_ENV
+    });
+  }
+  
+  return { spaceId, accessToken };
+}
+
+// Initialize Contentful client with safety checks
+const { spaceId, accessToken } = getContentfulCredentials();
+const client = spaceId && accessToken 
+  ? createClient({ space: spaceId, accessToken })
+  : null;
 
 // Our frontend type for blog posts
 export interface BlogPost {
@@ -72,6 +92,13 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     log.debug('Fetching all posts')
     
+    // If client is null (missing credentials), return empty array
+    if (!client) {
+      log.error('Contentful client not initialized due to missing credentials');
+      return [];
+    }
+    
+    // Using array syntax for order parameter to match expected type
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
       order: ['-sys.createdAt'],
@@ -102,6 +129,13 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     log.debug('Fetching post:', slug)
     
+    // If client is null (missing credentials), return null
+    if (!client) {
+      log.error('Contentful client not initialized due to missing credentials');
+      return null;
+    }
+    
+    // Using modern syntax to avoid deprecation warnings
     const entries = await client.getEntries({
       content_type: BLOG_POST_CONTENT_TYPE,
       'fields.slug': slug,

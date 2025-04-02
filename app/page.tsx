@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
@@ -5,40 +7,8 @@ import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
 import { getAllPosts } from "@/app/lib/contentful"
 import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
-import { Metadata } from "next"
-
-// This sets revalidation time to 1 hour
-export const revalidate = 3600
-
-// Generate metadata for SEO
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Generuss - AI & Automation Solutions for Sales Growth',
-    description: 'Expert solutions in sales strategy, AI automation, and business process optimization. Build better systems, save time, and grow revenue.',
-    openGraph: {
-      title: 'Generuss - AI & Automation Solutions for Sales Growth',
-      description: 'Expert solutions in sales strategy, AI automation, and business process optimization. Build better systems, save time, and grow revenue.',
-      url: 'https://generuss.com',
-      siteName: 'Generuss',
-      images: [
-        {
-          url: 'https://generuss.com/og-image.jpg', // Update with actual OG image
-          width: 1200,
-          height: 630,
-          alt: 'Generuss - AI & Automation Solutions'
-        }
-      ],
-      locale: 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Generuss - AI & Automation Solutions for Sales Growth',
-      description: 'Expert solutions in sales strategy, AI automation, and business process optimization.',
-      images: ['https://generuss.com/twitter-image.jpg'], // Update with actual Twitter image
-    }
-  }
-}
+import { useEffect, useState } from "react"
+import { BlogPost } from "@/app/lib/contentful"
 
 const navigationLinks = [
   { href: "/solutions", label: "Solutions" },
@@ -75,10 +45,78 @@ const solutions = [
   },
 ]
 
-export default async function Home() {
-  // Fetch the latest blog post
-  const posts = await getAllPosts()
-  const latestPost = posts.length > 0 ? posts[0] : null
+// Move BlogSection to a separate client component
+function BlogSection() {
+  const [latestPost, setLatestPost] = useState<BlogPost | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
+  const [hasBlogFeature, setHasBlogFeature] = useState(true)
+  
+  // Fetch blog posts on client side only
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+        const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+        
+        if (!spaceId || !accessToken) {
+          console.warn("Contentful credentials missing. Skipping blog post fetch.");
+          setIsLoading(false);
+          setHasBlogFeature(false);
+          return;
+        }
+        
+        const posts = await getAllPosts()
+        setLatestPost(posts.length > 0 ? posts[0] : null)
+      } catch (error) {
+        console.error("Error fetching blog posts:", error)
+        setHasError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    fetchPosts()
+  }, [])
+
+  // Don't render anything during initial loading to prevent hydration mismatch
+  if (isLoading) return null;
+  
+  // Don't render if feature is disabled or there's an error
+  if (!hasBlogFeature || hasError || !latestPost) return null;
+  
+  return (
+    <section className="py-16 px-4" aria-labelledby="latest-insights">
+      <div className="container mx-auto">
+        <h2 
+          id="latest-insights" 
+          className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent"
+        >
+          Latest Insights
+        </h2>
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
+          Practical advice and strategies to level up your business and sales processes
+        </p>
+        
+        <FeaturedBlogPost post={latestPost} />
+        
+        <div className="flex justify-center mt-10">
+          <Link
+            href="/blog"
+            className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+          >
+            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
+            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="relative text-white">View All Articles</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  // Removed blog-related state from here
   
   return (
     <div className="min-h-screen bg-black">
@@ -197,35 +235,8 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Latest Blog Post Section */}
-        {latestPost && (
-          <section className="py-16 px-4" aria-labelledby="latest-insights">
-            <div className="container mx-auto">
-              <h2 
-                id="latest-insights" 
-                className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent"
-              >
-                Latest Insights
-              </h2>
-              <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
-                Practical advice and strategies to level up your business and sales processes
-              </p>
-              
-              <FeaturedBlogPost post={latestPost} />
-              
-              <div className="flex justify-center mt-10">
-                <Link
-                  href="/blog"
-                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
-                >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">View All Articles</span>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* Latest Blog Post Section - Now as a separate client component */}
+        <BlogSection />
 
         {/* CTA Section */}
         <section className="py-24 px-4">
@@ -255,6 +266,9 @@ export default async function Home() {
           </div>
         </section>
       </div>
+      
+      {/* Mobile Navigation */}
+      <MobileNav links={navigationLinks} />
     </div>
   )
 }
