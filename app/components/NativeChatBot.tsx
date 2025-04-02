@@ -214,7 +214,7 @@ export default function NativeChatBot() {
       setTimeout(() => {
         setMessages([{
           id: `bot-${Date.now()}`,
-          content: 'Hey there 👋 I assist Russ in answering questions and scheduling appointments. How can I help?',
+          content: 'Hey there 👋 I help answer questions and schedule appointments for Russ. Let me know how I can help!',
           sender: 'bot',
           timestamp: new Date().getTime()
         }])
