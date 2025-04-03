@@ -155,8 +155,8 @@ export default function Solutions() {
           <div className="container mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                <span className="text-teal-400">
                   Solutions
                 </span>
               </h1>
