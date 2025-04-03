@@ -114,7 +114,7 @@ export default function About() {
               </h1>
             </div>
             <p className="text-gray-400 max-w-3xl mx-auto mb-8 text-lg">
-              Combining AI expertise with music production and sales leadership to create innovative solutions that drive real results
+              Combining AI expertise with sales leadership to create innovative solutions that drive real results
             </p>
           </div>
         </section>
