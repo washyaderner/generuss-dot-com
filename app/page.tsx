@@ -174,8 +174,8 @@ export default function Home() {
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
-                  <span className="bg-gradient-to-r from-violet-900 to-teal-400 bg-clip-text text-transparent">
-                    Scale Fast, Touch Grass
+                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl">
+                    Automate + Streamline = More Free Time
                   </span>
                 </div>
               </h1>
