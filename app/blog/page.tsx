@@ -138,7 +138,7 @@ export default async function Blog() {
                   id="blog-heading"
                   className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-teal-400"
                 >
-                  Our Blog
+                  Blog
                 </h1>
               </div>
               <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
