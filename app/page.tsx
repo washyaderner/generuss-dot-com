@@ -175,7 +175,7 @@ export default function Home() {
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
                   <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl">
-                    Automate + Streamline = More Free Time
+                    Automate → Touch Grass
                   </span>
                 </div>
               </h1>
