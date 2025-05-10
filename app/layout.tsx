@@ -67,7 +67,7 @@ export default function RootLayout({
       <head>
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com; connect-src 'self' https://api.openai.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self'; object-src 'none'"
+          content="default-src 'self'; frame-src 'self' https://app.cal.com https://cal.com https://*.cal.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://cal.com https://*.cal.com https://app.cal.com https://*.vercel.live https://*.googletagmanager.com; connect-src 'self' https://api.openai.com https://cal.com https://*.cal.com https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cal.com https://*.cal.com https://app.cal.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; object-src 'none'"
         />
         <link rel="icon" href={`/favicon.ico${cacheBuster}`} />
         <link rel="icon" href={`/favicon-96x96.png${cacheBuster}`} sizes="96x96" type="image/png" />

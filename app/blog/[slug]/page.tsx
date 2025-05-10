@@ -5,9 +5,7 @@ import { Metadata } from 'next'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
-import { NavLink } from "@/components/nav-link"
-import Link from "next/link"
-import { MobileNav } from "@/components/mobile-nav"
+import { BlogNavigation } from "@/components/BlogNavigation"
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -70,14 +68,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       notFound()
     }
 
-    const navigationLinks = [
-      { href: "/solutions", label: "Solutions" },
-      { href: "/portfolio", label: "Portfolio" },
-      { href: "/blog", label: "Blog" },
-      { href: "/about", label: "About" },
-      { href: "/contact", label: "Contact" },
-    ]
-
     // Structured data for Google
     const jsonLd = {
       '@context': 'https://schema.org',
@@ -114,53 +104,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
 
-          {/* Navigation */}
-          <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-            <nav className="container mx-auto px-4 h-16 flex items-center justify-between" aria-label="Main navigation">
-              <div className="flex items-center space-x-8">
-                <Link
-                  href="/"
-                  className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
-                  aria-label="Return to homepage"
-                >
-                  Home
-                </Link>
-                <div className="hidden md:flex space-x-6">
-                  <NavLink href="/solutions">
-                    Solutions
-                  </NavLink>
-                  <NavLink href="/portfolio">
-                    Portfolio
-                  </NavLink>
-                  <NavLink href="/blog">
-                    Blog
-                  </NavLink>
-                  <NavLink href="/about">
-                    About
-                  </NavLink>
-                  <NavLink href="/contact">
-                    Contact
-                  </NavLink>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <Link
-                  href="#"
-                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white hidden md:flex"
-                  aria-label="Request a demo"
-                >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" aria-hidden="true" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-                  <span className="relative text-white">Get a Demo</span>
-                </Link>
-                <div className="md:hidden">
-                  <MobileNav links={navigationLinks} />
-                </div>
-              </div>
-            </nav>
-          </header>
-
           <div className="container mx-auto max-w-5xl px-4 md:px-6 lg:px-8 pt-32">
+            {/* Simplified Navigation */}
+            <BlogNavigation />
+            
             <article 
               itemScope 
               itemType="https://schema.org/BlogPosting"
@@ -168,6 +115,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             >
               <BlogPost post={post} />
             </article>
+            
+            {/* Bottom Navigation */}
+            <div className="mt-12">
+              <BlogNavigation />
+            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,10 @@
-import Link from "next/link"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { getAllPosts } from "@/app/lib/contentful"
 import BlogList from "@/app/components/blog/BlogList"
 import { Metadata } from 'next'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
-import { NavLink } from "@/components/nav-link"
-import { MobileNav } from "@/components/mobile-nav"
+import { BlogNavigation } from "@/components/BlogNavigation"
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -38,14 +36,6 @@ export const metadata: Metadata = {
 export default async function Blog() {
   try {
     const posts = await getAllPosts()
-
-    const navigationLinks = [
-      { href: "/solutions", label: "Solutions" },
-      { href: "/portfolio", label: "Portfolio" },
-      { href: "/blog", label: "Blog" },
-      { href: "/about", label: "About" },
-      { href: "/contact", label: "Contact" },
-    ]
 
     // Structured data for blog listing
     const jsonLd = {
@@ -83,73 +73,30 @@ export default async function Blog() {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
 
-          {/* Navigation */}
-          <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-            <nav className="container mx-auto px-4 h-16 flex items-center justify-between" aria-label="Main navigation">
-              <div className="flex items-center space-x-8">
-                <Link
-                  href="/"
-                  className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent flex items-center"
-                  aria-label="Return to homepage"
-                >
-                  Home
-                </Link>
-                <div className="hidden md:flex space-x-6">
-                  <NavLink href="/solutions">
-                    Solutions
-                  </NavLink>
-                  <NavLink href="/portfolio">
-                    Portfolio
-                  </NavLink>
-                  <NavLink href="/blog">
+          <div className="container mx-auto max-w-5xl px-4 md:px-6 lg:px-8 pt-32">
+            {/* Simplified Navigation */}
+            <BlogNavigation showBrowseArticles={false} />
+
+            {/* Hero Section */}
+            <section className="pb-16" aria-labelledby="blog-heading">
+              <div className="text-center">
+                <div className="relative inline-block">
+                  <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" aria-hidden="true" />
+                  <h1 
+                    id="blog-heading"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-teal-400"
+                  >
                     Blog
-                  </NavLink>
-                  <NavLink href="/about">
-                    About
-                  </NavLink>
-                  <NavLink href="/contact">
-                    Contact
-                  </NavLink>
+                  </h1>
                 </div>
+                <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
+                  Insights, tips, and strategies to elevate your sales and business processes
+                </p>
               </div>
-              <div className="flex items-center">
-                <Link
-                  href="#"
-                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white hidden md:flex"
-                  aria-label="Request a demo"
-                >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" aria-hidden="true" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-                  <span className="relative text-white">Get a Demo</span>
-                </Link>
-                <div className="md:hidden">
-                  <MobileNav links={navigationLinks} />
-                </div>
-              </div>
-            </nav>
-          </header>
+            </section>
 
-          {/* Hero Section */}
-          <section className="pt-32 pb-16 px-4" aria-labelledby="blog-heading">
-            <div className="container mx-auto text-center">
-              <div className="relative inline-block">
-                <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" aria-hidden="true" />
-                <h1 
-                  id="blog-heading"
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-teal-400"
-                >
-                  Blog
-                </h1>
-              </div>
-              <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
-                Insights, tips, and strategies to elevate your sales and business processes
-              </p>
-            </div>
-          </section>
-
-          {/* Blog Posts */}
-          <section className="py-24 px-4" aria-label="Blog posts">
-            <div className="container mx-auto">
+            {/* Blog Posts */}
+            <section className="py-12" aria-label="Blog posts">
               {posts.length > 0 ? (
                 <BlogList posts={posts} />
               ) : (
@@ -160,8 +107,13 @@ export default async function Blog() {
                   </AlertDescription>
                 </Alert>
               )}
+            </section>
+            
+            {/* Bottom Navigation */}
+            <div className="mt-12 mb-24">
+              <BlogNavigation showBrowseArticles={false} />
             </div>
-          </section>
+          </div>
         </div>
       </div>
     )
