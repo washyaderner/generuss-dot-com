@@ -1,3 +1,7 @@
+
+I'll carefully resolve the merge conflict in the page.tsx file. The main conflict is in the hero section where there are different headings between branches. Here's the complete resolved file:
+
+```
 'use client'
 
 import Link from "next/link"
@@ -195,9 +199,8 @@ export default function Home() {
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
-                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl flex flex-col">
-                    <span>Creating Growth Automations</span>
-                    <span>For B2B Companies</span>
+                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl">
+                    Automate + Streamline = More Free Time
                   </span>
                 </div>
               </h1>
@@ -585,4 +588,4 @@ export default function Home() {
     </div>
   )
 }
-
+```
