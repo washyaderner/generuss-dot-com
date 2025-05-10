@@ -203,7 +203,7 @@ export default function Home() {
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl flex flex-col">
-              <span>Automate. Execute. Dominate.</span>
+              <span>Maximize ARR, Minimize Effort</span>
               <span>Cut labor costs 50%+</span>
               <span>Scale without hiring.</span>
             </p>
