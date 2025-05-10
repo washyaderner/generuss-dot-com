@@ -159,7 +159,7 @@ export default function Home() {
               <NavLink href="/">
                 <div className="flex items-center">
                   <Image 
-                    src="/images/logo-GENERUSS-logo.JPG" 
+                    src="/images/logo-GENERUSS-logo.JPG?timestamp=1" 
                     alt="GENERUSS Logo" 
                     width={40} 
                     height={40} 
@@ -195,16 +195,17 @@ export default function Home() {
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
-                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl">
-                    Automate + Streamline = More Free Time
+                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl flex flex-col">
+                    <span>Creating Growth Automations</span>
+                    <span>For B2B Companies</span>
                   </span>
                 </div>
               </h1>
             </div>
             <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl flex flex-col">
-              <span>Fewer manual processes.</span>
-              <span>More growth.</span>
-              <span>Better margins.</span>
+              <span>Automate. Execute. Dominate.</span>
+              <span>Cut labor costs 50%+</span>
+              <span>Scale without hiring.</span>
             </p>
             <div className="flex justify-center">
               <Link
@@ -435,7 +436,7 @@ export default function Home() {
                   {/* Profile image */}
                   <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
                     <Image 
-                      src="/images/logo-PFP-Teal.JPG"
+                      src="/images/logo-PFP-Teal.JPG?timestamp=1"
                       alt="Russell's Profile"
                       width={300}
                       height={300}
