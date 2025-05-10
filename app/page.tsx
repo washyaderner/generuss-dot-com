@@ -16,6 +16,7 @@ const navigationLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/book", label: "Book a Call" },
 ]
 
 const solutions = [
@@ -174,14 +175,17 @@ export default function Home() {
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
                     <Zap className="w-12 h-12 md:w-16 md:h-16 text-teal-400" />
                   </div>
-                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl">
-                    Automate + Streamline = More Free Time
+                  <span className="text-teal-400 text-3xl md:text-4xl lg:text-5xl flex flex-col">
+                    <span>Creating Growth Automations</span>
+                    <span>For B2B Companies</span>
                   </span>
                 </div>
               </h1>
             </div>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl">
-              Using automation to reduce bottlenecks and maximize profitability
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-4xl flex flex-col">
+              <span>Fewer manual processes.</span>
+              <span>More growth.</span>
+              <span>Better margins.</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -193,12 +197,20 @@ export default function Home() {
                 <span className="relative text-white">Explore Solutions</span>
               </Link>
               <Link
+                href="/book"
+                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+              >
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                <span className="relative text-white">Book a Free Call</span>
+              </Link>
+              <Link
                 href="/contact"
                 className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/60 to-teal-500/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Schedule a Demo</span>
+                <span className="relative text-white">Contact Us</span>
               </Link>
             </div>
           </div>
