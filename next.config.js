@@ -58,6 +58,10 @@ const nextConfig = {
         pathname: '**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
   /**
@@ -67,6 +71,7 @@ const nextConfig = {
    * ⚠️ IMPORTANT: Content Security Policy (CSP) settings below include:
    * - connect-src includes OpenAI API domain for chat functionality
    * - All other directives maintain strict security policies
+   * - Cache-Control headers set for static assets including images
    */
   async headers() {
     return [
@@ -91,6 +96,24 @@ const nextConfig = {
               block-all-mixed-content;
               upgrade-insecure-requests;
             `.replace(/\s+/g, ' ').trim()
+          }
+        ]
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, must-revalidate'
+          }
+        ]
+      },
+      {
+        source: '/images/:path*.JPG',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=300, must-revalidate'
           }
         ]
       }
