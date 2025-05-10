@@ -11,6 +11,8 @@ import { useEffect, useState } from "react"
 import { BlogPost } from "@/app/lib/contentful"
 import { CalScheduler } from "@/components/CalScheduler"
 import Image from 'next/image'
+import CachedImage from '@/components/CachedImage'
+import { CalendarEmbed } from "@/components/CalendarEmbed"
 
 const navigationLinks = [
   { href: "/solutions", label: "Solutions" },
@@ -158,8 +160,8 @@ export default function Home() {
             <div className="flex items-center space-x-8">
               <NavLink href="/">
                 <div className="flex items-center">
-                  <Image 
-                    src={`/images/logo-GENERUSS-logo.JPG?v=${Date.now()}`}
+                  <CachedImage 
+                    src="/images/logo-GENERUSS-logo.JPG"
                     alt="GENERUSS Logo" 
                     width={40} 
                     height={40} 
@@ -353,22 +355,12 @@ export default function Home() {
             
             {/* Cal.com Calendar Integration */}
             <div className="max-w-4xl mx-auto">
-              {/* Direct iframe integration */}
-              <div className="relative rounded-xl overflow-hidden border border-white/10">
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 pointer-events-none z-10" />
-                <iframe
-                  src="https://app.cal.com/generuss/discovery-call"
-                  width="100%"
-                  height="700px"
-                  frameBorder="0"
-                  scrolling="no"
-                  loading="lazy"
-                  title="Cal.com Scheduling Page"
-                  className="relative z-20"
-                  allow="camera; microphone; fullscreen; display-capture; autoplay"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
-                />
-              </div>
+              {/* Use our new CalendarEmbed component */}
+              <CalendarEmbed 
+                calendarUrl="https://app.cal.com/generuss/discovery-call"
+                height="700px"
+                mobileHeight="500px"
+              />
               
               {/* Fallback button in case iframe is blocked */}
               <div className="mt-8 text-center">
@@ -435,8 +427,8 @@ export default function Home() {
                 <div className="col-span-1">
                   {/* Profile image */}
                   <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
-                    <Image 
-                      src={`/images/logo-PFP-Teal.JPG?v=${Date.now()}`}
+                    <CachedImage 
+                      src="/images/logo-PFP-Teal.JPG"
                       alt="Russell's Profile"
                       width={300}
                       height={300}
