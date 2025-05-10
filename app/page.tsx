@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap, Star, ArrowRight } from "lucide-react"
+import { Zap, Star, ArrowRight, Bot, Rocket, UserPlus, Code, DollarSign, Target, Timer, TrendingUp, LineChart, Banknote } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -13,12 +13,12 @@ import { CalScheduler } from "@/components/CalScheduler"
 import Image from 'next/image'
 
 const navigationLinks = [
-  { href: "#solutions", label: "Solutions" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "#projects", label: "Projects" },
-  { href: "#schedule", label: "Schedule" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#about", label: "About" },
-  { href: "#blog", label: "Blog" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ]
 
 const solutions = [
@@ -50,39 +50,22 @@ const solutions = [
 
 const projects = [
   {
-    title: "AI Sales Assistant",
-    description: "Automated outreach system that increased qualified leads by 47%",
-    videoUrl: "", // Add your Loom video URL here
-  },
-  {
-    title: "CRM Integration Suite",
-    description: "Custom workflow automation reducing manual tasks by 15 hours/week",
-    videoUrl: "", // Add your Loom video URL here
-  },
-  {
-    title: "Lead Qualification Engine",
-    description: "ML-powered lead scoring system improving conversion rates by 32%",
-    videoUrl: "", // Add your Loom video URL here
+    title: "AI-Powered Proposal Generator",
+    client: "Invincible Media",
+    period: "Apr 24, 2023 - May 9, 2023",
+    rating: 5.0,
+    description: "Dramatically improved productivity by reducing proposal generation time from 4+ hours to just 15 minutes. Created a custom Chat GPT proposal generator that processes sales transcript files and generates professional B2B Growth Plans. The system takes sales transcript text, an initial prompt, and a proposal structure with variables, then outputs fully formatted professional proposals with 15+ pages of precisely formatted copy.",
+    testimonial: "", // Moved to reviews section
+    imageUrl: "", // Optional placeholder for future image
   },
 ]
 
 const reviews = [
   {
-    name: "Sarah Thompson",
-    company: "Altitude SaaS",
-    text: "The automation systems completely transformed our sales process. We're saving 20+ hours weekly on manual tasks while seeing better results.",
-    rating: 5,
-  },
-  {
-    name: "Michael Chen",
-    company: "NexGen Solutions",
-    text: "Incredible attention to detail and a deep understanding of both sales psychology and technical implementation. Delivered everything on time and exceeded expectations.",
-    rating: 5,
-  },
-  {
-    name: "Jessica Rivera",
-    company: "Apex Consulting",
-    text: "The lead generation system paid for itself within 3 weeks. Our sales team now focuses purely on closing instead of prospecting.",
+    name: "Jonny",
+    company: "Invincible Media",
+    title: "AI-Powered Proposal Generator",
+    text: "Working with Russell has been nothing short of outstanding, and we don't say that lightly, especially after working with hundreds of developers and freelancers! This was a tricky project with the potential to veer off in multiple directions, but Russell brought structure, clarity, and calm from day one. He went truly above and beyond—navigating complexity with precision, staying focused when others might have drifted, and delivering results that exceeded every expectation. Russell is not only highly skilled and deeply logical, but also an absolute pleasure to work with. His communication is spot on, his work ethic is unmatched, and his ability to solve problems quickly and intelligently makes him a rare find. We'd love to keep working with Russ long term. I'd say 'don't hire him because he's ours,' but the truth is—every business deserves a secret weapon like Russell. Highly, highly recommended!!",
     rating: 5,
   },
 ]
@@ -108,7 +91,7 @@ function BlogSection() {
           return;
         }
         
-        const posts = await getAllPosts()
+  const posts = await getAllPosts()
         setLatestPost(posts.length > 0 ? posts[0] : null)
       } catch (error) {
         console.error("Error fetching blog posts:", error)
@@ -144,12 +127,12 @@ function BlogSection() {
         
         <div className="flex justify-center mt-10">
           <Link
-            href="/blog"
+            href="/contact"
             className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
           >
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative text-white">View All Articles</span>
+            <span className="relative text-white">Schedule Now</span>
           </Link>
         </div>
       </div>
@@ -158,9 +141,7 @@ function BlogSection() {
 }
 
 export default function Home() {
-  // Cal.com username - replace with your actual username
-  const calUsername = "yourusername";
-  
+  // Home page component
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
@@ -176,23 +157,30 @@ export default function Home() {
           <div className="container mx-auto px-4 h-16 flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <NavLink href="/">
-                Home
+                <div className="flex items-center">
+                  <Image 
+                    src="/images/logo-GENERUSS-logo.JPG" 
+                    alt="GENERUSS Logo" 
+                    width={40} 
+                    height={40} 
+                    className="rounded-md mr-2"
+                  />
+                  <span>Home</span>
+                </div>
               </NavLink>
               <nav className="hidden md:flex space-x-6">
                 {navigationLinks.map((link) => (
                   <NavLink key={link.href} href={link.href}>
                     {link.label}
-                  </NavLink>
+                </NavLink>
                 ))}
               </nav>
             </div>
             <Link
-              href="#schedule"
-              className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+              href="/contact"
+              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Book Now</span>
+              <span className="relative">Book a Call</span>
             </Link>
           </div>
         </header>
@@ -219,83 +207,133 @@ export default function Home() {
               <span>More growth.</span>
               <span>Better margins.</span>
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Link
-                href="#solutions"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                href="/contact"
+                className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/60 to-teal-500/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Explore Solutions</span>
-              </Link>
-              <Link
-                href="#schedule"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
-              >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Book a Free Call</span>
+                <span className="relative">Book a Call</span>
               </Link>
             </div>
           </div>
         </section>
 
         {/* Solutions Grid */}
-        <section id="solutions" className="py-24 px-4 scroll-mt-20">
+        <section className="py-24 px-4">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-teal-400 animate-gradient">
-              Time Is Money
+              Measurable Results
             </h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              We focus on evaluating and optimizing sales workflows for small to mid-sized businesses. Drawing on
-              extensive experience in sales, startup operations, and process automation, we build tailored strategies
-              that reduce workload, refine lead generation, and boost conversion rates—often in less time than most
-              people expect.
+              Data-driven impact across sales, automation, and development projects
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {solutions.map((solution, index) => (
-                <div
-                  key={index}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
-                >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                  <div className="relative">
-                    <solution.icon className="w-10 h-10 text-teal-400 mb-4" />
-                    <h3 className="text-xl font-semibold text-white mb-2">{solution.title}</h3>
-                    <p className="text-gray-400">{solution.description}</p>
-                  </div>
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                <div className="relative">
+                  <Banknote className="w-10 h-10 text-teal-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">$8.2M Annual Revenue Lift</h3>
+                  <p className="text-gray-400">
+                    Boosted daily revenue from $55,440 to $87,120 for a major real estate marketing firm, using my advanced sales scripting and line-feeds on live calls. A custom role was created for me as a dedicated Line Coach to implement these strategies.
+                  </p>
                 </div>
-              ))}
+              </div>
+              
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                <div className="relative">
+                  <Rocket className="w-10 h-10 text-teal-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">$32.7K Over Annual Goal</h3>
+                  <p className="text-gray-400">
+                    Leveraged automation to drive $146,278 in personal annual revenue at Comcast, surpassing the 2024 target by 28.8%. Streamlined call processes, strategic upselling, and optimized sales automation.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                <div className="relative">
+                  <Code className="w-10 h-10 text-teal-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">Generuss.com Built in Under 2 Weeks</h3>
+                  <p className="text-gray-400">
+                    Launched Generuss.com from scratch in less than two weeks using Cursor AI. Delivered a fully branded, SEO-rich site with AI-enhanced content, dynamic multimedia, and integrated lead-gen forms.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                <div className="relative">
+                  <LineChart className="w-10 h-10 text-teal-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">950% Sales Growth</h3>
+                  <p className="text-gray-400">
+                    Lifted monthly sales from 2 to 21 units for a rep selling high-ROI products through targeted coaching, refined call structure, and strategic upsell scripting. Consistently mentored peers while maintaining Elite (top 3%) sales rank at Comcast.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
         
         {/* Projects Section */}
-        <section id="projects" className="py-24 px-4 bg-black/30 scroll-mt-20">
+        <section id="projects" className="py-24 px-4 bg-black/30">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-              Recent Projects
+              Client Success Stories
             </h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              See the actual tools and solutions I've built to help businesses automate their workflows and increase their growth
+              Real-world automation projects delivering measurable results
             </p>
             
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                  <div className="relative p-1">
-                    {/* Loom video placeholder - replace with actual embed */}
-                    <div className="w-full aspect-video bg-black/50 rounded-lg mb-4 flex items-center justify-center">
-                      <span className="text-gray-500">Video Demo</span>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
+                  
+                  <div className="relative">
+                    <div className="flex items-center mb-4">
+                      <span className="text-teal-400 text-sm font-medium px-3 py-1 rounded-full bg-teal-400/10 mr-4">
+                        {project.client}
+                      </span>
+                      <span className="text-gray-400 text-sm">
+                        {project.period}
+                      </span>
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-                    <p className="text-gray-400">{project.description}</p>
+                    
+                    <h3 className="text-2xl font-bold text-white mb-4">{project.title}</h3>
+                    
+                    <p className="text-gray-300 mb-6">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex items-center space-x-2 mb-6">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <svg key={i} className={`w-5 h-5 ${i < project.rating ? 'text-yellow-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                          </svg>
+                        ))}
+                      </div>
+                      <span className="text-white font-medium">{project.rating.toFixed(1)}</span>
+                    </div>
+                    
+                    <Link 
+                      href="/portfolio" 
+                      className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
+                    >
+                      <span>View full details</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -307,19 +345,43 @@ export default function Home() {
         <section id="schedule" className="py-24 px-4 scroll-mt-20">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-              Schedule a Free Consultation
+              Book a Call
             </h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
-              Book a time to discuss how we can help automate your business processes and create custom growth solutions for your B2B company
+              Let's discuss how automation can help your B2B company grow faster with less effort
             </p>
             
             {/* Cal.com Calendar Integration */}
             <div className="max-w-4xl mx-auto">
-              <CalScheduler 
-                calUsername={calUsername} 
-                calLink="discovery-call" 
-                className="h-[600px] mb-12"
-              />
+              {/* Direct iframe integration */}
+              <div className="relative rounded-xl overflow-hidden border border-white/10">
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 pointer-events-none z-10" />
+                <iframe
+                  src="https://app.cal.com/generuss/discovery-call"
+                  width="100%"
+                  height="700px"
+                  frameBorder="0"
+                  scrolling="no"
+                  loading="lazy"
+                  title="Cal.com Scheduling Page"
+                  className="relative z-20"
+                  allow="camera; microphone; fullscreen; display-capture; autoplay"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                />
+              </div>
+              
+              {/* Fallback button in case iframe is blocked */}
+              <div className="mt-8 text-center">
+                <p className="text-gray-400 mb-4">If the calendar doesn't load above, you can schedule directly here:</p>
+                <a
+                  href="https://app.cal.com/generuss/discovery-call"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-violet-600/80 to-teal-500/80 text-white font-medium rounded-lg transition-all hover:from-violet-600 hover:to-teal-500"
+                >
+                  Open Scheduling Page
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -328,31 +390,32 @@ export default function Home() {
         <section id="reviews" className="py-24 px-4 bg-black/30 scroll-mt-20">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-              Client Success Stories
+              Client Testimonials
             </h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              Hear directly from clients about their experiences and results
+              Here's what clients are saying about working with me
             </p>
             
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               {reviews.map((review, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
-                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
                   <div className="relative">
                     <div className="flex mb-3">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i} 
-                          className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400' : 'text-gray-600'}`} 
+                          className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-600'}`} 
                           fill={i < review.rating ? 'currentColor' : 'none'} 
                         />
                       ))}
                     </div>
-                    <p className="text-gray-300 mb-4 italic">"{review.text}"</p>
+                    <h4 className="text-xl font-semibold text-teal-400 mb-4">{review.title}</h4>
+                    <p className="text-gray-300 mb-6 italic">"{review.text}"</p>
                     <div className="flex flex-col">
                       <span className="text-white font-medium">{review.name}</span>
                       <span className="text-gray-500 text-sm">{review.company}</span>
@@ -368,18 +431,26 @@ export default function Home() {
         <section id="about" className="py-24 px-4 scroll-mt-20">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-                About Me
-              </h2>
-              
-              <div className="grid md:grid-cols-3 gap-8 items-center mb-8">
+              <div className="grid md:grid-cols-3 gap-8 items-start">
                 <div className="col-span-1">
-                  {/* Profile image placeholder */}
-                  <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10"></div>
+                  {/* Profile image */}
+                  <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
+                    <Image 
+                      src="/images/logo-PFP-Teal.JPG"
+                      alt="Russell's Profile"
+                      width={300}
+                      height={300}
+                      className="w-full h-full object-cover object-[center_top]"
+                      style={{ objectPosition: "center 30%" }}
+                    />
+                  </div>
                 </div>
                 
                 <div className="col-span-2 text-left">
-                  <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hi, I'm [Your Name]</h3>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+                    About
+                  </h2>
+                  <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russell</h3>
                   <p className="text-gray-300 mb-4">
                     I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
                   </p>
@@ -388,12 +459,10 @@ export default function Home() {
                   </p>
                   <div className="flex space-x-4 mt-6">
                     <Link
-                      href="#schedule"
-                      className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                      href="/contact"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                     >
-                      <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                      <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                      <span className="relative text-white">Book a Call</span>
+                      <span className="relative">Book a Call</span>
                     </Link>
                   </div>
                 </div>
@@ -406,12 +475,12 @@ export default function Home() {
         <section id="blog" className="py-24 px-4 bg-black/30 scroll-mt-20">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-              Latest Insights
-            </h2>
+                Latest Insights
+              </h2>
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
-              Practical advice and strategies to level up your business and sales processes
-            </p>
-            
+                Practical advice and strategies to level up your business and sales processes
+              </p>
+              
             {/* Hardcoded featured blog post for demonstration */}
             <div className="w-full max-w-4xl mx-auto">
               <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20">
@@ -468,12 +537,12 @@ export default function Home() {
                 >
                   <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
                   <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">View All Articles</span>
+                  <span className="relative text-white">View All Posts</span>
                 </Link>
               </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
         {/* CTA Section */}
         <section className="py-24 px-4">
@@ -493,12 +562,10 @@ export default function Home() {
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
             <Link
-              href="#schedule"
-              className="group relative inline-flex px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+              href="/contact"
+              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/60 to-teal-500/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Schedule Now</span>
+              <span className="relative">Book a Call</span>
             </Link>
           </div>
         </section>

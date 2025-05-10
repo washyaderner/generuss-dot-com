@@ -19,43 +19,35 @@ export function CalScheduler({
   useEffect(() => {
     setIsMounted(true);
     
-    // Initialize Cal.com
+    // Initialize Cal.com with minimal config
     (async function() {
       const cal = await getCalApi();
       cal?.('ui', {
-        // Theme settings to match our design
         theme: 'dark',
-        styles: { 
-          branding: { brandColor: '#5eead4' }, // Teal color to match site theme
-        },
-        hideEventTypeDetails: false,
-        layout: 'month_view',
       });
     })();
   }, []);
   
   // Don't render on server to prevent hydration errors
   if (!isMounted) return null;
+
+  // Log for debugging
+  console.log("CalScheduler rendering with:", { calUsername, calLink });
   
   return (
-    <div className={`relative rounded-xl overflow-hidden ${className}`}>
-      {/* Gradient overlay effect to match the site theme */}
-      <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 pointer-events-none z-10" />
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm border border-white/10 pointer-events-none z-10" />
+    <div className={`relative rounded-xl border border-white/20 ${className}`}>
+      {/* Simple Cal component */}
+      <Cal 
+        calLink={`${calUsername}/${calLink}`}
+        style={{ height: '100%', width: '100%' }}
+        config={{
+          theme: 'dark',
+        }}
+      />
       
-      {/* Actual Cal component */}
-      <div className="relative z-20">
-        <Cal 
-          calLink={`${calUsername}/${calLink}`}
-          style={{ height: '100%', width: '100%', overflow: 'hidden' }}
-          config={{
-            name: '',
-            email: '',
-            notes: '',
-            theme: 'dark',
-            hideEventTypeDetails: 'false',
-          }}
-        />
+      {/* Debug info */}
+      <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-xs text-white p-2 text-center">
+        Calendar: {calUsername}/{calLink}
       </div>
     </div>
   );
