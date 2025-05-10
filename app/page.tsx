@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap } from "lucide-react"
+import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap, Star } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -9,14 +9,14 @@ import { getAllPosts } from "@/app/lib/contentful"
 import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
 import { useEffect, useState } from "react"
 import { BlogPost } from "@/app/lib/contentful"
+import { CalScheduler } from "@/components/CalScheduler"
 
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/book", label: "Book a Call" },
+  { href: "#solutions", label: "Solutions" },
+  { href: "#projects", label: "Projects" },
+  { href: "#schedule", label: "Schedule" },
+  { href: "#reviews", label: "Reviews" },
+  { href: "#about", label: "About" },
 ]
 
 const solutions = [
@@ -43,6 +43,45 @@ const solutions = [
     title: "AI-Powered App & Web Development",
     description:
       "AI-enhanced apps and web solutions—built for efficiency, automation, and effortless user experience.",
+  },
+]
+
+const projects = [
+  {
+    title: "AI Sales Assistant",
+    description: "Automated outreach system that increased qualified leads by 47%",
+    videoUrl: "", // Add your Loom video URL here
+  },
+  {
+    title: "CRM Integration Suite",
+    description: "Custom workflow automation reducing manual tasks by 15 hours/week",
+    videoUrl: "", // Add your Loom video URL here
+  },
+  {
+    title: "Lead Qualification Engine",
+    description: "ML-powered lead scoring system improving conversion rates by 32%",
+    videoUrl: "", // Add your Loom video URL here
+  },
+]
+
+const reviews = [
+  {
+    name: "Sarah Thompson",
+    company: "Altitude SaaS",
+    text: "The automation systems completely transformed our sales process. We're saving 20+ hours weekly on manual tasks while seeing better results.",
+    rating: 5,
+  },
+  {
+    name: "Michael Chen",
+    company: "NexGen Solutions",
+    text: "Incredible attention to detail and a deep understanding of both sales psychology and technical implementation. Delivered everything on time and exceeded expectations.",
+    rating: 5,
+  },
+  {
+    name: "Jessica Rivera",
+    company: "Apex Consulting",
+    text: "The lead generation system paid for itself within 3 weeks. Our sales team now focuses purely on closing instead of prospecting.",
+    rating: 5,
   },
 ]
 
@@ -117,7 +156,8 @@ function BlogSection() {
 }
 
 export default function Home() {
-  // Removed blog-related state from here
+  // Cal.com username - replace with your actual username
+  const calUsername = "yourusername";
   
   return (
     <div className="min-h-screen bg-black">
@@ -137,30 +177,20 @@ export default function Home() {
                 Home
               </NavLink>
               <nav className="hidden md:flex space-x-6">
-                <NavLink href="/solutions">
-                  Solutions
-                </NavLink>
-                <NavLink href="/portfolio">
-                  Portfolio
-                </NavLink>
-                <NavLink href="/blog">
-                  Blog
-                </NavLink>
-                <NavLink href="/about">
-                  About
-                </NavLink>
-                <NavLink href="/contact">
-                  Contact
-                </NavLink>
+                {navigationLinks.map((link) => (
+                  <NavLink key={link.href} href={link.href}>
+                    {link.label}
+                  </NavLink>
+                ))}
               </nav>
             </div>
             <Link
-              href="/contact"
+              href="#schedule"
               className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
             >
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Get a Demo</span>
+              <span className="relative text-white">Book Now</span>
             </Link>
           </div>
         </header>
@@ -189,7 +219,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/solutions"
+                href="#solutions"
                 className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
@@ -197,27 +227,19 @@ export default function Home() {
                 <span className="relative text-white">Explore Solutions</span>
               </Link>
               <Link
-                href="/book"
+                href="#schedule"
                 className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
               >
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
                 <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
                 <span className="relative text-white">Book a Free Call</span>
               </Link>
-              <Link
-                href="/contact"
-                className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
-              >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/60 to-teal-500/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Contact Us</span>
-              </Link>
             </div>
           </div>
         </section>
 
         {/* Solutions Grid */}
-        <section className="py-24 px-4">
+        <section id="solutions" className="py-24 px-4 scroll-mt-20">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-teal-400 animate-gradient">
               Time Is Money
@@ -246,9 +268,137 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Latest Blog Post Section - Now as a separate client component */}
-        <BlogSection />
+        
+        {/* Projects Section */}
+        <section id="projects" className="py-24 px-4 bg-black/30 scroll-mt-20">
+          <div className="container mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              Recent Projects
+            </h2>
+            <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
+              See the actual tools and solutions I've built to help businesses automate their workflows and increase their growth
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                  <div className="relative p-1">
+                    {/* Loom video placeholder - replace with actual embed */}
+                    <div className="w-full aspect-video bg-black/50 rounded-lg mb-4 flex items-center justify-center">
+                      <span className="text-gray-500">Video Demo</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+                    <p className="text-gray-400">{project.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Schedule Section */}
+        <section id="schedule" className="py-24 px-4 scroll-mt-20">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              Schedule a Free Consultation
+            </h2>
+            <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+              Book a time to discuss how we can help automate your business processes and create custom growth solutions for your B2B company
+            </p>
+            
+            {/* Cal.com Calendar Integration */}
+            <div className="max-w-4xl mx-auto">
+              <CalScheduler 
+                calUsername={calUsername} 
+                calLink="discovery-call" 
+                className="h-[600px] mb-12"
+              />
+            </div>
+          </div>
+        </section>
+        
+        {/* Reviews Section */}
+        <section id="reviews" className="py-24 px-4 bg-black/30 scroll-mt-20">
+          <div className="container mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              Client Success Stories
+            </h2>
+            <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
+              Hear directly from clients about their experiences and results
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {reviews.map((review, index) => (
+                <div
+                  key={index}
+                  className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+                  <div className="relative">
+                    <div className="flex mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400' : 'text-gray-600'}`} 
+                          fill={i < review.rating ? 'currentColor' : 'none'} 
+                        />
+                      ))}
+                    </div>
+                    <p className="text-gray-300 mb-4 italic">"{review.text}"</p>
+                    <div className="flex flex-col">
+                      <span className="text-white font-medium">{review.name}</span>
+                      <span className="text-gray-500 text-sm">{review.company}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* About Section */}
+        <section id="about" className="py-24 px-4 scroll-mt-20">
+          <div className="container mx-auto">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+                About Me
+              </h2>
+              
+              <div className="grid md:grid-cols-3 gap-8 items-center mb-8">
+                <div className="col-span-1">
+                  {/* Profile image placeholder */}
+                  <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10"></div>
+                </div>
+                
+                <div className="col-span-2 text-left">
+                  <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hi, I'm [Your Name]</h3>
+                  <p className="text-gray-300 mb-4">
+                    I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
+                  </p>
+                  <p className="text-gray-300 mb-4">
+                    I've helped dozens of companies automate their repetitive tasks, build scalable lead generation systems, and create more efficient sales processes that generate measurable ROI.
+                  </p>
+                  <div className="flex space-x-4 mt-6">
+                    <Link
+                      href="#schedule"
+                      className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                    >
+                      <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
+                      <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/60 to-violet-600/60 opacity-50 group-hover:opacity-100 transition-opacity" />
+                      <span className="relative text-white">Book a Call</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="py-24 px-4">
@@ -268,15 +418,24 @@ export default function Home() {
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
             <Link
-              href="/contact"
+              href="#schedule"
               className="group relative inline-flex px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
             >
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-75 group-hover:opacity-100 blur-2xl transition-opacity" />
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/60 to-teal-500/60 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Let's Talk</span>
+              <span className="relative text-white">Schedule Now</span>
             </Link>
           </div>
         </section>
+        
+        {/* Footer */}
+        <footer className="py-8 px-4 border-t border-white/5">
+          <div className="container mx-auto text-center">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} Generuss. All rights reserved.
+            </p>
+          </div>
+        </footer>
       </div>
       
       {/* Mobile Navigation */}
