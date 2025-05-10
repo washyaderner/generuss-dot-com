@@ -4,8 +4,8 @@ import Link from "next/link";
 import { CursorGradient } from "@/components/cursor-gradient";
 import { MobileNav } from "@/components/mobile-nav";
 import { NavLink } from "@/components/nav-link";
-import { CalScheduler } from "@/components/CalScheduler";
 import { Metadata } from 'next';
+import { CalendarEmbed } from "@/components/CalendarEmbed";
 
 // Navigation links used in both desktop and mobile nav
 const navigationLinks = [
@@ -18,9 +18,6 @@ const navigationLinks = [
 ];
 
 export default function BookingPage() {
-  // Your Cal.com username - replace with your actual username
-  const calUsername = "yourusername"; 
-  
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
@@ -75,10 +72,11 @@ export default function BookingPage() {
             
             {/* Cal.com Calendar Integration */}
             <div className="max-w-4xl mx-auto">
-              <CalScheduler 
-                calUsername={calUsername} 
-                calLink="discovery-call" 
-                className="h-[700px] mb-12"
+              <CalendarEmbed 
+                calendarUrl="https://app.cal.com/generuss/discovery-call"
+                height="700px"
+                mobileHeight="500px"
+                className="mb-12"
               />
             </div>
           </div>
