@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap, Star } from "lucide-react"
+import { TableProperties, Rocket, Bot, Code, Target, UserPlus, Zap, Star, ArrowRight } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -10,10 +10,12 @@ import FeaturedBlogPost from "@/app/components/blog/FeaturedBlogPost"
 import { useEffect, useState } from "react"
 import { BlogPost } from "@/app/lib/contentful"
 import { CalScheduler } from "@/components/CalScheduler"
+import Image from 'next/image'
 
 const navigationLinks = [
   { href: "#solutions", label: "Solutions" },
   { href: "#projects", label: "Projects" },
+  { href: "#blog", label: "Blog" },
   { href: "#schedule", label: "Schedule" },
   { href: "#reviews", label: "Reviews" },
   { href: "#about", label: "About" },
@@ -297,6 +299,79 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Latest Blog Post Section */}
+        <section id="blog" className="py-24 px-4 scroll-mt-20">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              Latest Insights
+            </h2>
+            <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
+              Practical advice and strategies to level up your business and sales processes
+            </p>
+            
+            {/* Hardcoded featured blog post for demonstration */}
+            <div className="w-full max-w-4xl mx-auto">
+              <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20">
+                {/* Gradient hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="flex flex-col">
+                  {/* Image section */}
+                  <div className="relative h-96 overflow-hidden">
+                    <Image
+                      src="/images/Blog-Mastering-The-Art-Of-Persuasion.png"
+                      alt="Sales: Mastering the Art of Persuasion"
+                      fill
+                      className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 900px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+                    
+                    {/* Overlay title on image */}
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="flex items-center space-x-2 mb-3">
+                        <span className="px-3 py-1 bg-teal-500/30 text-teal-300 text-xs rounded-full backdrop-blur-sm">Latest Post</span>
+                        <time className="text-gray-200 text-sm backdrop-blur-sm bg-black/20 px-2 py-1 rounded">May 5, 2023</time>
+                      </div>
+                      
+                      <h2 className="text-3xl font-bold text-white mb-2 group-hover:text-white transition-colors drop-shadow-lg">
+                        Sales: Mastering the Art of Persuasion
+                      </h2>
+                    </div>
+                  </div>
+                  
+                  {/* Content section */}
+                  <div className="p-8 relative z-10 flex flex-col">
+                    <p className="text-gray-300 mb-8 text-lg">
+                      Learn how the most successful sales professionals combine psychology, process, and technology to consistently outperform their peers.
+                    </p>
+                    
+                    <Link 
+                      href="/blog/sales-mastering-the-art-of-persuasion"
+                      className="self-end inline-flex items-center px-4 py-2 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 rounded-lg transition-all"
+                    >
+                      <span>Read full article</span>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 flex justify-center">
+                <Link
+                  href="/blog"
+                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                >
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative text-white">View All Articles</span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
