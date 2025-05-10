@@ -159,7 +159,7 @@ export default function Home() {
               <NavLink href="/">
                 <div className="flex items-center">
                   <Image 
-                    src="/images/logo-GENERUSS-logo.JPG?timestamp=1" 
+                    src={`/images/logo-GENERUSS-logo.JPG?v=${Date.now()}`}
                     alt="GENERUSS Logo" 
                     width={40} 
                     height={40} 
@@ -436,7 +436,7 @@ export default function Home() {
                   {/* Profile image */}
                   <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
                     <Image 
-                      src="/images/logo-PFP-Teal.JPG?timestamp=1"
+                      src={`/images/logo-PFP-Teal.JPG?v=${Date.now()}`}
                       alt="Russell's Profile"
                       width={300}
                       height={300}
