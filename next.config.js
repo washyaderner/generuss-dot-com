@@ -77,16 +77,17 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel.live https://vercel.live https://*.vercel.app https://*.googleapis.com;
-              script-src-elem 'self' 'unsafe-inline' https://*.vercel.live https://vercel.live https://*.vercel.app https://*.googleapis.com;
-              connect-src 'self' https://api.openai.com http://localhost:* https://localhost:* https://cdn.contentful.com https://*.vercel.live https://vercel.live https://*.vercel.app https://*.ingest.sentry.io;
-              style-src 'self' 'unsafe-inline';
-              img-src 'self' blob: data: https://images.ctfassets.net https://img.youtube.com https://i.ytimg.com;
-              font-src 'self';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel.live https://vercel.live https://*.vercel.app https://*.googleapis.com https://cal.com https://*.cal.com https://app.cal.com;
+              script-src-elem 'self' 'unsafe-inline' https://*.vercel.live https://vercel.live https://*.vercel.app https://*.googleapis.com https://cal.com https://*.cal.com https://app.cal.com;
+              connect-src 'self' https://api.openai.com http://localhost:* https://localhost:* https://cdn.contentful.com https://*.vercel.live https://vercel.live https://*.vercel.app https://*.ingest.sentry.io https://cal.com https://*.cal.com https://app.cal.com;
+              style-src 'self' 'unsafe-inline' https://cal.com https://*.cal.com https://app.cal.com;
+              img-src 'self' blob: data: https://images.ctfassets.net https://img.youtube.com https://i.ytimg.com https://cal.com https://*.cal.com https://app.cal.com;
+              font-src 'self' https://fonts.gstatic.com;
               object-src 'none';
               base-uri 'self';
               form-action 'self';
               frame-ancestors 'none';
+              frame-src 'self' https://cal.com https://*.cal.com https://app.cal.com;
               block-all-mixed-content;
               upgrade-insecure-requests;
             `.replace(/\s+/g, ' ').trim()
