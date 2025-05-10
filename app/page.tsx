@@ -1,7 +1,3 @@
-
-I'll carefully resolve the merge conflict in the page.tsx file. The main conflict is in the hero section where there are different headings between branches. Here's the complete resolved file:
-
-```
 'use client'
 
 import Link from "next/link"
@@ -587,5 +583,4 @@ export default function Home() {
       <MobileNav links={navigationLinks} />
     </div>
   )
-}
-```
+} 
