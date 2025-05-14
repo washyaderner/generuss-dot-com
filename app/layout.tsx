@@ -84,7 +84,7 @@ export default function RootLayout({
           <div className="relative z-20">
             {/* Navigation */}
             <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-              <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+              <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
                 <div className="flex items-center space-x-8">
                   <div className="block sm:hidden">
                     <MobileNav links={navigationLinks} />
@@ -118,8 +118,8 @@ export default function RootLayout({
 
             {/* Footer */}
             <footer className="border-t border-white/5 py-12 px-4 relative">
-              <div className="container mx-auto">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="container max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                   <div>
                     <h3 className="text-white font-semibold mb-4">Russell Gardner</h3>
                     <p className="text-gray-400 text-sm">Software solutions for the digital age</p>
@@ -146,7 +146,7 @@ export default function RootLayout({
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-4">Connect</h3>
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4 justify-center">
                       <Link
                         href="https://github.com/washyaderner"
                         className="text-gray-400 hover:text-white transition-colors"
