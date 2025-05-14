@@ -125,9 +125,7 @@ function BlogSection() {
         
         <div className="flex justify-center mt-10">
           <Link
-            href="https://app.cal.com/generuss/discovery-call"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#schedule"
             className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
           >
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
@@ -177,9 +175,7 @@ export default function Home() {
               </nav>
             </div>
             <Link
-              href="https://app.cal.com/generuss/discovery-call"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#schedule"
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
@@ -211,9 +207,7 @@ export default function Home() {
             </p>
             <div className="flex justify-center">
               <Link
-                href="https://app.cal.com/generuss/discovery-call"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#schedule"
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
@@ -330,9 +324,7 @@ export default function Home() {
                     </div>
                     
                     <Link 
-                      href="https://app.cal.com/generuss/discovery-call"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#schedule"
                       className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                     >
                       <span>Schedule a consultation</span>
@@ -455,9 +447,7 @@ export default function Home() {
                   </p>
                   <div className="flex space-x-4 mt-6">
                     <Link
-                      href="https://app.cal.com/generuss/discovery-call"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#schedule"
                       className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                     >
                       <span className="relative">Book a Call</span>
@@ -560,9 +550,7 @@ export default function Home() {
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
             <Link
-              href="https://app.cal.com/generuss/discovery-call"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#schedule"
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
