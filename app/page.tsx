@@ -434,9 +434,6 @@ export default function Home() {
               </div>
               
               <div className="col-span-2 text-left">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-                  About
-                </h2>
                 <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russell</h3>
                 <p className="text-gray-300 mb-4">
                   I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
@@ -533,10 +530,10 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-24 px-4">
           <div className="container max-w-4xl mx-auto text-center">
-            <div className="relative inline-block">
+            <div className="w-full">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 relative">
-                🔥{" "}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 flex flex-wrap md:flex-nowrap items-center justify-center">
+                <span className="mr-2">🔥</span>
                 <span className="bg-gradient-to-r from-violet-900 to-teal-400 bg-clip-text text-transparent">
                   Success = Skill + Leverage + Consistency
                 </span>
