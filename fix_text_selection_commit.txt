@@ -1,0 +1,8 @@
+[Cursor] Fix text selection issues across the site
+
+- Adjusted z-index ordering of content and overlay elements
+- Lowered cursor gradient z-index from z-30 to z-5
+- Increased content container z-index from z-20 to z-30
+- Added explicit user-select: text CSS rule for all text elements
+- Fixed overlay z-index values in all page templates
+- Ensured pointer-events-none is working properly on overlay elements 

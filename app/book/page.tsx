@@ -19,10 +19,10 @@ export default function BookingPage() {
       <CursorGradient />
 
       {/* Gradient Overlay */}
-      <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-10" />
+      <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-5" />
 
       {/* Content */}
-      <div className="relative z-20">
+      <div className="relative z-30">
         {/* Navigation */}
         <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
           <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">

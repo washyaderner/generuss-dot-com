@@ -64,10 +64,10 @@ export default async function Blog() {
         <CursorGradient />
 
         {/* Gradient Overlay */}
-        <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-10" />
+        <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-5" />
 
         {/* Content */}
-        <div className="relative z-20">
+        <div className="relative z-30">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
