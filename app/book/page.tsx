@@ -9,12 +9,7 @@ import { CalendarEmbed } from "@/components/CalendarEmbed";
 
 // Navigation links used in both desktop and mobile nav
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/book", label: "Book" }
+  { href: "/blog", label: "Blog" }
 ];
 
 export default function BookingPage() {
@@ -30,7 +25,7 @@ export default function BookingPage() {
       <div className="relative z-20">
         {/* Navigation */}
         <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <NavLink href="/">
                 Home
@@ -44,19 +39,19 @@ export default function BookingPage() {
               </nav>
             </div>
             <Link
-              href="/contact"
+              href="/#schedule"
               className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
             >
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
               <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Get a Demo</span>
+              <span className="relative text-white">Book a Call</span>
             </Link>
           </div>
         </header>
 
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 relative">

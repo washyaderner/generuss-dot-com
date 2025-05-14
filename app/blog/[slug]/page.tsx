@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
 
-          <div className="container mx-auto max-w-5xl px-4 md:px-6 lg:px-8 pt-32">
+          <div className="container mx-auto max-w-4xl px-4 md:px-6 lg:px-8 pt-32">
             {/* Simplified Navigation */}
             <BlogNavigation />
             

@@ -56,7 +56,7 @@ export default function BlogPost({ post }: BlogPostProps) {
   }, [post])
 
   return (
-    <div className="container mx-auto pb-12">
+    <div className="container mx-auto max-w-4xl pb-12">
       <div className="px-4 md:px-6 lg:px-8">
         <Link href="/blog" className="text-teal-400 hover:text-teal-300 inline-block mb-8">
           ← Back to all articles
