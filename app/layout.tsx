@@ -47,11 +47,7 @@ export const metadata: Metadata = {
 }
 
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ]
 
 // Generate timestamp once for all resources to ensure consistent caching
@@ -88,7 +84,7 @@ export default function RootLayout({
           <div className="relative z-20">
             {/* Navigation */}
             <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-              <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+              <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
                 <div className="flex items-center space-x-8">
                   <div className="block sm:hidden">
                     <MobileNav links={navigationLinks} />
@@ -108,12 +104,12 @@ export default function RootLayout({
                   </nav>
                 </div>
                 <Link
-                  href="/contact"
+                  href="/#schedule"
                   className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
                 >
                   <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
                   <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">Get a Demo</span>
+                  <span className="relative text-white">Book a Call</span>
                 </Link>
               </div>
             </header>
@@ -122,60 +118,35 @@ export default function RootLayout({
 
             {/* Footer */}
             <footer className="border-t border-white/5 py-12 px-4 relative">
-              <div className="container mx-auto">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="container max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                   <div>
                     <h3 className="text-white font-semibold mb-4">Russell Gardner</h3>
                     <p className="text-gray-400 text-sm">Software solutions for the digital age</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-4">Solutions</h3>
+                    <h3 className="text-white font-semibold mb-4">Quick Links</h3>
                     <ul className="space-y-2">
                       <li>
-                        <Link href="/solutions#sales-strategy" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          Sales Optimization
+                        <Link href="/" className="text-gray-400 hover:text-white text-sm transition-colors">
+                          Home
                         </Link>
                       </li>
                       <li>
-                        <Link href="/solutions#app-web-dev" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          App & Web Dev
+                        <Link href="/blog" className="text-gray-400 hover:text-white text-sm transition-colors">
+                          Blog
                         </Link>
                       </li>
                       <li>
-                        <Link href="/solutions#excel-optimization" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          Excel Optimization
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/solutions#business-automation" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          Business Automation
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-4">Company</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/about" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          About
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
-                          Contact
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="https://www.upwork.com/freelancers/~0187db78cb531330b6" className="text-gray-400 hover:text-white text-sm transition-colors" target="_blank" rel="noopener noreferrer">
-                          Upwork
+                        <Link href="/#schedule" className="text-gray-400 hover:text-white text-sm transition-colors">
+                          Book a Call
                         </Link>
                       </li>
                     </ul>
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-4">Connect</h3>
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4 justify-center">
                       <Link
                         href="https://github.com/washyaderner"
                         className="text-gray-400 hover:text-white transition-colors"

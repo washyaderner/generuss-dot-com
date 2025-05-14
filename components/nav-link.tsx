@@ -23,9 +23,6 @@ export function NavLink({
       ? pathname === '/blog' || pathname.startsWith('/blog/')
       : pathname === href
 
-  // Debug logs - will appear in browser console
-  console.log(`NavLink Debug - href: ${href}, pathname: ${pathname}, isActive: ${isActive}`);
-
   return (
     <Link
       href={href}
