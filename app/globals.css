@@ -10,8 +10,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Ensure text is selectable but preserve interactivity */
-p {
+/* Text selection system - more targeted approach */
+p, blockquote, li {
   user-select: text;
 }
 
@@ -19,8 +19,24 @@ h1, h2, h3, h4, h5, h6 {
   user-select: text;
 }
 
+/* Select spans inside paragraphs but not in interactive elements */
+p > span, h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
+  user-select: text;
+}
+
+/* Prevent text selection on interactive elements */
+button, a, a *, [role="button"], [role="button"] * {
+  user-select: none !important;
+}
+
+/* Utility class for making specific elements selectable */
 .selectable-text {
   user-select: text;
+}
+
+/* Utility class for preventing selection */
+.no-select {
+  user-select: none;
 }
 
 @layer utilities {
