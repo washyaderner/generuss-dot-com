@@ -226,7 +226,7 @@ export default function Home() {
               Data-driven impact across sales, automation, and development projects
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03]">
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
@@ -238,7 +238,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03]">
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
@@ -250,7 +250,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03]">
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
@@ -262,7 +262,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
+              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03]">
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
@@ -291,7 +291,7 @@ export default function Home() {
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03] mb-10"
                 >
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
@@ -388,7 +388,7 @@ export default function Home() {
               {reviews.map((review, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.03] mb-10"
                 >
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
@@ -466,7 +466,7 @@ export default function Home() {
               
             {/* Hardcoded featured blog post for demonstration */}
             <div className="w-full max-w-4xl mx-auto">
-              <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20">
+              <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20 hover:transform hover:scale-[1.03]">
                 {/* Gradient hover effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 

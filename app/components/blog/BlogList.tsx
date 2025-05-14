@@ -15,7 +15,7 @@ export default function BlogList({ posts }: BlogListProps) {
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className="group relative bg-black/20 rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
+          className="group relative bg-black/20 rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:transform hover:scale-[1.02]"
         >
           {/* Hover Effect Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 to-violet-600/0 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />

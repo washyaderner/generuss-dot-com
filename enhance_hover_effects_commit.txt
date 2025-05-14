@@ -1,0 +1,7 @@
+[Cursor] Enhance card hover effects across the site
+
+- Increased scale factor on card hover effects for a more pronounced pop-out effect
+- Applied hover:scale-[1.03] to homepage cards for a more noticeable animation
+- Added hover:scale effect to featured blog post for consistency
+- Enhanced blog list card hover effects to match the rest of the site
+- Improved visual feedback when users interact with cards 
