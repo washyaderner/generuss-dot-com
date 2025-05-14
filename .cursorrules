@@ -258,6 +258,7 @@ git branch -d feature/name
 - Dev to main: Use regular merge
 - Always maintain clean git history
 - Include "[Cursor] " prefix in PR titles
+- After every PR, update the Scratchpad with completed work and progress
 
 ### PR Instructions Checklist
 Every time we talk about doing a pull request, do not execute any commands to start the process, as the user will be doing it on GitHub manually every time. Instead, provide the following information in a clear, organized format:
@@ -268,9 +269,18 @@ Every time we talk about doing a pull request, do not execute any commands to st
 4. Are we doing squash and merge or regular merge?
 5. Should the branch be deleted after merging?
 6. Do we need to move back to a different branch after PR?
+7. Update the Scratchpad section in .cursorrules with details about what was accomplished
 
 For feature branches to dev, always use squash and merge to maintain clean history.
 For dev to main, always use regular merge to preserve feature commits.
+
+### Scratchpad Update Process
+After every PR preparation, always update the Scratchpad in .cursorrules with:
+1. Add the completed feature/task to the "Completed Major Milestones" section with a checkmark
+2. Create a new "Most Recent Task" section with details about what was just implemented
+3. Include code changes, improvements, and lessons learned
+4. Update the "Next Steps" section with upcoming priorities
+5. This ensures the progress report is always current for new conversations
 
 ### Current Task Status
 [X] Initial Next.js setup
@@ -330,8 +340,34 @@ For dev to main, always use regular merge to preserve feature commits.
 - [X] Created development utility scripts for smoother workflow
 - [X] Added comprehensive documentation for common issues and solutions
 - [X] Implemented native chat bot with OpenAI integration
+- [X] Updated CachedImage component with automatic cache-busting
+- [X] Added CalendarEmbed component for proper scroll containment
+- [X] Updated homepage subheader with positive messaging
 
-### Most Recent Task: Chat Bot Implementation
+### Most Recent Task: Homepage Messaging Improvement
+
+We've updated the homepage subheader with more positive messaging:
+
+1. Content Changes:
+   [X] Changed "Maximize ARR, Minimize Effort" to "Maximize ARR with Minimal Effort"
+   [X] Replaced "Cut labor costs 50%+" with "Streamline Complex Workflows"
+   [X] Replaced "Scale without hiring." with "Amplify Team Productivity"
+
+2. Rationale:
+   [X] Shifted focus from cost-cutting to productivity enhancement
+   [X] Avoided immediate mentions of staff reduction early in the user journey
+   [X] Created a more positive and empowering message for visitors
+   [X] Maintained emphasis on efficiency and optimization
+   [X] Preserved the core value proposition while improving tone
+
+3. Implementation:
+   [X] Updated subheader text in app/page.tsx
+   [X] Maintained existing styling and responsiveness
+   [X] Tested changes on local development server
+   [X] Verified display on different screen sizes
+   [X] Created a clean PR to merge changes to dev branch
+
+### Previous Task: Chat Bot Implementation
 
 We've implemented a native chat bot for Generuss.com with the following features:
 
@@ -391,7 +427,14 @@ We've implemented a native chat bot for Generuss.com with the following features
    - Connect appointment requests to calendar events
    - Add email notifications for appointments
 
-3. Documentation:
+3. UX/UI Refinements:
+   - Review other page content for messaging consistency
+   - Identify additional opportunities for positive messaging
+   - Consider updating other headline text for clarity and impact
+   - Enhance accessibility for all components
+
+4. Documentation:
    - Add usage instructions to README.md
    - Document API key requirements
    - Update deployment notes
+   - Include messaging guidelines
