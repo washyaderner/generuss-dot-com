@@ -25,7 +25,7 @@ export function CursorGradient() {
   return (
     <div
       ref={gradientRef}
-      className="pointer-events-none fixed inset-0 z-5 transition-opacity duration-300"
+      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
       style={{
         background: `radial-gradient(166px circle at var(--x, 100px) var(--y, 100px), rgba(13, 148, 136, 0.15), transparent 85%)`,
       }}

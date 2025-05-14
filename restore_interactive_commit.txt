@@ -1,0 +1,7 @@
+[Cursor] Restore interactive UI elements while maintaining text selection
+
+- Reverted overly aggressive CSS user-select rules to target only text elements
+- Restored original z-index values to maintain card hover effects
+- Preserved pointer-events-none on gradient overlays
+- Fixed cursor gradient z-index to maintain interactive effects
+- More targeted approach to text selection without breaking UI interactions 

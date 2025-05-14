@@ -10,9 +10,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Ensure text is selectable */
-p, h1, h2, h3, h4, h5, h6, span, a, div {
-  user-select: text !important;
+/* Ensure text is selectable but preserve interactivity */
+p {
+  user-select: text;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  user-select: text;
+}
+
+.selectable-text {
+  user-select: text;
 }
 
 @layer utilities {
