@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import type { BlogPost as BlogPostType } from '@/app/lib/contentful'
 import Image from 'next/image'
 import Link from 'next/link'
-import MarkdownToJSX from 'markdown-to-jsx'
+import ReactMarkdown from 'react-markdown'
 
 interface BlogPostProps {
   post: BlogPostType
@@ -21,12 +21,28 @@ export default function BlogPost({ post }: BlogPostProps) {
   const renderContent = () => {
     // Use Markdown content if available
     if (post.content) {
-      console.log('Using Markdown content');
       return (
         <div className="prose prose-lg prose-invert w-full !max-w-full prose-p:text-gray-200 prose-p:leading-relaxed prose-p:text-justify prose-headings:text-gray-200 prose-strong:text-gray-200 prose-em:text-gray-300 prose-code:bg-gray-900 prose-code:text-gray-200 prose-blockquote:border-gray-500 prose-blockquote:text-gray-300 prose-a:text-teal-400 prose-li:text-gray-200 prose-li:leading-relaxed prose-pre:bg-gray-900 prose-pre:rounded-lg">
-          <MarkdownToJSX>
+          <ReactMarkdown
+            components={{
+              img: ({ node, ...props }) => (
+                <img 
+                  {...props} 
+                  className="max-w-full h-auto rounded-lg mx-auto my-8" 
+                  style={{ margin: '2rem auto' }}
+                />
+              ),
+              a: ({ node, ...props }) => (
+                <a 
+                  {...props} 
+                  target={props.href?.startsWith('http') ? '_blank' : undefined}
+                  rel={props.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                />
+              ),
+            }}
+          >
             {post.content}
-          </MarkdownToJSX>
+          </ReactMarkdown>
         </div>
       );
     }
@@ -34,26 +50,6 @@ export default function BlogPost({ post }: BlogPostProps) {
     // If no content is available
     return <p>No content available for this post.</p>;
   }
-
-  // Process images and links after rendering
-  useEffect(() => {
-    // Find all images and make them responsive
-    const images = document.querySelectorAll('#blog-content img')
-    images.forEach((img) => {
-      img.classList.add('max-w-full', 'h-auto', 'rounded-lg', 'mx-auto')
-      // Add margin to the image using setAttribute instead of style.margin
-      img.setAttribute('style', 'margin: 2rem auto;')
-    })
-
-    // Make external links open in new tab
-    const links = document.querySelectorAll('#blog-content a')
-    links.forEach((link) => {
-      if (link.getAttribute('href')?.startsWith('http')) {
-        link.setAttribute('target', '_blank')
-        link.setAttribute('rel', 'noopener noreferrer')
-      }
-    })
-  }, [post])
 
   return (
     <div className="container mx-auto max-w-4xl pb-12">
