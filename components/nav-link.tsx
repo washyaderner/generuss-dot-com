@@ -29,10 +29,10 @@ export function NavLink({
   return (
     <Link
       href={href}
-      className={`transition-all flex items-center ${
+      className={`nav-link ${
         isActive
           ? "text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent"
-          : "text-sm text-gray-400 hover:text-white"
+          : "text-sm text-gray-400 hover:text-white transition-colors"
       } ${className}`}
       aria-current={isActive ? "page" : undefined}
     >

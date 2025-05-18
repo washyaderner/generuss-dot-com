@@ -109,10 +109,8 @@ export default function RootLayout({
                 </div>
                 <Link
                   href="/contact"
-                  className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+                  className="hidden sm:flex nav-link"
                 >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span className="relative text-white">Get a Demo</span>
                 </Link>
               </div>
@@ -132,22 +130,22 @@ export default function RootLayout({
                     <h3 className="text-white font-semibold mb-4">Solutions</h3>
                     <ul className="space-y-2">
                       <li>
-                        <Link href="/solutions#sales-strategy" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/solutions#sales-strategy" className="link-hover text-sm">
                           Sales Optimization
                         </Link>
                       </li>
                       <li>
-                        <Link href="/solutions#app-web-dev" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/solutions#app-web-dev" className="link-hover text-sm">
                           App & Web Dev
                         </Link>
                       </li>
                       <li>
-                        <Link href="/solutions#excel-optimization" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/solutions#excel-optimization" className="link-hover text-sm">
                           Excel Optimization
                         </Link>
                       </li>
                       <li>
-                        <Link href="/solutions#business-automation" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/solutions#business-automation" className="link-hover text-sm">
                           Business Automation
                         </Link>
                       </li>
@@ -157,17 +155,17 @@ export default function RootLayout({
                     <h3 className="text-white font-semibold mb-4">Company</h3>
                     <ul className="space-y-2">
                       <li>
-                        <Link href="/about" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/about" className="link-hover text-sm">
                           About
                         </Link>
                       </li>
                       <li>
-                        <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <Link href="/contact" className="link-hover text-sm">
                           Contact
                         </Link>
                       </li>
                       <li>
-                        <Link href="https://www.upwork.com/freelancers/~0187db78cb531330b6" className="text-gray-400 hover:text-white text-sm transition-colors" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://www.upwork.com/freelancers/~0187db78cb531330b6" className="link-hover text-sm" target="_blank" rel="noopener noreferrer">
                           Upwork
                         </Link>
                       </li>
@@ -178,7 +176,7 @@ export default function RootLayout({
                     <div className="flex space-x-4">
                       <Link
                         href="https://github.com/washyaderner"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="link-hover"
                         aria-label="Visit Russell Gardner's GitHub profile"
                         target="_blank" 
                         rel="noopener noreferrer"
@@ -194,7 +192,7 @@ export default function RootLayout({
                       </Link>
                       <Link 
                         href="https://twitter.com/DegeneRussAI" 
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="link-hover"
                         aria-label="Visit Russell Gardner's Twitter profile"
                         target="_blank" 
                         rel="noopener noreferrer"
@@ -206,7 +204,7 @@ export default function RootLayout({
                       </Link>
                       <Link 
                         href="https://www.upwork.com/freelancers/~0187db78cb531330b6" 
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="link-hover"
                         aria-label="Visit Russell Gardner's Upwork profile"
                         target="_blank" 
                         rel="noopener noreferrer"
