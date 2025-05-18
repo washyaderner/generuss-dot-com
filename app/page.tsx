@@ -211,7 +211,7 @@ export default function Home() {
             </p>
             <div className="flex justify-center">
               <Link
-                href="/contact"
+                href="#calendar"
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
@@ -344,7 +344,7 @@ export default function Home() {
         </section>
         
         {/* Schedule Section */}
-        <section id="schedule" className="py-24 px-4 scroll-mt-20">
+        <section id="calendar" className="py-24 px-4 scroll-mt-20">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
               Book a Call
@@ -369,7 +369,7 @@ export default function Home() {
                   href="https://app.cal.com/generuss/discovery-call"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-violet-600/80 to-teal-500/80 text-white font-medium rounded-lg transition-all hover:from-violet-600 hover:to-teal-500"
+                  className="btn-primary"
                 >
                   Open Scheduling Page
                 </a>
@@ -451,7 +451,7 @@ export default function Home() {
                   </p>
                   <div className="flex space-x-4 mt-6">
                     <Link
-                      href="/contact"
+                      href="#calendar"
                       className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                     >
                       <span className="relative">Book a Call</span>
@@ -525,11 +525,9 @@ export default function Home() {
               <div className="mt-8 flex justify-center">
                 <Link
                   href="/blog"
-                  className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+                  className="btn-primary"
                 >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">View All Posts</span>
+                  <span className="relative">View All Posts</span>
                 </Link>
               </div>
               </div>
@@ -554,7 +552,7 @@ export default function Home() {
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
             <Link
-              href="/contact"
+              href="#calendar"
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>

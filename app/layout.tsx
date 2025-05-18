@@ -108,10 +108,10 @@ export default function RootLayout({
                   </nav>
                 </div>
                 <Link
-                  href="/contact"
+                  href="#calendar"
                   className="hidden sm:flex nav-link"
                 >
-                  <span className="relative text-white">Get a Demo</span>
+                  <span className="relative text-white">Book a Call</span>
                 </Link>
               </div>
             </header>

@@ -395,3 +395,21 @@ We've implemented a native chat bot for Generuss.com with the following features
    - Add usage instructions to README.md
    - Document API key requirements
    - Update deployment notes
+
+## Recent Work Summary
+- Refactored global CSS: moved all common UI and hover styles to global utility classes.
+- Updated navigation and mobile navigation components to use new global utility classes.
+- Fixed Tailwind CSS @apply errors by removing state-based and group classes from CSS.
+- Improved navigation link visibility and hover effects.
+- Cleaned up stray files and ensured consistent design system usage.
+- Committed and pushed changes directly to main (lesson: avoid this in the future).
+
+## Lessons Learned
+- Always work on a feature branch, never directly on main.
+- Tailwind's @apply cannot be used with group or state-based classes; use those in JSX/TSX only.
+- Navigation highlighting logic works as expected; ensure inactive links have visible color.
+- If blog posts do not appear, check Contentful credentials and data.
+- Cache-busting with Date.now() in image URLs can cause hydration warnings; generate cache-busting values once per build, not per render.
+
+# Additional Rule
+- Never make changes directly on the main branch. If the user is on main and requests changes, always prompt them to switch to a feature branch first.
