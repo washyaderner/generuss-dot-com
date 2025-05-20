@@ -92,3 +92,34 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* =====================
+   Global UI Utilities
+   ===================== */
+
+/* Card hover container: use on the outer div of cards. Add 'group' in your JSX, not here! */
+.card-hover {
+  @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01];
+}
+
+/* Card hover animated background: use as an absolutely positioned child */
+.card-hover-bg {
+  @apply absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl;
+}
+
+/* Primary button: solid color, for main actions */
+.btn-primary {
+  @apply px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors;
+}
+
+/* Secondary button: subtle background, for secondary actions */
+.btn-secondary {
+  @apply px-4 py-2 rounded-md text-sm font-medium bg-black/40 text-white hover:bg-black/60 transition-colors;
+}
+
+/* Gradient text for headings */
+.gradient-heading {
+  @apply bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent;
+}
+
+/* End global UI utilities */

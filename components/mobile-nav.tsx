@@ -18,6 +18,17 @@ export function MobileNav({ links }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault()
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+    setIsOpen(false)
+  }
+
   return (
     <div className="block md:hidden flex items-center h-full">
       {/* Hamburger Button */}
@@ -80,7 +91,7 @@ export function MobileNav({ links }: MobileNavProps) {
                     pathname === "/" && "text-white"
                   )}
                   style={{ backgroundColor: 'rgb(0, 0, 0)' }}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleClick(e, "/")}
                 >
                   Home
                 </Link>
@@ -126,7 +137,7 @@ export function MobileNav({ links }: MobileNavProps) {
                           isActive && "text-white font-medium"
                         )}
                         style={{ backgroundColor: 'rgb(0, 0, 0)' }}
-                        onClick={() => setIsOpen(false)}
+                        onClick={(e) => handleClick(e, link.href)}
                       >
                         {link.label}
                       </Link>

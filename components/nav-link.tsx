@@ -3,38 +3,43 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type React from "react"
+import { cn } from "@/lib/utils"
 
-export function NavLink({ 
-  href, 
-  children, 
-  className = "" 
-}: { 
-  href: string; 
+interface NavLinkProps {
+  href: string;
   children: React.ReactNode;
   className?: string;
-}) {
+}
+
+export function NavLink({ href, children, className }: NavLinkProps) {
   const pathname = usePathname()
-  
-  // Special handling for home page path - consider both "/" and empty as matching
-  // Also consider paths that start with the href to be active, useful for blog posts
-  const isActive = href === '/' 
-    ? pathname === '/' || pathname === ''
-    : href === '/blog'
-      ? pathname === '/blog' || pathname.startsWith('/blog/')
-      : pathname === href
+  const isActive = pathname === href
+  const isAnchorLink = href.startsWith('#')
 
   // Debug logs - will appear in browser console
   console.log(`NavLink Debug - href: ${href}, pathname: ${pathname}, isActive: ${isActive}`);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isAnchorLink) {
+      e.preventDefault()
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
   return (
     <Link
       href={href}
-      className={`transition-all flex items-center ${
+      onClick={handleClick}
+      className={cn(
+        'text-sm transition-colors',
         isActive
-          ? "text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent"
-          : "text-sm text-gray-400 hover:text-white"
-      } ${className}`}
-      aria-current={isActive ? "page" : undefined}
+          ? 'text-teal-400 font-medium'
+          : 'text-gray-400 hover:text-white',
+        className
+      )}
     >
       {children}
     </Link>

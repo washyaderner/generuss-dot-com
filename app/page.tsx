@@ -13,15 +13,27 @@ import { CalScheduler } from "@/components/CalScheduler"
 import Image from 'next/image'
 import CachedImage from '@/components/CachedImage'
 import { CalendarEmbed } from "@/components/CalendarEmbed"
+import { BackToTop } from "@/components/back-to-top"
 
+// Smooth scroll utility function
+const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith('#')) {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
+// Navigation links used in both desktop and mobile nav
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "#projects", label: "Projects" },
+  { href: "#solutions", label: "Solutions" },
+  { href: "#portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-]
+  { href: "#about", label: "About" },
+  { href: "#schedule", label: "Book a Call" }
+];
 
 const solutions = [
   {
@@ -129,7 +141,8 @@ function BlogSection() {
         
         <div className="flex justify-center mt-10">
           <Link
-            href="/contact"
+            href="#schedule"
+            onClick={(e) => scrollToSection(e, '#schedule')}
             className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
           >
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
@@ -179,7 +192,8 @@ export default function Home() {
               </nav>
             </div>
             <Link
-              href="/contact"
+              href="#schedule"
+              onClick={(e) => scrollToSection(e, '#schedule')}
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
@@ -211,7 +225,8 @@ export default function Home() {
             </p>
             <div className="flex justify-center">
               <Link
-                href="/contact"
+                href="#schedule"
+                onClick={(e) => scrollToSection(e, '#schedule')}
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
@@ -451,7 +466,8 @@ export default function Home() {
                   </p>
                   <div className="flex space-x-4 mt-6">
                     <Link
-                      href="/contact"
+                      href="#schedule"
+                      onClick={(e) => scrollToSection(e, '#schedule')}
                       className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                     >
                       <span className="relative">Book a Call</span>
@@ -554,7 +570,8 @@ export default function Home() {
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
             <Link
-              href="/contact"
+              href="#schedule"
+              onClick={(e) => scrollToSection(e, '#schedule')}
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
@@ -574,6 +591,7 @@ export default function Home() {
       
       {/* Mobile Navigation */}
       <MobileNav links={navigationLinks} />
+      <BackToTop />
     </div>
   )
 } 
