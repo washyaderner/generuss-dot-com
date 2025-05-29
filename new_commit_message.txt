@@ -1,7 +1,0 @@
-[Cursor] Optimize headings and layout on homepage
-
-- Removed "About" heading while keeping "Hey, I'm Russell"
-- Fixed "Success = Skill + Leverage + Consistency" heading to display properly
-- Made heading responsive with proper alignment on desktop and mobile
-- Preserved fire emoji's natural color while maintaining alignment
-- Updated PR instructions in .cursorrules to include markdown formatting 
