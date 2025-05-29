@@ -9,6 +9,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChevronRight, BarChart, Zap, Users, Database, Brain, Bot, Rocket, TableProperties, Code, LineChart, MessageSquare } from "lucide-react"
 import { MobileNav } from "@/components/mobile-nav"
 
+// Smooth scroll utility function
+const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith('#')) {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
 const competencies = [
   {
     title: "Sales Process Optimization",
@@ -180,11 +191,11 @@ const projects = [
 ]
 
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "#solutions", label: "Solutions" },
+  { href: "#portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "#about", label: "About" },
+  { href: "#schedule", label: "Book a Call" },
 ]
 
 export default function Portfolio() {
@@ -220,6 +231,7 @@ export default function Portfolio() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={link.href.startsWith('#') ? (e) => scrollToSection(e, link.href) : undefined}
                     className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
@@ -229,12 +241,11 @@ export default function Portfolio() {
             </div>
             <div className="flex items-center space-x-4">
               <Link
-                href="/contact"
-                className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+                href="#schedule"
+                onClick={(e) => scrollToSection(e, '#schedule')}
+                className="hidden sm:flex px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-white">Get a Demo</span>
+                <span className="relative">Book a Call</span>
               </Link>
               <MobileNav links={navigationLinks} />
             </div>
@@ -712,7 +723,8 @@ export default function Portfolio() {
               Let's redefine the way your business operates before the competition catches up.
             </p>
             <Link
-              href="/contact"
+              href="#schedule"
+              onClick={(e) => scrollToSection(e, '#schedule')}
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>

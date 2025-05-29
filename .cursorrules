@@ -272,6 +272,12 @@ Every time we talk about doing a pull request, do not execute any commands to st
 For feature branches to dev, always use squash and merge to maintain clean history.
 For dev to main, always use regular merge to preserve feature commits.
 
+IMPORTANT: Always provide the PR title in a markdown code block for easy copying, like:
+```
+[Cursor] Your PR Title Here
+```
+And then provide the full description in a separate markdown block.
+
 ### Current Task Status
 [X] Initial Next.js setup
 [X] Portfolio page implementation

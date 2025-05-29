@@ -52,6 +52,17 @@ const keyAchievements = [
   }
 ]
 
+// Smooth scroll utility function
+const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith('#')) {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
 export default function About() {
   return (
     <div className="min-h-screen bg-black">
@@ -74,30 +85,45 @@ export default function About() {
                 Home
               </Link>
               <nav className="hidden md:flex space-x-6">
-                <Link href="/solutions" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link 
+                  href="#solutions" 
+                  onClick={(e) => scrollToSection(e, '#solutions')}
+                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
                   Solutions
                 </Link>
-                <Link href="/portfolio" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link 
+                  href="#portfolio" 
+                  onClick={(e) => scrollToSection(e, '#portfolio')}
+                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
                   Portfolio
                 </Link>
                 <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">
                   Blog
                 </Link>
-                <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
+                <Link 
+                  href="#about" 
+                  onClick={(e) => scrollToSection(e, '#about')}
+                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
                   About
                 </Link>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Contact
+                <Link 
+                  href="#schedule" 
+                  onClick={(e) => scrollToSection(e, '#schedule')}
+                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                  Book a Call
                 </Link>
               </nav>
             </div>
             <Link
-              href="/contact"
-              className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+              href="#schedule"
+              onClick={(e) => scrollToSection(e, '#schedule')}
+              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-              <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative text-white">Get a Demo</span>
+              <span className="relative">Book a Call</span>
             </Link>
           </div>
         </header>
@@ -586,7 +612,8 @@ export default function About() {
                 I bring a unique blend of technical expertise and creative insight to every project.
               </p>
               <Link
-                href="/contact"
+                href="#schedule"
+                onClick={(e) => scrollToSection(e, '#schedule')}
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
@@ -598,4 +625,3 @@ export default function About() {
     </div>
   )
 }
-

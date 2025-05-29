@@ -16,9 +16,6 @@ export function NavLink({ href, children, className }: NavLinkProps) {
   const isActive = pathname === href
   const isAnchorLink = href.startsWith('#')
 
-  // Debug logs - will appear in browser console
-  console.log(`NavLink Debug - href: ${href}, pathname: ${pathname}, isActive: ${isActive}`);
-
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isAnchorLink) {
       e.preventDefault()

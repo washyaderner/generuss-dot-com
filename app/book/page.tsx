@@ -7,14 +7,24 @@ import { NavLink } from "@/components/nav-link";
 import { Metadata } from 'next';
 import { CalendarEmbed } from "@/components/CalendarEmbed";
 
+// Smooth scroll utility function
+const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith('#')) {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
 // Navigation links used in both desktop and mobile nav
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "#solutions", label: "Solutions" },
+  { href: "#portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/book", label: "Book" }
+  { href: "#about", label: "About" },
+  { href: "#schedule", label: "Book a Call" }
 ];
 
 export default function BookingPage() {
@@ -30,7 +40,7 @@ export default function BookingPage() {
       <div className="relative z-20">
         {/* Navigation */}
         <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <NavLink href="/">
                 Home
@@ -44,7 +54,8 @@ export default function BookingPage() {
               </nav>
             </div>
             <Link
-              href="/contact"
+              href="#schedule"
+              onClick={(e) => scrollToSection(e, '#schedule')}
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
@@ -54,7 +65,7 @@ export default function BookingPage() {
 
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 relative">
