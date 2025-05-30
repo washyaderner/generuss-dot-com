@@ -1,18 +1,15 @@
-[Cursor] Navigation simplification & global styles consolidation
+[Cursor] Fix Next.js build error: Remove named export from blog page
 
-- Simplified navigation to only Home and Blog pages
-- Deleted unnecessary pages: about, portfolio, solutions, contact, book
-- Consolidated all unique styles into app/globals.css including:
-  * Page layout styles (backgrounds, containers)  
-  * Typography styles (gradients, headings)
-  * Animation styles (glow trail from contact page)
-  * Card and form styles
-  * Blog/prose styles
-  * Badges, lists, icons, and utilities
-- Updated all navigation components to use simplified structure
-- Fixed hover effects with proper CSS classes
-- Enhanced blog page with graceful Contentful error handling
-- Removed unused API route: app/api/contact/route.ts
-- Updated .cursorrules with progress documentation
+- Removed export from BlogLayout function in app/blog/page.tsx
+- Next.js pages can only have default exports
+- Fixes Vercel deployment build error: "BlogLayout" is not a valid Page export field
+- BlogLayout is now an internal component used only within the page 
 
-All functionality preserved globally while simplifying site structure.
+[Cursor] Resolve merge conflicts in navigation components
+
+- Fixed merge conflicts in app/layout.tsx: Updated navigation to Home and Blog only
+- Fixed merge conflicts in components/mobile-nav.tsx: Kept enhanced renderNavItem function with smooth scrolling  
+- Fixed merge conflicts in components/nav-link.tsx: Clean styling approach with accessibility features
+- All navigation components now consistent with simplified structure
+- Preserved smooth scrolling functionality for anchor links
+- Added aria-current accessibility support for active page links 

@@ -47,11 +47,8 @@ export const metadata: Metadata = {
 }
 
 const navigationLinks = [
-  { href: "#solutions", label: "Solutions" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Blog" },
-  { href: "#about", label: "About" },
-  { href: "#schedule", label: "Book a Call" },
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" }
 ]
 
 // Generate timestamp once for all resources to ensure consistent caching

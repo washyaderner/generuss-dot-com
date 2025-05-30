@@ -50,6 +50,7 @@ export function NavLink({ href, children, className }: NavLinkProps) {
     <Link
       href={href}
       className={baseClassName}
+      aria-current={isActive ? "page" : undefined}
     >
       {children}
     </Link>
