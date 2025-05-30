@@ -47,7 +47,11 @@ export const metadata: Metadata = {
 }
 
 const navigationLinks = [
+  { href: "#solutions", label: "Solutions" },
+  { href: "#portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
+  { href: "#about", label: "About" },
+  { href: "#schedule", label: "Book a Call" },
 ]
 
 // Generate timestamp once for all resources to ensure consistent caching
@@ -103,14 +107,12 @@ export default function RootLayout({
                     ))}
                   </nav>
                 </div>
-                <Link
-                  href="/#schedule"
-                  className="hidden sm:flex group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
+                <NavLink
+                  href="#schedule"
+                  className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                 >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative text-white">Book a Call</span>
-                </Link>
+                  <span className="relative">Book a Call</span>
+                </NavLink>
               </div>
             </header>
 
@@ -138,9 +140,12 @@ export default function RootLayout({
                         </Link>
                       </li>
                       <li>
-                        <Link href="/#schedule" className="text-gray-400 hover:text-white text-sm transition-colors">
+                        <NavLink 
+                          href="#schedule" 
+                          className="text-gray-400 hover:text-white text-sm transition-colors"
+                        >
                           Book a Call
-                        </Link>
+                        </NavLink>
                       </li>
                     </ul>
                   </div>
@@ -208,5 +213,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-import './globals.css'

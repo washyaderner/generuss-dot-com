@@ -1,38 +1,31 @@
-import Link from 'next/link';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import Link from "next/link"
+import { NavLink } from "@/components/nav-link"
+import { MobileNav } from "@/components/mobile-nav"
 
-interface BlogNavigationProps {
-  showBrowseArticles?: boolean;
-}
+// Navigation links
+const navigationLinks = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" }
+];
 
-export function BlogNavigation({ showBrowseArticles = true }: BlogNavigationProps) {
+export function BlogNavigation() {
   return (
-    <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-      <Link
-        href="/"
-        className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
-      >
-        <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-        <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-teal-500/40 to-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <span className="relative text-white flex items-center">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </span>
-      </Link>
-      
-      {showBrowseArticles && (
-        <Link
-          href="/blog"
-          className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white"
-        >
-          <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-          <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <span className="relative text-white flex items-center">
-            <BookOpen className="mr-2 h-4 w-4" />
-            Browse All Articles
-          </span>
-        </Link>
-      )}
-    </div>
-  );
+    <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
+      <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="flex items-center space-x-8">
+          <NavLink href="/">
+            <span>Home</span>
+          </NavLink>
+          <nav className="hidden md:flex space-x-6">
+            {navigationLinks.map((link) => (
+              <NavLink key={link.href} href={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+        <MobileNav links={navigationLinks} />
+      </div>
+    </header>
+  )
 } 

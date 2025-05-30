@@ -13,11 +13,13 @@ import { CalScheduler } from "@/components/CalScheduler"
 import Image from 'next/image'
 import CachedImage from '@/components/CachedImage'
 import { CalendarEmbed } from "@/components/CalendarEmbed"
+import { BackToTop } from "@/components/back-to-top"
 
+// Navigation links used in both desktop and mobile nav
 const navigationLinks = [
-  { href: "#projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-]
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" }
+];
 
 const solutions = [
   {
@@ -124,14 +126,14 @@ function BlogSection() {
         <FeaturedBlogPost post={latestPost} />
         
         <div className="flex justify-center mt-10">
-          <Link
+          <NavLink
             href="#schedule"
             className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
           >
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
             <span className="relative text-white">Schedule Now</span>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </section>
@@ -170,16 +172,11 @@ export default function Home() {
                 {navigationLinks.map((link) => (
                   <NavLink key={link.href} href={link.href}>
                     {link.label}
-                </NavLink>
+                  </NavLink>
                 ))}
               </nav>
             </div>
-            <Link
-              href="#schedule"
-              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
-            >
-              <span className="relative">Book a Call</span>
-            </Link>
+            <MobileNav links={navigationLinks} />
           </div>
         </header>
 
@@ -206,18 +203,18 @@ export default function Home() {
               <span>Amplify Team Productivity</span>
             </p>
             <div className="flex justify-center">
-              <Link
+              <NavLink
                 href="#schedule"
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
-              </Link>
+              </NavLink>
             </div>
           </div>
         </section>
 
         {/* Solutions Grid */}
-        <section className="py-24 px-4">
+        <section id="solutions" className="py-24 px-4 scroll-mt-20">
           <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-teal-400 animate-gradient">
               Measurable Results
@@ -226,8 +223,8 @@ export default function Home() {
               Data-driven impact across sales, automation, and development projects
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Banknote className="w-10 h-10 text-teal-400 mb-4" />
@@ -238,8 +235,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Rocket className="w-10 h-10 text-teal-400 mb-4" />
@@ -250,8 +247,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Code className="w-10 h-10 text-teal-400 mb-4" />
@@ -262,8 +259,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <LineChart className="w-10 h-10 text-teal-400 mb-4" />
@@ -278,7 +275,7 @@ export default function Home() {
         </section>
         
         {/* Projects Section */}
-        <section id="projects" className="py-24 px-4 bg-black/30">
+        <section id="portfolio" className="py-24 px-4 bg-black/30 scroll-mt-20">
           <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
               Client Success Stories
@@ -291,9 +288,9 @@ export default function Home() {
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="card-hover group mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="card-hover-bg" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
                   
                   <div className="relative">
@@ -323,7 +320,7 @@ export default function Home() {
                       <span className="text-white font-medium">{project.rating.toFixed(1)}</span>
                     </div>
                     
-                    <Link 
+                    <NavLink 
                       href="#schedule"
                       className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                     >
@@ -331,7 +328,7 @@ export default function Home() {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               ))}
@@ -388,9 +385,9 @@ export default function Home() {
               {reviews.map((review, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="card-hover group mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="card-hover-bg" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
                   <div className="relative">
                     <div className="flex mb-3">
@@ -418,6 +415,9 @@ export default function Home() {
         {/* About Section */}
         <section id="about" className="py-24 px-4 scroll-mt-20">
           <div className="container max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              About
+            </h2>
             <div className="grid md:grid-cols-3 gap-8 items-start">
               <div className="col-span-1">
                 {/* Profile image */}
@@ -442,12 +442,12 @@ export default function Home() {
                   I've helped dozens of companies automate their repetitive tasks, build scalable lead generation systems, and create more efficient sales processes that generate measurable ROI.
                 </p>
                 <div className="flex space-x-4 mt-6">
-                  <Link
+                  <NavLink
                     href="#schedule"
                     className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                   >
                     <span className="relative">Book a Call</span>
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </div>
@@ -544,12 +544,12 @@ export default function Home() {
               could reshape your results—reach out here. I'm committed to making your sales process more efficient and
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
-            <Link
+            <NavLink
               href="#schedule"
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
-            </Link>
+            </NavLink>
           </div>
         </section>
         
@@ -565,6 +565,7 @@ export default function Home() {
       
       {/* Mobile Navigation */}
       <MobileNav links={navigationLinks} />
+      <BackToTop />
     </div>
   )
 } 
