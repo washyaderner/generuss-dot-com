@@ -43,7 +43,7 @@ const navigationLinks = [
   { href: "/blog", label: "Blog" }
 ];
 
-export function BlogLayout({ children }: { children: React.ReactNode }) {
+function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CursorGradient />
