@@ -5,6 +5,10 @@ import { Metadata } from 'next'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
 import { BlogNavigation } from "@/components/BlogNavigation"
+import React from 'react';
+import Link from 'next/link';
+import { NavLink } from '@/components/nav-link';
+import { MobileNav } from '@/components/mobile-nav';
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -33,7 +37,75 @@ export const metadata: Metadata = {
   }
 }
 
+// Navigation links
+const navigationLinks = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" }
+];
+
+export function BlogLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <CursorGradient />
+      {/* Navigation */}
+      <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
+        <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center space-x-8">
+            <NavLink href="/">
+              <span>Home</span>
+            </NavLink>
+            <nav className="hidden md:flex space-x-6">
+              {navigationLinks.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
+          </div>
+          <MobileNav links={navigationLinks} />
+        </div>
+      </header>
+
+      {/* Main content */}
+      {children}
+    </>
+  );
+}
+
 export default async function Blog() {
+  // Check if Contentful is configured
+  const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+  const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+  
+  if (!spaceId || !accessToken) {
+    return (
+      <div className="min-h-screen bg-black">
+        <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
+        <CursorGradient />
+        <BlogLayout>
+          <div className="relative z-20">
+            <div className="container mx-auto max-w-4xl px-4 md:px-6 lg:px-8 pt-32">
+              <section className="pb-16 text-center">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-teal-400">
+                  Blog
+                </h1>
+                <div className="max-w-2xl mx-auto">
+                  <Alert className="bg-yellow-500/10 border-yellow-500/50 text-white">
+                    <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                    <AlertDescription className="text-gray-200">
+                      <strong>Blog Coming Soon!</strong><br />
+                      The blog feature is currently being set up. Check back later for insights, tips, and strategies to elevate your sales and business processes.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </section>
+            </div>
+          </div>
+        </BlogLayout>
+      </div>
+    )
+  }
+  
   try {
     const posts = await getAllPosts()
 
@@ -75,7 +147,7 @@ export default async function Blog() {
 
           <div className="container mx-auto max-w-4xl px-4 md:px-6 lg:px-8 pt-32">
             {/* Simplified Navigation */}
-            <BlogNavigation showBrowseArticles={false} />
+            <BlogNavigation />
 
             {/* Hero Section */}
             <section className="pb-16" aria-labelledby="blog-heading">
@@ -111,7 +183,7 @@ export default async function Blog() {
             
             {/* Bottom Navigation */}
             <div className="mt-12 mb-24">
-              <BlogNavigation showBrowseArticles={false} />
+              <BlogNavigation />
             </div>
           </div>
         </div>

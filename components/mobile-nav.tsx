@@ -18,15 +18,49 @@ export function MobileNav({ links }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault()
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
     setIsOpen(false)
+  }
+
+  const handleLinkClick = () => {
+    setIsOpen(false)
+  }
+
+  const renderNavItem = (href: string, label: string, isActive: boolean) => {
+    const baseClassName = cn(
+      "text-zinc-400 hover:text-white transition-colors text-lg py-3",
+      isActive && "text-white font-medium"
+    )
+    const baseStyle = { backgroundColor: 'rgb(0, 0, 0)' }
+
+    if (href.startsWith('#')) {
+      return (
+        <a
+          href={href}
+          className={baseClassName}
+          style={baseStyle}
+          onClick={(e) => handleAnchorClick(e, href)}
+        >
+          {label}
+        </a>
+      )
+    }
+
+    return (
+      <Link
+        href={href}
+        className={baseClassName}
+        style={baseStyle}
+        onClick={handleLinkClick}
+      >
+        {label}
+      </Link>
+    )
   }
 
   return (
@@ -91,7 +125,7 @@ export function MobileNav({ links }: MobileNavProps) {
                     pathname === "/" && "text-white"
                   )}
                   style={{ backgroundColor: 'rgb(0, 0, 0)' }}
-                  onClick={(e) => handleClick(e, "/")}
+                  onClick={handleLinkClick}
                 >
                   Home
                 </Link>
@@ -130,17 +164,7 @@ export function MobileNav({ links }: MobileNavProps) {
                   const isActive = pathname === link.href;
                   return (
                     <div key={link.href} className="flex flex-col" style={{ backgroundColor: 'rgb(0, 0, 0)' }}>
-                      <Link
-                        href={link.href}
-                        className={cn(
-                          "text-zinc-400 hover:text-white transition-colors text-lg py-3",
-                          isActive && "text-white font-medium"
-                        )}
-                        style={{ backgroundColor: 'rgb(0, 0, 0)' }}
-                        onClick={(e) => handleClick(e, link.href)}
-                      >
-                        {link.label}
-                      </Link>
+                      {renderNavItem(link.href, link.label, isActive)}
                       {index < arr.length - 1 && (
                         <div className="w-full h-px bg-zinc-800"></div>
                       )}

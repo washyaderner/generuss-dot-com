@@ -8,17 +8,6 @@ import { Toaster } from "sonner"
 import NativeChatBot from "@/app/components/NativeChatBot"
 import { Metadata } from "next"
 
-// Smooth scroll utility function
-const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  if (href.startsWith('#')) {
-    e.preventDefault()
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-}
-
 export const metadata: Metadata = {
   title: {
     template: '%s | Generuss',
@@ -118,13 +107,12 @@ export default function RootLayout({
                     ))}
                   </nav>
                 </div>
-                <Link
+                <NavLink
                   href="#schedule"
-                  onClick={(e) => scrollToSection(e, '#schedule')}
                   className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                 >
                   <span className="relative">Book a Call</span>
-                </Link>
+                </NavLink>
               </div>
             </header>
 
@@ -152,13 +140,12 @@ export default function RootLayout({
                         </Link>
                       </li>
                       <li>
-                        <Link 
+                        <NavLink 
                           href="#schedule" 
-                          onClick={(e) => scrollToSection(e, '#schedule')}
                           className="text-gray-400 hover:text-white text-sm transition-colors"
                         >
                           Book a Call
-                        </Link>
+                        </NavLink>
                       </li>
                     </ul>
                   </div>
