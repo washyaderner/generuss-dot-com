@@ -76,13 +76,11 @@ const reviews = [
 const cardVariants = {
   hidden: { 
     opacity: 0, 
-    y: 20,
-    rotateX: -10
+    y: 20
   },
   visible: { 
     opacity: 1, 
     y: 0,
-    rotateX: 0,
     transition: {
       duration: 0.5,
       ease: "easeOut"
@@ -144,8 +142,7 @@ function SolutionsGrid() {
           variants={cardVariants}
           whileHover={{ 
             scale: 1.05,
-            rotateY: 8,
-            rotateX: -3,
+            y: -10,
             z: 60,
             transition: {
               type: "spring",
@@ -208,7 +205,6 @@ function AnimatedPortfolio() {
           whileHover={{ 
             scale: 1.02,
             y: -8,
-            rotateX: -2,
             transition: {
               type: "spring",
               stiffness: 400,
@@ -307,8 +303,6 @@ function AnimatedReviews() {
           whileHover={{ 
             scale: 1.03,
             y: -12,
-            rotateY: -5,
-            rotateX: 2,
             transition: {
               type: "spring",
               stiffness: 350,

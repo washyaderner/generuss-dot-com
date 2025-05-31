@@ -152,7 +152,7 @@ body {
 }
 
 .card-hover:hover {
-  transform: perspective(1000px) translateY(-10px) translateZ(20px) rotateX(-5deg);
+  transform: perspective(1000px) translateY(-10px) translateZ(20px);
   box-shadow: 
     0 20px 40px rgba(20, 184, 166, 0.3),
     0 0 20px rgba(20, 184, 166, 0.2),
