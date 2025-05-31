@@ -13,15 +13,13 @@ import { CalScheduler } from "@/components/CalScheduler"
 import Image from 'next/image'
 import CachedImage from '@/components/CachedImage'
 import { CalendarEmbed } from "@/components/CalendarEmbed"
+import { BackToTop } from "@/components/back-to-top"
 
+// Navigation links used in both desktop and mobile nav
 const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "#projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-]
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" }
+];
 
 const solutions = [
   {
@@ -114,7 +112,7 @@ function BlogSection() {
   
   return (
     <section className="py-16 px-4" aria-labelledby="latest-insights">
-      <div className="container mx-auto">
+      <div className="container max-w-4xl mx-auto">
         <h2 
           id="latest-insights" 
           className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent"
@@ -128,14 +126,14 @@ function BlogSection() {
         <FeaturedBlogPost post={latestPost} />
         
         <div className="flex justify-center mt-10">
-          <Link
-            href="/contact"
+          <NavLink
+            href="#schedule"
             className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
           >
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
             <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
             <span className="relative text-white">Schedule Now</span>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </section>
@@ -156,7 +154,7 @@ export default function Home() {
       <div className="relative z-20">
         {/* Navigation */}
         <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <NavLink href="/">
                 <div className="flex items-center">
@@ -174,22 +172,17 @@ export default function Home() {
                 {navigationLinks.map((link) => (
                   <NavLink key={link.href} href={link.href}>
                     {link.label}
-                </NavLink>
+                  </NavLink>
                 ))}
               </nav>
             </div>
-            <Link
-              href="/contact"
-              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
-            >
-              <span className="relative">Book a Call</span>
-            </Link>
+            <MobileNav links={navigationLinks} />
           </div>
         </header>
 
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
@@ -210,19 +203,19 @@ export default function Home() {
               <span>Amplify Team Productivity</span>
             </p>
             <div className="flex justify-center">
-              <Link
-                href="/contact"
+              <NavLink
+                href="#schedule"
                 className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
-              </Link>
+              </NavLink>
             </div>
           </div>
         </section>
 
         {/* Solutions Grid */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto">
+        <section id="solutions" className="py-24 px-4 scroll-mt-20">
+          <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-teal-400 animate-gradient">
               Measurable Results
             </h2>
@@ -230,8 +223,8 @@ export default function Home() {
               Data-driven impact across sales, automation, and development projects
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Banknote className="w-10 h-10 text-teal-400 mb-4" />
@@ -242,8 +235,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Rocket className="w-10 h-10 text-teal-400 mb-4" />
@@ -254,8 +247,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <Code className="w-10 h-10 text-teal-400 mb-4" />
@@ -266,8 +259,8 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="group relative p-6 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02]">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="card-hover group">
+                <div className="card-hover-bg" />
                 <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
                 <div className="relative">
                   <LineChart className="w-10 h-10 text-teal-400 mb-4" />
@@ -282,8 +275,8 @@ export default function Home() {
         </section>
         
         {/* Projects Section */}
-        <section id="projects" className="py-24 px-4 bg-black/30">
-          <div className="container mx-auto">
+        <section id="portfolio" className="py-24 px-4 bg-black/30 scroll-mt-20">
+          <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
               Client Success Stories
             </h2>
@@ -295,9 +288,9 @@ export default function Home() {
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="card-hover group mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="card-hover-bg" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
                   
                   <div className="relative">
@@ -327,15 +320,15 @@ export default function Home() {
                       <span className="text-white font-medium">{project.rating.toFixed(1)}</span>
                     </div>
                     
-                    <Link 
-                      href="/portfolio" 
+                    <NavLink 
+                      href="#schedule"
                       className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                     >
-                      <span>View full details</span>
+                      <span>Schedule a consultation</span>
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               ))}
@@ -345,7 +338,7 @@ export default function Home() {
         
         {/* Schedule Section */}
         <section id="schedule" className="py-24 px-4 scroll-mt-20">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
               Book a Call
             </h2>
@@ -380,7 +373,7 @@ export default function Home() {
         
         {/* Reviews Section */}
         <section id="reviews" className="py-24 px-4 bg-black/30 scroll-mt-20">
-          <div className="container mx-auto">
+          <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
               Client Testimonials
             </h2>
@@ -392,9 +385,9 @@ export default function Home() {
               {reviews.map((review, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-xl transition-all duration-300 hover:transform hover:scale-[1.01] mb-10"
+                  className="card-hover group mb-10"
                 >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/5 to-violet-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                  <div className="card-hover-bg" />
                   <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
                   <div className="relative">
                     <div className="flex mb-3">
@@ -421,42 +414,40 @@ export default function Home() {
         
         {/* About Section */}
         <section id="about" className="py-24 px-4 scroll-mt-20">
-          <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-3 gap-8 items-start">
-                <div className="col-span-1">
-                  {/* Profile image */}
-                  <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
-                    <CachedImage 
-                      src="/images/logo-PFP-Teal.JPG"
-                      alt="Russell's Profile"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover object-[center_top]"
-                      style={{ objectPosition: "center 30%" }}
-                    />
-                  </div>
+          <div className="container max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
+              About
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 items-start">
+              <div className="col-span-1">
+                {/* Profile image */}
+                <div className="w-48 h-48 md:w-full md:h-auto aspect-square rounded-full bg-gradient-to-r from-teal-500/30 to-violet-600/30 mx-auto overflow-hidden border-2 border-white/10">
+                  <CachedImage 
+                    src="/images/logo-PFP-Teal.JPG"
+                    alt="Russell's Profile"
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover object-[center_top]"
+                    style={{ objectPosition: "center 30%" }}
+                  />
                 </div>
-                
-                <div className="col-span-2 text-left">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-                    About
-                  </h2>
-                  <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russell</h3>
-                  <p className="text-gray-300 mb-4">
-                    I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
-                  </p>
-                  <p className="text-gray-300 mb-4">
-                    I've helped dozens of companies automate their repetitive tasks, build scalable lead generation systems, and create more efficient sales processes that generate measurable ROI.
-                  </p>
-                  <div className="flex space-x-4 mt-6">
-                    <Link
-                      href="/contact"
-                      className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
-                    >
-                      <span className="relative">Book a Call</span>
-                    </Link>
-                  </div>
+              </div>
+              
+              <div className="col-span-2 text-left">
+                <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russell</h3>
+                <p className="text-gray-300 mb-4">
+                  I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
+                </p>
+                <p className="text-gray-300 mb-4">
+                  I've helped dozens of companies automate their repetitive tasks, build scalable lead generation systems, and create more efficient sales processes that generate measurable ROI.
+                </p>
+                <div className="flex space-x-4 mt-6">
+                  <NavLink
+                    href="#schedule"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
+                  >
+                    <span className="relative">Book a Call</span>
+                  </NavLink>
                 </div>
               </div>
             </div>
@@ -465,7 +456,7 @@ export default function Home() {
 
         {/* Latest Blog Post Section */}
         <section id="blog" className="py-24 px-4 bg-black/30 scroll-mt-20">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
                 Latest Insights
               </h2>
@@ -538,11 +529,11 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="py-24 px-4">
-          <div className="container mx-auto text-center">
-            <div className="relative inline-block">
+          <div className="container max-w-4xl mx-auto text-center">
+            <div className="w-full">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 relative">
-                🔥{" "}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 flex flex-wrap md:flex-nowrap items-center justify-center">
+                <span className="mr-2">🔥</span>
                 <span className="bg-gradient-to-r from-violet-900 to-teal-400 bg-clip-text text-transparent">
                   Success = Skill + Leverage + Consistency
                 </span>
@@ -553,18 +544,18 @@ export default function Home() {
               could reshape your results—reach out here. I'm committed to making your sales process more efficient and
               profitable. Let's talk about the specific challenges you face and how we can solve them together.
             </p>
-            <Link
-              href="/contact"
+            <NavLink
+              href="#schedule"
               className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
-            </Link>
+            </NavLink>
           </div>
         </section>
         
         {/* Footer */}
         <footer className="py-8 px-4 border-t border-white/5">
-          <div className="container mx-auto text-center">
+          <div className="container max-w-4xl mx-auto text-center">
             <p className="text-gray-500 text-sm">
               © {new Date().getFullYear()} Generuss. All rights reserved.
             </p>
@@ -574,6 +565,7 @@ export default function Home() {
       
       {/* Mobile Navigation */}
       <MobileNav links={navigationLinks} />
+      <BackToTop />
     </div>
   )
 } 
