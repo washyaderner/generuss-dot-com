@@ -121,7 +121,7 @@ export function MobileNav({ links }: MobileNavProps) {
                 <Link
                   href="/"
                   className={cn(
-                    "text-zinc-400 hover:text-white transition-colors text-lg font-medium py-3",
+                    "link-hover text-lg font-medium py-3",
                     pathname === "/" && "text-white"
                   )}
                   style={{ backgroundColor: 'rgb(0, 0, 0)' }}
@@ -131,7 +131,7 @@ export function MobileNav({ links }: MobileNavProps) {
                 </Link>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-zinc-400 hover:text-white"
+                  className="link-hover"
                   style={{ backgroundColor: 'rgb(0, 0, 0)' }}
                   aria-label="Close menu"
                 >
@@ -178,4 +178,4 @@ export function MobileNav({ links }: MobileNavProps) {
       </AnimatePresence>
     </div>
   )
-} 
+}

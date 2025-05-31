@@ -55,4 +55,4 @@ export function NavLink({ href, children, className }: NavLinkProps) {
       {children}
     </Link>
   )
-} 
+}

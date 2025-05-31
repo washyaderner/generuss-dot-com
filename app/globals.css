@@ -16,6 +16,48 @@ body {
   }
 }
 
+@layer components {
+  /* Common button styles */
+  .btn-primary {
+    @apply px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40;
+  }
+
+  /* NOTE: Do NOT use @apply with 'group' or state-based classes like group-hover: in CSS. Use them in JSX/TSX only. */
+
+  /* Card base style (use group and group-hover in JSX/TSX) */
+  .card-hover-base {
+    @apply relative p-6 rounded-xl transition-all duration-300;
+  }
+
+  /* Link hover effects */
+  .link-hover {
+    @apply text-gray-400 hover:text-white transition-colors;
+  }
+
+  .link-teal {
+    @apply text-teal-400 hover:text-teal-300 transition-colors;
+  }
+
+  /* Navigation base style (use group and group-hover in JSX/TSX) */
+  .nav-link-base {
+    @apply relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out;
+  }
+
+  /* Image hover effects (use group-hover:scale-105 in JSX/TSX) */
+  .image-hover-base {
+    @apply transform transition-transform duration-500;
+  }
+
+  /* Gradient button */
+  .gradient-button {
+    @apply inline-flex items-center px-6 py-3 bg-gradient-to-r from-violet-600/80 to-teal-500/80 text-white font-medium rounded-lg transition-all hover:from-violet-600 hover:to-teal-500;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
