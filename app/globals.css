@@ -146,6 +146,8 @@ body {
 /* Card hover container: use on the outer div of cards. Add 'group' in your JSX, not here! */
 .card-hover {
   @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
 }
 
 .card-hover:hover {
@@ -159,6 +161,11 @@ body {
 
 .group:hover .card-hover-bg {
   @apply opacity-100;
+}
+
+/* 3D card transform on hover */
+.card-hover:hover {
+  transform: perspective(1000px) rotateY(5deg) translateZ(20px);
 }
 
 /* Primary button: solid color, for main actions */
