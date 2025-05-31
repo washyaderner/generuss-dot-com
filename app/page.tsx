@@ -82,7 +82,7 @@ const cardVariants = {
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.65,
       ease: "easeOut"
     }
   }
@@ -93,8 +93,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
+      staggerChildren: 0.13,
+      delayChildren: 0.26
     }
   }
 }
@@ -146,8 +146,8 @@ function SolutionsGrid() {
             z: 60,
             transition: {
               type: "spring",
-              stiffness: 300,
-              damping: 20
+              stiffness: 210,
+              damping: 26
             }
           }}
           whileTap={{ scale: 0.98 }}
@@ -170,7 +170,7 @@ function SolutionsGrid() {
               whileHover={{ 
                 scale: 1.2,
                 rotate: 360,
-                transition: { duration: 0.5 }
+                transition: { duration: 0.65 }
               }}
             >
               <card.icon className="w-10 h-10 text-teal-400 mb-4" />
@@ -207,8 +207,8 @@ function AnimatedPortfolio() {
             y: -8,
             transition: {
               type: "spring",
-              stiffness: 400,
-              damping: 25
+              stiffness: 280,
+              damping: 32
             }
           }}
           className="card-hover group mb-10"
@@ -305,8 +305,8 @@ function AnimatedReviews() {
             y: -12,
             transition: {
               type: "spring",
-              stiffness: 350,
-              damping: 25
+              stiffness: 245,
+              damping: 32
             }
           }}
           className="card-hover group mb-10"
@@ -325,18 +325,18 @@ function AnimatedReviews() {
               className="flex mb-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.2 }}
+              transition={{ delay: index * 0.26 }}
             >
               {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: index * 0.1 + i * 0.1, type: "spring" }}
+                  transition={{ delay: index * 0.13 + i * 0.13, type: "spring" }}
                   whileHover={{ 
                     scale: 1.4,
                     rotate: 360,
-                    transition: { duration: 0.3 }
+                    transition: { duration: 0.39 }
                   }}
                 >
                   <Star 

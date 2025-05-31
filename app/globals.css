@@ -148,7 +148,7 @@ body {
   @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300;
   transform-style: preserve-3d;
   transform: perspective(1000px) translateZ(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.39s ease, box-shadow 0.39s ease;
 }
 
 .card-hover:hover {
@@ -161,7 +161,8 @@ body {
 
 /* Card hover animated background: use as an absolutely positioned child */
 .card-hover-bg {
-  @apply absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 transition-opacity duration-300 blur-xl;
+  @apply absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 transition-opacity blur-xl;
+  transition-duration: 390ms;
 }
 
 .group:hover .card-hover-bg {
@@ -181,7 +182,7 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.39s ease;
 }
 
 .card-hover:hover::before {
