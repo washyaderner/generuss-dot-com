@@ -146,6 +146,8 @@ body {
 /* Card hover container: use on the outer div of cards. Add 'group' in your JSX, not here! */
 .card-hover {
   @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300;
+  position: relative;
+  z-index: 1;
   transform-style: preserve-3d;
   transform: perspective(1000px) translateZ(0);
   transition: transform 0.39s ease, box-shadow 0.39s ease;
@@ -157,6 +159,7 @@ body {
     0 20px 40px rgba(20, 184, 166, 0.3),
     0 0 20px rgba(20, 184, 166, 0.2),
     0 0 40px rgba(139, 92, 246, 0.1);
+  background-color: rgba(20, 184, 166, 0.05) !important;
 }
 
 /* Card hover animated background: use as an absolutely positioned child */
