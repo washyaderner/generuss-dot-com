@@ -114,6 +114,7 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Always add detailed comments to critical configuration files like next.config.js.
 - Document common issues and solutions in a centralized markdown file.
 - In Next.js apps, missing favicon files can cause 404 errors that fill console logs.
+- NavLink component should use the same smooth scrolling offset logic as the main page to ensure consistent anchor link behavior.
 
 ## Cursor learned
 
@@ -340,63 +341,42 @@ And then provide the full description in a separate markdown block.
 - [X] Added comprehensive documentation for common issues and solutions
 - [X] Implemented native chat bot with OpenAI integration
 - [X] **ONE-PAGE LAYOUT MIGRATION COMPLETED** ✨
+- [X] **GITHUB MERGE CONFLICTS RESOLVED AND DEPLOYED TO PRODUCTION** 🚀
 
-### Most Recent Achievement: GitHub Merge Conflict Resolution
+### Most Recent Achievement: Production Deployment Success
 
-**✅ SUCCESSFULLY COMPLETED**: Complex GitHub merge conflicts resolved through manual file replacement
+**✅ SUCCESSFULLY COMPLETED**: Complete merge conflict resolution and production deployment
 
 **What We Accomplished:**
-1. **Conflict Resolution Strategy**: Bypassed complex GitHub merge conflicts by providing clean replacement files
-2. **Navigation Consistency**: Applied simplified Home/Blog navigation across all components
-3. **File-by-File Resolution**: Manually resolved conflicts in 3 critical files:
-   - `app/layout.tsx` - Simplified navigation with Book a Call CTA
-   - `components/mobile-nav.tsx` - Enhanced smooth scrolling functionality preserved
-   - `components/nav-link.tsx` - Clean styling approach with accessibility features
-4. **Smooth Scrolling**: Maintained anchor link functionality for one-page layout
-5. **Accessibility**: Preserved aria-current attributes and proper focus management
-6. **Consistent Styling**: Used clean `baseClassName` approach for maintainable code
+1. **Manual Conflict Resolution**: Successfully resolved complex GitHub merge conflicts through file replacement
+2. **Navigation Simplification**: Applied clean Home/Blog navigation across all components
+3. **Production Deployment**: Merged feature/one-page-layout → dev → main successfully
+4. **All Functionality Preserved**: Forms, chat bot, calendar, mobile nav, SEO optimizations
+5. **Clean Git History**: Maintained proper branching workflow throughout
 
-**Technical Implementation:**
-- Resolved all `<<<<<<< dev` and `>>>>>>> main` conflict markers
-- Maintained enhanced `renderNavItem` function for mobile navigation
-- Preserved smooth scroll behavior for anchor links (#schedule)
-- Applied consistent styling classes throughout navigation components
-- Kept proper TypeScript interfaces and error handling
+### Current Task: Cleanup May 31
 
-### Current Status
-✅ **GitHub merge conflicts resolved with manual file replacement**
-✅ **All navigation components updated consistently**
-✅ **Development server running on localhost:3002**
-✅ **Ready for GitHub PR merge after user applies file changes**
+**🎯 NEW TASK STARTED**: May 31, 2024 - Code cleanup and optimization
 
-### Current Task: Cleanup & Testing Phase
+**Current Branch**: `feature/cleanup-may-31` (created from updated dev)
 
-**🔧 IMMEDIATE NEXT STEPS:**
-1. **Apply File Changes**: User needs to copy/paste the 3 resolved files into GitHub PR interface
-2. **Test Merge**: Verify the PR can be merged without conflicts
-3. **Development Testing**: Confirm all functionality works after merge
-4. **Production Deployment**: Create clean PR from dev to main
+**🔧 CLEANUP OBJECTIVES:**
+- [ ] Identify and remove unused code/files
+- [ ] Optimize component structure and organization
+- [ ] Clean up CSS and styling redundancies
+- [ ] Update documentation and comments
+- [ ] Performance optimizations
+- [ ] Code quality improvements
 
-**📁 Files That Need Manual Update in GitHub:**
-1. `app/layout.tsx` - ✅ Replacement content provided
-2. `components/mobile-nav.tsx` - ✅ Replacement content provided  
-3. `components/nav-link.tsx` - ✅ Replacement content provided
-
-**🔍 Post-Resolution Testing Checklist:**
-- [ ] Navigation links working (Home/Blog)
-- [ ] Book a Call button linking to #schedule
-- [ ] Mobile navigation with smooth scrolling
-- [ ] Blog functionality intact
-- [ ] Calendar booking widget working
-- [ ] All sections accessible via anchor links
-- [ ] SEO meta tags preserved
-- [ ] Development server stable
-
-### Git Workflow Status
-- **Current Branch**: `dev` (where we applied direct changes earlier)
-- **GitHub PR**: `feature/one-page-layout` → `dev` (has conflicts needing manual resolution)
-- **Strategy**: Manual file replacement to resolve complex conflicts
-- **Next PR**: `dev` → `main` (for production deployment)
+**📋 CLEANUP CHECKLIST:**
+- [ ] Remove unused components from old multi-page structure
+- [ ] Clean up redundant CSS classes and styles
+- [ ] Optimize import statements across components
+- [ ] Update component documentation and comments
+- [ ] Review and clean up utility functions
+- [ ] Verify all TypeScript types are properly used
+- [ ] Test performance after cleanup changes
+- [ ] Update README and documentation
 
 ### Technical Stack
 - Next.js 14.2.16
@@ -426,6 +406,6 @@ And then provide the full description in a separate markdown block.
 
 ### Development Environment Notes
 - Development server running on port 3002 (3000-3001 in use)
-- Webpack cache warnings present but not blocking
 - All core functionality working correctly
-- Ready for production deployment after conflict resolution
+- Production deployment successful
+- Ready for cleanup and optimization work

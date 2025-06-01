@@ -9,6 +9,7 @@
 # next.js
 /.next/
 /out/
+.next/cache/
 
 # production
 /build
@@ -38,3 +39,6 @@ next-env.d.ts
 /backup 
 # Ignore whisper directory
 whisper/
+
+# Webpack temp files
+*.pack.gz_
