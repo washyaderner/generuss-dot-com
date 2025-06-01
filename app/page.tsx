@@ -431,6 +431,30 @@ function BlogSection() {
 
 export default function Home() {
   // Home page component
+  
+  // Enhanced smooth scroll function
+  useEffect(() => {
+    const handleSmoothScroll = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const href = target.closest('a')?.getAttribute('href');
+      
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleSmoothScroll);
+    return () => document.removeEventListener('click', handleSmoothScroll);
+  }, []);
+  
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />

@@ -159,7 +159,6 @@ body {
     0 20px 40px rgba(20, 184, 166, 0.3),
     0 0 20px rgba(20, 184, 166, 0.2),
     0 0 40px rgba(139, 92, 246, 0.1);
-  background-color: rgba(20, 184, 166, 0.05) !important;
 }
 
 /* Card hover animated background: use as an absolutely positioned child */
