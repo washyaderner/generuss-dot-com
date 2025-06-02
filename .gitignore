@@ -9,6 +9,7 @@
 # next.js
 /.next/
 /out/
+.next/cache/
 
 # production
 /build
@@ -25,7 +26,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-.env
 
 # vercel
 .vercel
@@ -38,3 +38,6 @@ next-env.d.ts
 /backup 
 # Ignore whisper directory
 whisper/
+
+# Webpack temp files
+*.pack.gz_

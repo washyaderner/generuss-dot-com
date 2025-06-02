@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 /**
@@ -42,11 +42,15 @@ const CachedImage = ({
   fill,
   quality
 }: CachedImageProps) => {
-  // Get current timestamp for cache busting
-  const cacheBuster = `?v=${Date.now()}`
+  // Use state to handle cache busting only on client side after hydration
+  const [cacheBustedSrc, setCacheBustedSrc] = useState(src)
   
-  // Add cache buster to src
-  const cacheBustedSrc = src.includes('?') ? `${src}&t=${Date.now()}` : `${src}${cacheBuster}`
+  useEffect(() => {
+    // Only add cache buster on client side after hydration
+    const cacheBuster = `?v=${Date.now()}`
+    const newSrc = src.includes('?') ? `${src}&t=${Date.now()}` : `${src}${cacheBuster}`
+    setCacheBustedSrc(newSrc)
+  }, [src])
   
   return (
     <Image

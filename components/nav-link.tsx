@@ -17,10 +17,16 @@ export function NavLink({ href, children, className }: NavLinkProps) {
   const isAnchorLink = href.startsWith('#')
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    if (isAnchorLink) {
+      e.preventDefault()
+      const element = document.querySelector(href)
+      if (element) {
+        const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        })
+      }
     }
   }
 

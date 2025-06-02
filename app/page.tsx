@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { Zap, Star, ArrowRight, Bot, Rocket, UserPlus, Code, DollarSign, Target, Timer, TrendingUp, LineChart, Banknote } from "lucide-react"
+import { Zap, Star, ArrowRight, Bot, Rocket, UserPlus, Code, DollarSign, Target, Timer, TrendingUp, LineChart, Banknote, Book, BrainCircuit, Calendar, ChartBar, Clock, DatabaseZap, GitBranch, Laptop, Mail, MapPin, Megaphone, MessageSquare, Palette, Phone, Presentation, Settings, Sparkles, Terminal, Trophy, Users, Workflow } from "lucide-react"
 import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -14,6 +14,8 @@ import Image from 'next/image'
 import CachedImage from '@/components/CachedImage'
 import { CalendarEmbed } from "@/components/CalendarEmbed"
 import { BackToTop } from "@/components/back-to-top"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
 
 // Navigation links used in both desktop and mobile nav
 const navigationLinks = [
@@ -69,6 +71,293 @@ const reviews = [
     rating: 5,
   },
 ]
+
+// Animation variants for cards
+const cardVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: "easeOut"
+    }
+  }
+}
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.13,
+      delayChildren: 0.26
+    }
+  }
+}
+
+// Animated Solutions Grid Component
+function SolutionsGrid() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const cards = [
+    {
+      icon: Banknote,
+      title: "$8.2M Annual Revenue Lift",
+      description: "Boosted daily revenue from $55,440 to $87,120 for a major real estate marketing firm, using my advanced sales scripting and line-feeds on live calls. A custom role was created for me as a dedicated Line Coach to implement these strategies."
+    },
+    {
+      icon: Rocket,
+      title: "$32.7K Over Annual Goal",
+      description: "Leveraged automation to drive $146,278 in personal annual revenue at Comcast, surpassing the 2024 target by 28.8%. Streamlined call processes, strategic upselling, and optimized sales automation."
+    },
+    {
+      icon: Code,
+      title: "Generuss.com Built in Under 2 Weeks",
+      description: "Launched Generuss.com from scratch in less than two weeks using Cursor AI. Delivered a fully branded, SEO-rich site with AI-enhanced content, dynamic multimedia, and integrated lead-gen forms."
+    },
+    {
+      icon: LineChart,
+      title: "950% Sales Growth",
+      description: "Lifted monthly sales from 2 to 21 units for a rep selling high-ROI products through targeted coaching, refined call structure, and strategic upsell scripting. Consistently mentored peers while maintaining Elite (top 3%) sales rank at Comcast."
+    }
+  ]
+
+  return (
+    <motion.div 
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+      style={{ perspective: "1200px" }}
+    >
+      {cards.map((card, index) => (
+        <motion.div
+          key={index}
+          variants={cardVariants}
+          whileHover={{ 
+            scale: 1.05,
+            y: -10,
+            z: 60,
+            transition: {
+              type: "spring",
+              stiffness: 210,
+              damping: 26
+            }
+          }}
+          whileTap={{ scale: 0.98 }}
+          className="card-hover group"
+          style={{ 
+            transformStyle: "preserve-3d",
+            transformOrigin: "center center"
+          }}
+        >
+          <motion.div 
+            className="card-hover-bg"
+            whileHover={{
+              scale: 1.1,
+              opacity: 1
+            }}
+          />
+          <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="relative">
+            <motion.div
+              whileHover={{ 
+                scale: 1.2,
+                rotate: 360,
+                transition: { duration: 0.65 }
+              }}
+            >
+              <card.icon className="w-10 h-10 text-teal-400 mb-4" />
+            </motion.div>
+            <h3 className="text-xl font-semibold text-white mb-2">{card.title}</h3>
+            <p className="text-gray-400">{card.description}</p>
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  )
+}
+
+// Animated Portfolio Component
+function AnimatedPortfolio() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  return (
+    <motion.div 
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
+      className="max-w-4xl mx-auto"
+      style={{ perspective: "1200px" }}
+    >
+      {projects.map((project, index) => (
+        <motion.div
+          key={index}
+          variants={cardVariants}
+          whileHover={{ 
+            scale: 1.02,
+            y: -8,
+            transition: {
+              type: "spring",
+              stiffness: 280,
+              damping: 32
+            }
+          }}
+          className="card-hover group mb-10"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <motion.div 
+            className="card-hover-bg"
+            whileHover={{ scale: 1.05 }}
+          />
+          <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
+          
+          <div className="relative">
+            <div className="flex items-center mb-4">
+              <motion.span 
+                className="text-teal-400 text-sm font-medium px-3 py-1 rounded-full bg-teal-400/10 mr-4"
+                whileHover={{ scale: 1.1 }}
+              >
+                {project.client}
+              </motion.span>
+              <span className="text-gray-400 text-sm">
+                {project.period}
+              </span>
+            </div>
+            
+            <h3 className="text-2xl font-bold text-white mb-4">{project.title}</h3>
+            
+            <p className="text-gray-300 mb-6">
+              {project.description}
+            </p>
+            
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <motion.svg 
+                    key={i} 
+                    className={`w-5 h-5 ${i < project.rating ? 'text-yellow-400' : 'text-gray-400'}`} 
+                    fill="currentColor" 
+                    viewBox="0 0 20 20"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 + i * 0.05 }}
+                    whileHover={{ scale: 1.3, rotate: 15 }}
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                  </motion.svg>
+                ))}
+              </div>
+              <span className="text-white font-medium">{project.rating.toFixed(1)}</span>
+            </div>
+            
+            <NavLink 
+              href="#schedule"
+              className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
+            >
+              <span>Schedule a consultation</span>
+              <motion.svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-4 w-4 ml-2" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+                whileHover={{ x: 5 }}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </motion.svg>
+            </NavLink>
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  )
+}
+
+// Animated Reviews Component
+function AnimatedReviews() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  return (
+    <motion.div 
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
+      className="max-w-5xl mx-auto"
+      style={{ perspective: "1200px" }}
+    >
+      {reviews.map((review, index) => (
+        <motion.div
+          key={index}
+          variants={cardVariants}
+          whileHover={{ 
+            scale: 1.03,
+            y: -12,
+            transition: {
+              type: "spring",
+              stiffness: 245,
+              damping: 32
+            }
+          }}
+          className="card-hover group mb-10"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <motion.div 
+            className="card-hover-bg"
+            whileHover={{ 
+              scale: 1.15,
+              rotate: 3
+            }}
+          />
+          <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
+          <div className="relative">
+            <motion.div 
+              className="flex mb-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: index * 0.26 }}
+            >
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: index * 0.13 + i * 0.13, type: "spring" }}
+                  whileHover={{ 
+                    scale: 1.4,
+                    rotate: 360,
+                    transition: { duration: 0.39 }
+                  }}
+                >
+                  <Star 
+                    className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-600'}`} 
+                    fill={i < review.rating ? 'currentColor' : 'none'} 
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+            <h4 className="text-xl font-semibold text-teal-400 mb-4">{review.title}</h4>
+            <p className="text-gray-300 mb-6 italic">"{review.text}"</p>
+            <div className="flex flex-col">
+              <span className="text-white font-medium">{review.name}</span>
+              <span className="text-gray-500 text-sm">{review.company}</span>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  )
+}
 
 // Move BlogSection to a separate client component
 function BlogSection() {
@@ -142,6 +431,30 @@ function BlogSection() {
 
 export default function Home() {
   // Home page component
+  
+  // Enhanced smooth scroll function
+  useEffect(() => {
+    const handleSmoothScroll = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const href = target.closest('a')?.getAttribute('href');
+      
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleSmoothScroll);
+    return () => document.removeEventListener('click', handleSmoothScroll);
+  }, []);
+  
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
@@ -222,55 +535,7 @@ export default function Home() {
             <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
               Data-driven impact across sales, automation, and development projects
             </p>
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="card-hover group">
-                <div className="card-hover-bg" />
-                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                <div className="relative">
-                  <Banknote className="w-10 h-10 text-teal-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">$8.2M Annual Revenue Lift</h3>
-                  <p className="text-gray-400">
-                    Boosted daily revenue from $55,440 to $87,120 for a major real estate marketing firm, using my advanced sales scripting and line-feeds on live calls. A custom role was created for me as a dedicated Line Coach to implement these strategies.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="card-hover group">
-                <div className="card-hover-bg" />
-                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                <div className="relative">
-                  <Rocket className="w-10 h-10 text-teal-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">$32.7K Over Annual Goal</h3>
-                  <p className="text-gray-400">
-                    Leveraged automation to drive $146,278 in personal annual revenue at Comcast, surpassing the 2024 target by 28.8%. Streamlined call processes, strategic upselling, and optimized sales automation.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="card-hover group">
-                <div className="card-hover-bg" />
-                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                <div className="relative">
-                  <Code className="w-10 h-10 text-teal-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">Generuss.com Built in Under 2 Weeks</h3>
-                  <p className="text-gray-400">
-                    Launched Generuss.com from scratch in less than two weeks using Cursor AI. Delivered a fully branded, SEO-rich site with AI-enhanced content, dynamic multimedia, and integrated lead-gen forms.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="card-hover group">
-                <div className="card-hover-bg" />
-                <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-                <div className="relative">
-                  <LineChart className="w-10 h-10 text-teal-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">950% Sales Growth</h3>
-                  <p className="text-gray-400">
-                    Lifted monthly sales from 2 to 21 units for a rep selling high-ROI products through targeted coaching, refined call structure, and strategic upsell scripting. Consistently mentored peers while maintaining Elite (top 3%) sales rank at Comcast.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <SolutionsGrid />
           </div>
         </section>
         
@@ -284,55 +549,7 @@ export default function Home() {
               Real-world automation projects delivering measurable results
             </p>
             
-            <div className="max-w-4xl mx-auto">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="card-hover group mb-10"
-                >
-                  <div className="card-hover-bg" />
-                  <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
-                  
-                  <div className="relative">
-                    <div className="flex items-center mb-4">
-                      <span className="text-teal-400 text-sm font-medium px-3 py-1 rounded-full bg-teal-400/10 mr-4">
-                        {project.client}
-                      </span>
-                      <span className="text-gray-400 text-sm">
-                        {project.period}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold text-white mb-4">{project.title}</h3>
-                    
-                    <p className="text-gray-300 mb-6">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex items-center space-x-2 mb-6">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <svg key={i} className={`w-5 h-5 ${i < project.rating ? 'text-yellow-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                          </svg>
-                        ))}
-                      </div>
-                      <span className="text-white font-medium">{project.rating.toFixed(1)}</span>
-                    </div>
-                    
-                    <NavLink 
-                      href="#schedule"
-                      className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
-                    >
-                      <span>Schedule a consultation</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </NavLink>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <AnimatedPortfolio />
           </div>
         </section>
         
@@ -381,34 +598,7 @@ export default function Home() {
               Here's what clients are saying about working with me
             </p>
             
-            <div className="max-w-5xl mx-auto">
-              {reviews.map((review, index) => (
-                <div
-                  key={index}
-                  className="card-hover group mb-10"
-                >
-                  <div className="card-hover-bg" />
-                  <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
-                  <div className="relative">
-                    <div className="flex mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-600'}`} 
-                          fill={i < review.rating ? 'currentColor' : 'none'} 
-                        />
-                      ))}
-                    </div>
-                    <h4 className="text-xl font-semibold text-teal-400 mb-4">{review.title}</h4>
-                    <p className="text-gray-300 mb-6 italic">"{review.text}"</p>
-                    <div className="flex flex-col">
-                      <span className="text-white font-medium">{review.name}</span>
-                      <span className="text-gray-500 text-sm">{review.company}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <AnimatedReviews />
           </div>
         </section>
         
