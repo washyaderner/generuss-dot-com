@@ -9,6 +9,8 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "npm run kill-ports && npm run dev",
+    "kill-ports": "lsof -ti:3000,3001,3002 | xargs -r kill -9 2>/dev/null || true",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

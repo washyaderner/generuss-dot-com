@@ -90,13 +90,7 @@ export default function RootLayout({
                   <div className="block sm:hidden">
                     <MobileNav links={navigationLinks} />
                   </div>
-                  <NavLink 
-                    href="/"
-                    className="hidden sm:flex"
-                  >
-                    Home
-                  </NavLink>
-                  <nav className="hidden md:flex items-center space-x-6">
+                  <nav className="hidden sm:flex items-center space-x-6">
                     {navigationLinks.map((link) => (
                       <NavLink key={link.href} href={link.href}>
                         {link.label}
