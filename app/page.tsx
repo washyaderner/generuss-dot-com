@@ -432,43 +432,8 @@ function BlogSection() {
 export default function Home() {
   // Home page component
   
-  // Enhanced smooth scroll function with spring animation for "Book a Call" buttons
+  // Fast smooth scroll for all anchor links
   useEffect(() => {
-    const springScrollToCalendar = (targetElement: Element) => {
-      const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
-      const startTop = window.pageYOffset;
-      const distance = targetTop - startTop;
-      const duration = 1200; // Longer duration for spring effect
-      const startTime = performance.now();
-
-      const easeOutBounce = (t: number): number => {
-        if (t < 1 / 2.75) {
-          return 7.5625 * t * t;
-        } else if (t < 2 / 2.75) {
-          return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
-        } else if (t < 2.5 / 2.75) {
-          return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
-        } else {
-          return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
-        }
-      };
-
-      const animateScroll = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easedProgress = easeOutBounce(progress);
-        
-        const currentPosition = startTop + (distance * easedProgress);
-        window.scrollTo(0, currentPosition);
-
-        if (progress < 1) {
-          requestAnimationFrame(animateScroll);
-        }
-      };
-
-      requestAnimationFrame(animateScroll);
-    };
-
     const handleSmoothScroll = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const clickedElement = target.closest('a');
@@ -478,23 +443,12 @@ export default function Home() {
         e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
-          // Check if this is a "Book a Call" button targeting the calendar
-          const isBookCallButton = clickedElement?.textContent?.includes('Book a Call') || 
-                                 clickedElement?.querySelector('[class*="Book a Call"]') ||
-                                 target.textContent?.includes('Book a Call');
-          const isCalendarTarget = href === '#schedule';
-          
-          if (isBookCallButton && isCalendarTarget) {
-            // Use spring animation for Book a Call buttons
-            springScrollToCalendar(element);
-          } else {
-            // Use regular smooth scroll for other links
-            const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-          }
+          // Fast, smooth scroll to target with consistent timing
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
         }
       }
     };
