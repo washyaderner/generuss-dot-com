@@ -134,6 +134,8 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Cards on dark backgrounds need explicit background styling (bg-gray-900/60) and borders for proper visibility
 - When debugging missing UI elements, check both CSS styling and pointer event handling as common causes
 - Framer Motion whileHover animations work best when overlay divs don't intercept pointer events
+- **CRITICAL: Card Disappearing Prevention** - To prevent cards from disappearing, use fallback opacity values (0.3 instead of 0), reduce negative margins on useInView (-50px instead of -100px), simplify overlay structures, add explicit z-index to content, and always include minHeight CSS to reserve space. Multiple development servers can cause content conflicts.
+- Multiple Next.js development servers running simultaneously cause content conflicts and wrong content display - always kill all instances before starting fresh
 
 ## Git Branching Workflow
 
