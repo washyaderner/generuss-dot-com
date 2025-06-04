@@ -158,13 +158,13 @@ function SolutionsGrid() {
           }}
         >
           <motion.div 
-            className="card-hover-bg"
+            className="card-hover-bg pointer-events-none"
             whileHover={{
               scale: 1.1,
               opacity: 1
             }}
           />
-          <div className="absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
           <div className="relative">
             <motion.div
               whileHover={{ 
@@ -215,10 +215,10 @@ function AnimatedPortfolio() {
           style={{ transformStyle: "preserve-3d" }}
         >
           <motion.div 
-            className="card-hover-bg"
+            className="card-hover-bg pointer-events-none"
             whileHover={{ scale: 1.05 }}
           />
-          <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
           
           <div className="relative">
             <div className="flex items-center mb-4">
@@ -313,13 +313,13 @@ function AnimatedReviews() {
           style={{ transformStyle: "preserve-3d" }}
         >
           <motion.div 
-            className="card-hover-bg"
+            className="card-hover-bg pointer-events-none"
             whileHover={{ 
               scale: 1.15,
               rotate: 3
             }}
           />
-          <div className="absolute inset-0 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
           <div className="relative">
             <motion.div 
               className="flex mb-3"

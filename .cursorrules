@@ -130,6 +130,10 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Complex merge conflicts can be resolved systematically by working through each file individually, preserving functionality while updating navigation structure
 - Always create commit message files for multiline git commits and clean up temporary files afterward
 - When migrating to single-page layouts, ensure all navigation links are updated consistently across all components
+- Card hover effects require pointer-events-none on overlay elements to prevent interference with Framer Motion hover detection
+- Cards on dark backgrounds need explicit background styling (bg-gray-900/60) and borders for proper visibility
+- When debugging missing UI elements, check both CSS styling and pointer event handling as common causes
+- Framer Motion whileHover animations work best when overlay divs don't intercept pointer events
 
 ## Git Branching Workflow
 
@@ -294,89 +298,43 @@ And then provide the full description in a separate markdown block.
 [X] Test in dev environment
 [X] Prepare dev to main PR
 [X] Fix development environment issues
+[X] **MAY 31 CLEANUP COMPLETED** ✨
+[X] **PRODUCTION DEPLOYMENT READY** 🚀
 
-### Technical Stack
-- Next.js 14.2.16
-- Tailwind CSS
-- Framer Motion
-- Modern gradient design system
-- SEO optimizations
-- Contentful CMS for blog content
+### Most Recent Achievement: Card Hover Effects Fixed ✅
 
-### Design System
-- Consistent gradient treatments
-- Modern card designs
-- Interactive hover effects
-- Responsive layouts
-- SEO-optimized structure
-
-### Content Priority
-1. AI and technical expertise
-2. Sales leadership
-3. Creative background (supporting)
-
-### SEO Focus
-- Proper heading hierarchy
-- Meta descriptions
-- Alt text for images
-- Semantic HTML structure
-
-# Scratchpad
-
-## Current Project Status & Roadmap
-
-### Completed Major Milestones
-- [X] Initial Next.js setup with Tailwind CSS and modern design system
-- [X] Core website structure implementation (Home, Portfolio, Solutions, About, Contact)
-- [X] Basic SEO optimizations (meta tags, semantic HTML, proper heading hierarchy)
-- [X] Form validation with Zod and React Hook Form integration
-- [X] Email sending functionality via Resend API
-- [X] Mobile navigation optimization
-- [X] Enhanced error animations with glowing text effect
-- [X] Improved form UI with transparent container and card styling
-- [X] Contact form simplification and validation improvements
-- [X] Contact form button alignment verification
-- [X] Fixed development environment issues (constant restarting, favicon 404 errors)
-- [X] Created development utility scripts for smoother workflow
-- [X] Added comprehensive documentation for common issues and solutions
-- [X] Implemented native chat bot with OpenAI integration
-- [X] **ONE-PAGE LAYOUT MIGRATION COMPLETED** ✨
-- [X] **GITHUB MERGE CONFLICTS RESOLVED AND DEPLOYED TO PRODUCTION** 🚀
-
-### Most Recent Achievement: Production Deployment Success
-
-**✅ SUCCESSFULLY COMPLETED**: Complete merge conflict resolution and production deployment
+**✅ HOVER EFFECTS WORKING**: Fixed missing cards and hover animation issues
 
 **What We Accomplished:**
-1. **Manual Conflict Resolution**: Successfully resolved complex GitHub merge conflicts through file replacement
-2. **Navigation Simplification**: Applied clean Home/Blog navigation across all components
-3. **Production Deployment**: Merged feature/one-page-layout → dev → main successfully
-4. **All Functionality Preserved**: Forms, chat bot, calendar, mobile nav, SEO optimizations
-5. **Clean Git History**: Maintained proper branching workflow throughout
+1. **Card Visibility Fixed**: Added proper background styling to .card-hover class
+2. **Hover Effects Working**: Added pointer-events-none to overlay elements
+3. **Animation System Complete**: Framer Motion and CSS hover effects now functional
+4. **Development Ready**: All fixes committed and tested
 
-### Current Task: Cleanup May 31
+### Current Task: Codex Feature - Ready for PR
 
-**🎯 NEW TASK STARTED**: May 31, 2024 - Code cleanup and optimization
+**🎯 TASK COMPLETED**: Card hover effects and visibility issues resolved
 
-**Current Branch**: `feature/cleanup-may-31` (created from updated dev)
+**Current Branch**: `feature/codex` (fixes committed)
 
-**🔧 CLEANUP OBJECTIVES:**
-- [ ] Identify and remove unused code/files
-- [ ] Optimize component structure and organization
-- [ ] Clean up CSS and styling redundancies
-- [ ] Update documentation and comments
-- [ ] Performance optimizations
-- [ ] Code quality improvements
+**🔧 FIXES IMPLEMENTED:**
+- [X] Added pointer-events-none to card overlay elements
+- [X] Enhanced .card-hover CSS with bg-gray-900/60 background
+- [X] Fixed card visibility on dark background
+- [X] Restored hover animations functionality
+- [X] Resolved missing cards issue
+- [X] Committed all changes
 
-**📋 CLEANUP CHECKLIST:**
-- [ ] Remove unused components from old multi-page structure
-- [ ] Clean up redundant CSS classes and styles
-- [ ] Optimize import statements across components
-- [ ] Update component documentation and comments
-- [ ] Review and clean up utility functions
-- [ ] Verify all TypeScript types are properly used
-- [ ] Test performance after cleanup changes
-- [ ] Update README and documentation
+**📋 CODEX FEATURE STATUS:**
+- [X] Card hover effects implemented and working
+- [X] 3D animations with elevation and glow effects
+- [X] Proper visibility and contrast
+- [X] Pointer events fixed for interactions
+- [X] Ready for pull request to dev
+
+**Current Branch**: `feature/codex` (ready for PR)
+**Base Branch**: `dev` (clean and ready)
+**Next Steps**: Create pull request from feature/codex to dev
 
 ### Technical Stack
 - Next.js 14.2.16
