@@ -432,21 +432,69 @@ function BlogSection() {
 export default function Home() {
   // Home page component
   
-  // Enhanced smooth scroll function
+  // Enhanced smooth scroll function with spring animation for "Book a Call" buttons
   useEffect(() => {
+    const springScrollToCalendar = (targetElement: Element) => {
+      const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+      const startTop = window.pageYOffset;
+      const distance = targetTop - startTop;
+      const duration = 1200; // Longer duration for spring effect
+      const startTime = performance.now();
+
+      const easeOutBounce = (t: number): number => {
+        if (t < 1 / 2.75) {
+          return 7.5625 * t * t;
+        } else if (t < 2 / 2.75) {
+          return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
+        } else if (t < 2.5 / 2.75) {
+          return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
+        } else {
+          return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
+        }
+      };
+
+      const animateScroll = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutBounce(progress);
+        
+        const currentPosition = startTop + (distance * easedProgress);
+        window.scrollTo(0, currentPosition);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    };
+
     const handleSmoothScroll = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const href = target.closest('a')?.getAttribute('href');
+      const clickedElement = target.closest('a');
+      const href = clickedElement?.getAttribute('href');
       
       if (href && href.startsWith('#')) {
         e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
-          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
+          // Check if this is a "Book a Call" button targeting the calendar
+          const isBookCallButton = clickedElement?.textContent?.includes('Book a Call') || 
+                                 clickedElement?.querySelector('[class*="Book a Call"]') ||
+                                 target.textContent?.includes('Book a Call');
+          const isCalendarTarget = href === '#schedule';
+          
+          if (isBookCallButton && isCalendarTarget) {
+            // Use spring animation for Book a Call buttons
+            springScrollToCalendar(element);
+          } else {
+            // Use regular smooth scroll for other links
+            const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
         }
       }
     };
@@ -518,7 +566,7 @@ export default function Home() {
             <div className="flex justify-center">
               <NavLink
                 href="#schedule"
-                className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
+                className="book-call-button"
               >
                 <span className="relative">Book a Call</span>
               </NavLink>
@@ -634,7 +682,7 @@ export default function Home() {
                 <div className="flex space-x-4 mt-6">
                   <NavLink
                     href="#schedule"
-                    className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
+                    className="book-call-button"
                   >
                     <span className="relative">Book a Call</span>
                   </NavLink>
@@ -736,7 +784,7 @@ export default function Home() {
             </p>
             <NavLink
               href="#schedule"
-              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
+              className="book-call-button"
             >
               <span className="relative">Book a Call</span>
             </NavLink>
