@@ -130,6 +130,10 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Complex merge conflicts can be resolved systematically by working through each file individually, preserving functionality while updating navigation structure
 - Always create commit message files for multiline git commits and clean up temporary files afterward
 - When migrating to single-page layouts, ensure all navigation links are updated consistently across all components
+- Card hover effects require pointer-events-none on overlay elements to prevent interference with Framer Motion hover detection
+- Cards on dark backgrounds need explicit background styling (bg-gray-900/60) and borders for proper visibility
+- When debugging missing UI elements, check both CSS styling and pointer event handling as common causes
+- Framer Motion whileHover animations work best when overlay divs don't intercept pointer events
 
 ## Git Branching Workflow
 
@@ -297,38 +301,40 @@ And then provide the full description in a separate markdown block.
 [X] **MAY 31 CLEANUP COMPLETED** ✨
 [X] **PRODUCTION DEPLOYMENT READY** 🚀
 
-### Most Recent Achievement: New Feature Development Ready
+### Most Recent Achievement: Card Hover Effects Fixed ✅
 
-**✅ DEVELOPMENT ENVIRONMENT READY**: Clean dev branch and new feature branch created
+**✅ HOVER EFFECTS WORKING**: Fixed missing cards and hover animation issues
 
 **What We Accomplished:**
-1. **Production Ready**: Dev branch is clean and ready for main merge
-2. **Environment Optimized**: All cleanup work completed and tested
-3. **New Feature Branch**: Created feature/codex for new development work
-4. **Clean Workspace**: Ready for new feature development
+1. **Card Visibility Fixed**: Added proper background styling to .card-hover class
+2. **Hover Effects Working**: Added pointer-events-none to overlay elements
+3. **Animation System Complete**: Framer Motion and CSS hover effects now functional
+4. **Development Ready**: All fixes committed and tested
 
-### Current Task: Codex Feature Development
+### Current Task: Codex Feature - Ready for PR
 
-**🎯 NEW TASK STARTED**: Codex feature development
+**🎯 TASK COMPLETED**: Card hover effects and visibility issues resolved
 
-**Current Branch**: `feature/codex` (created from clean dev)
+**Current Branch**: `feature/codex` (fixes committed)
 
-**🔧 TASK OBJECTIVES:**
-- Ready for new feature development
-- Clean workspace and environment
-- All tools and optimizations in place
+**🔧 FIXES IMPLEMENTED:**
+- [X] Added pointer-events-none to card overlay elements
+- [X] Enhanced .card-hover CSS with bg-gray-900/60 background
+- [X] Fixed card visibility on dark background
+- [X] Restored hover animations functionality
+- [X] Resolved missing cards issue
+- [X] Committed all changes
 
-**📋 CODEX FEATURE CHECKLIST:**
-- [ ] Define Codex feature requirements
-- [ ] Plan implementation approach
-- [ ] Implement core functionality
-- [ ] Add proper documentation
-- [ ] Test thoroughly
-- [ ] Prepare for PR to dev
+**📋 CODEX FEATURE STATUS:**
+- [X] Card hover effects implemented and working
+- [X] 3D animations with elevation and glow effects
+- [X] Proper visibility and contrast
+- [X] Pointer events fixed for interactions
+- [X] Ready for pull request to dev
 
-**Current Branch**: `feature/codex` (ready for development)
-**Base Branch**: `dev` (clean and optimized)
-**Next Steps**: Define Codex feature requirements and begin implementation
+**Current Branch**: `feature/codex` (ready for PR)
+**Base Branch**: `dev` (clean and ready)
+**Next Steps**: Create pull request from feature/codex to dev
 
 ### Technical Stack
 - Next.js 14.2.16
