@@ -417,11 +417,9 @@ function BlogSection() {
         <div className="flex justify-center mt-10">
           <NavLink
             href="#schedule"
-            className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+            className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
           >
-            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative text-white">Schedule Now</span>
+            <span className="relative">Book a Call</span>
           </NavLink>
         </div>
       </div>
@@ -566,7 +564,7 @@ export default function Home() {
             <div className="flex justify-center">
               <NavLink
                 href="#schedule"
-                className="book-call-button"
+                className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
               >
                 <span className="relative">Book a Call</span>
               </NavLink>
@@ -682,7 +680,7 @@ export default function Home() {
                 <div className="flex space-x-4 mt-6">
                   <NavLink
                     href="#schedule"
-                    className="book-call-button"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                   >
                     <span className="relative">Book a Call</span>
                   </NavLink>
@@ -784,7 +782,7 @@ export default function Home() {
             </p>
             <NavLink
               href="#schedule"
-              className="book-call-button"
+              className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
             >
               <span className="relative">Book a Call</span>
             </NavLink>

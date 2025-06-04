@@ -100,7 +100,7 @@ export default function RootLayout({
                 </div>
                 <NavLink
                   href="#schedule"
-                  className="book-call-button"
+                  className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
                 >
                   <span className="relative">Book a Call</span>
                 </NavLink>
