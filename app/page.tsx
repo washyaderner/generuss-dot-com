@@ -72,10 +72,10 @@ const reviews = [
   },
 ]
 
-// Animation variants for cards
+// Animation variants for cards - simplified and more reliable
 const cardVariants = {
   hidden: { 
-    opacity: 0, 
+    opacity: 0.3, // Changed from 0 to 0.3 to ensure some visibility
     y: 20
   },
   visible: { 
@@ -89,7 +89,7 @@ const cardVariants = {
 }
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.5 }, // Changed from 0 to 0.5 for fallback visibility
   visible: {
     opacity: 1,
     transition: {
@@ -99,10 +99,13 @@ const containerVariants = {
   }
 }
 
-// Animated Solutions Grid Component
+// Robust Solutions Grid Component with fallback visibility
 function SolutionsGrid() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { 
+    once: true, 
+    margin: "-50px" // Reduced from -100px for earlier trigger
+  })
 
   const cards = [
     {
@@ -133,8 +136,11 @@ function SolutionsGrid() {
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
-      style={{ perspective: "1200px" }}
+      className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto opacity-100" // Added fallback opacity
+      style={{ 
+        perspective: "1200px",
+        minHeight: "400px" // Ensure space is reserved for cards
+      }}
     >
       {cards.map((card, index) => (
         <motion.div
@@ -151,21 +157,17 @@ function SolutionsGrid() {
             }
           }}
           whileTap={{ scale: 0.98 }}
-          className="card-hover group"
+          className="card-hover group opacity-100" // Added fallback opacity
           style={{ 
             transformStyle: "preserve-3d",
-            transformOrigin: "center center"
+            transformOrigin: "center center",
+            minHeight: "200px" // Ensure minimum card height
           }}
         >
-          <motion.div 
-            className="card-hover-bg pointer-events-none"
-            whileHover={{
-              scale: 1.1,
-              opacity: 1
-            }}
-          />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-          <div className="relative">
+          {/* Simplified overlay system - removed extra background layers */}
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
+          
+          <div className="relative z-10"> {/* Explicit z-index for content */}
             <motion.div
               whileHover={{ 
                 scale: 1.2,
