@@ -19,14 +19,29 @@ export function NavLink({ href, children, className }: NavLinkProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isAnchorLink) {
       e.preventDefault()
-      const element = document.querySelector(href)
-      if (element) {
-        const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        })
-      }
+      
+      // Add a small delay to ensure the page content has loaded
+      setTimeout(() => {
+        const element = document.querySelector(href)
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          })
+        } else {
+          console.warn(`Target element ${href} not found`)
+          // Fallback: try scrolling to the element by its ID without the #
+          const fallbackElement = document.getElementById(href.substring(1))
+          if (fallbackElement) {
+            const offsetTop = fallbackElement.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            })
+          }
+        }
+      }, 100) // Small delay to ensure DOM is ready
     }
   }
 
