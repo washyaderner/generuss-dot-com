@@ -213,16 +213,16 @@ body {
 
 /* Card hover container: use on the outer div of cards. Add 'group' in your JSX, not here! */
 .card-hover {
-  @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300 bg-gray-900/60 backdrop-blur-sm border border-white/10;
+  @apply relative p-4 sm:p-8 rounded-xl transition-all duration-300 bg-gray-900/30 backdrop-blur-sm border border-white/10;
   position: relative;
   z-index: 1;
   transform-style: preserve-3d;
   transform: perspective(1000px) translateZ(0);
-  transition: transform 0.39s ease, box-shadow 0.39s ease;
+  transition: transform 0.067s ease-out, box-shadow 0.067s ease-out;
 }
 
 .card-hover:hover {
-  transform: perspective(1000px) translateY(-10px) translateZ(20px);
+  transform: perspective(1000px) translateZ(20px) scale(1.025);
   box-shadow: 
     0 20px 40px rgba(20, 184, 166, 0.3),
     0 0 20px rgba(20, 184, 166, 0.2),

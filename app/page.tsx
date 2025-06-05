@@ -145,15 +145,10 @@ function SolutionsGrid() {
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
-            scale: 1.05,
-            y: -10,
+          whileHover={{
+            scale: 1.025,
             z: 60,
-            transition: {
-              type: "spring",
-              stiffness: 210,
-              damping: 26
-            }
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           whileTap={{ scale: 0.98 }}
           className="card-hover group opacity-100" // Added fallback opacity
@@ -167,15 +162,9 @@ function SolutionsGrid() {
           <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
           
           <div className="relative z-10"> {/* Explicit z-index for content */}
-            <motion.div
-              whileHover={{ 
-                scale: 1.2,
-                rotate: 360,
-                transition: { duration: 0.65 }
-              }}
-            >
+            <div>
               <card.icon className="w-10 h-10 text-teal-400 mb-4" />
-            </motion.div>
+            </div>
             <h3 className="text-xl font-semibold text-white mb-2">{card.title}</h3>
             <p className="text-gray-400">{card.description}</p>
           </div>
@@ -203,14 +192,10 @@ function AnimatedPortfolio() {
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
+          whileHover={{
             scale: 1.02,
-            y: -8,
-            transition: {
-              type: "spring",
-              stiffness: 280,
-              damping: 32
-            }
+            z: 60,
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           className="card-hover group mb-10"
           style={{ transformStyle: "preserve-3d" }}
@@ -219,7 +204,7 @@ function AnimatedPortfolio() {
             className="card-hover-bg pointer-events-none"
             whileHover={{ scale: 1.05 }}
           />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
           
           <div className="relative">
             <div className="flex items-center mb-4">
@@ -301,14 +286,10 @@ function AnimatedReviews() {
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
-            scale: 1.03,
-            y: -12,
-            transition: {
-              type: "spring",
-              stiffness: 245,
-              damping: 32
-            }
+          whileHover={{
+            scale: 1.0125,
+            z: 60,
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           className="card-hover group mb-10"
           style={{ transformStyle: "preserve-3d" }}
@@ -320,7 +301,7 @@ function AnimatedReviews() {
               rotate: 3
             }}
           />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
           <div className="relative">
             <motion.div 
               className="flex mb-3"
@@ -494,7 +475,7 @@ export default function Home() {
         <section className="pt-32 pb-16 px-4">
           <div className="container max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
-              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
+              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity pointer-events-none" />
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
                 <div className="relative flex items-center justify-center">
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
@@ -655,7 +636,7 @@ export default function Home() {
             <div className="w-full max-w-4xl mx-auto">
               <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20">
                 {/* Gradient hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                 
                 <div className="flex flex-col">
                   {/* Image section */}
@@ -668,7 +649,7 @@ export default function Home() {
                       priority
                       sizes="(max-width: 1024px) 100vw, 900px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 pointer-events-none" />
                     
                     {/* Overlay title on image */}
                     <div className="absolute bottom-6 left-6 right-6">
@@ -705,8 +686,8 @@ export default function Home() {
                   href="/blog"
                   className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
                 >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity pointer-events-none" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   <span className="relative text-white">View All Posts</span>
                 </Link>
               </div>
@@ -718,7 +699,7 @@ export default function Home() {
         <section className="py-24 px-4">
           <div className="container max-w-4xl mx-auto text-center">
             <div className="w-full">
-              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
+              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity pointer-events-none" />
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 flex flex-wrap md:flex-nowrap items-center justify-center">
                 <span className="mr-2">🔥</span>
                 <span className="bg-gradient-to-r from-violet-900 to-teal-400 bg-clip-text text-transparent">
