@@ -720,15 +720,6 @@ export default function Home() {
             </NavLink>
           </div>
         </section>
-        
-        {/* Footer */}
-        <footer className="py-8 px-4 border-t border-white/5">
-          <div className="container max-w-4xl mx-auto text-center">
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Generuss. All rights reserved.
-            </p>
-          </div>
-        </footer>
       </div>
       
       {/* Mobile Navigation */}
