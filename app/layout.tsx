@@ -1,4 +1,4 @@
-import { CursorGradient } from "@/components/cursor-gradient"
+import { FXCanvas } from "@/components/FXCanvas"
 import { NavLink } from "@/components/nav-link"
 import { MobileNav } from "@/components/mobile-nav"
 import Link from "next/link"
@@ -75,11 +75,7 @@ export default function RootLayout({
       <body>
         <Toaster richColors position="top-right" />
         <div className="min-h-screen bg-black">
-          <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
-          <CursorGradient />
-
-          {/* Gradient Overlay */}
-          <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-10" />
+          <FXCanvas />
 
           {/* Content */}
           <div className="relative z-20">
@@ -100,7 +96,7 @@ export default function RootLayout({
                 </div>
                 <NavLink
                   href="#schedule"
-                  className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
+                  className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors cursor-pointer"
                 >
                   <span className="relative">Book a Call</span>
                 </NavLink>

@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { Zap, Star, ArrowRight, Bot, Rocket, UserPlus, Code, DollarSign, Target, Timer, TrendingUp, LineChart, Banknote, Book, BrainCircuit, Calendar, ChartBar, Clock, DatabaseZap, GitBranch, Laptop, Mail, MapPin, Megaphone, MessageSquare, Palette, Phone, Presentation, Settings, Sparkles, Terminal, Trophy, Users, Workflow } from "lucide-react"
-import { CursorGradient } from "@/components/cursor-gradient"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
 import { getAllPosts } from "@/app/lib/contentful"
@@ -72,10 +71,10 @@ const reviews = [
   },
 ]
 
-// Animation variants for cards
+// Animation variants for cards - simplified and more reliable
 const cardVariants = {
   hidden: { 
-    opacity: 0, 
+    opacity: 0.3, // Changed from 0 to 0.3 to ensure some visibility
     y: 20
   },
   visible: { 
@@ -89,7 +88,7 @@ const cardVariants = {
 }
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.5 }, // Changed from 0 to 0.5 for fallback visibility
   visible: {
     opacity: 1,
     transition: {
@@ -99,10 +98,13 @@ const containerVariants = {
   }
 }
 
-// Animated Solutions Grid Component
+// Robust Solutions Grid Component with fallback visibility
 function SolutionsGrid() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { 
+    once: true, 
+    margin: "-50px" // Reduced from -100px for earlier trigger
+  })
 
   const cards = [
     {
@@ -133,48 +135,36 @@ function SolutionsGrid() {
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
-      style={{ perspective: "1200px" }}
+      className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto opacity-100" // Added fallback opacity
+      style={{ 
+        perspective: "1200px",
+        minHeight: "400px" // Ensure space is reserved for cards
+      }}
     >
       {cards.map((card, index) => (
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
-            scale: 1.05,
-            y: -10,
+          whileHover={{
+            scale: 1.025,
             z: 60,
-            transition: {
-              type: "spring",
-              stiffness: 210,
-              damping: 26
-            }
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           whileTap={{ scale: 0.98 }}
-          className="card-hover group"
+          className="card-hover group opacity-100" // Added fallback opacity
           style={{ 
             transformStyle: "preserve-3d",
-            transformOrigin: "center center"
+            transformOrigin: "center center",
+            minHeight: "200px" // Ensure minimum card height
           }}
         >
-          <motion.div 
-            className="card-hover-bg pointer-events-none"
-            whileHover={{
-              scale: 1.1,
-              opacity: 1
-            }}
-          />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
-          <div className="relative">
-            <motion.div
-              whileHover={{ 
-                scale: 1.2,
-                rotate: 360,
-                transition: { duration: 0.65 }
-              }}
-            >
+          {/* Simplified overlay system - removed extra background layers */}
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
+          
+          <div className="relative z-10"> {/* Explicit z-index for content */}
+            <div>
               <card.icon className="w-10 h-10 text-teal-400 mb-4" />
-            </motion.div>
+            </div>
             <h3 className="text-xl font-semibold text-white mb-2">{card.title}</h3>
             <p className="text-gray-400">{card.description}</p>
           </div>
@@ -202,14 +192,10 @@ function AnimatedPortfolio() {
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
+          whileHover={{
             scale: 1.02,
-            y: -8,
-            transition: {
-              type: "spring",
-              stiffness: 280,
-              damping: 32
-            }
+            z: 60,
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           className="card-hover group mb-10"
           style={{ transformStyle: "preserve-3d" }}
@@ -218,7 +204,7 @@ function AnimatedPortfolio() {
             className="card-hover-bg pointer-events-none"
             whileHover={{ scale: 1.05 }}
           />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
           
           <div className="relative">
             <div className="flex items-center mb-4">
@@ -300,14 +286,10 @@ function AnimatedReviews() {
         <motion.div
           key={index}
           variants={cardVariants}
-          whileHover={{ 
-            scale: 1.03,
-            y: -12,
-            transition: {
-              type: "spring",
-              stiffness: 245,
-              damping: 32
-            }
+          whileHover={{
+            scale: 1.0125,
+            z: 60,
+            transition: { duration: 0.066, ease: "easeOut" }
           }}
           className="card-hover group mb-10"
           style={{ transformStyle: "preserve-3d" }}
@@ -319,7 +301,7 @@ function AnimatedReviews() {
               rotate: 3
             }}
           />
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10" />
           <div className="relative">
             <motion.div 
               className="flex mb-3"
@@ -417,11 +399,9 @@ function BlogSection() {
         <div className="flex justify-center mt-10">
           <NavLink
             href="#schedule"
-            className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
+            className="px-4 py-2 rounded-md text-sm font-medium bg-teal-500 hover:bg-teal-400 text-white transition-colors"
           >
-            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-            <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative text-white">Schedule Now</span>
+            <span className="relative">Book a Call</span>
           </NavLink>
         </div>
       </div>
@@ -432,17 +412,19 @@ function BlogSection() {
 export default function Home() {
   // Home page component
   
-  // Enhanced smooth scroll function
+  // Fast smooth scroll for all anchor links
   useEffect(() => {
     const handleSmoothScroll = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const href = target.closest('a')?.getAttribute('href');
+      const clickedElement = target.closest('a');
+      const href = clickedElement?.getAttribute('href');
       
       if (href && href.startsWith('#')) {
         e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
-          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
+          // Fast, smooth scroll to target with consistent timing
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
           window.scrollTo({
             top: offsetTop,
             behavior: 'smooth'
@@ -457,11 +439,7 @@ export default function Home() {
   
   return (
     <div className="min-h-screen bg-black">
-      <div className="fixed inset-0 bg-gradient-to-t from-[#0A0A1E] via-black to-black z-0" />
-      <CursorGradient />
-
-      {/* Gradient Overlay */}
-      <div className="fixed inset-0 bg-gradient-radial from-transparent via-transparent to-black/80 pointer-events-none z-10" />
+      {/* All global backgrounds handled by FXCanvas */}
 
       {/* Content */}
       <div className="relative z-20">
@@ -497,7 +475,7 @@ export default function Home() {
         <section className="pt-32 pb-16 px-4">
           <div className="container max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
-              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
+              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity pointer-events-none" />
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 relative">
                 <div className="relative flex items-center justify-center">
                   <div className="absolute left-0 transform -translate-x-[calc(100%+0.5rem)] flex items-center">
@@ -658,7 +636,7 @@ export default function Home() {
             <div className="w-full max-w-4xl mx-auto">
               <div className="relative group overflow-hidden rounded-xl bg-black/30 border border-white/10 transition-all duration-300 hover:border-white/20">
                 {/* Gradient hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                 
                 <div className="flex flex-col">
                   {/* Image section */}
@@ -671,7 +649,7 @@ export default function Home() {
                       priority
                       sizes="(max-width: 1024px) 100vw, 900px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 pointer-events-none" />
                     
                     {/* Overlay title on image */}
                     <div className="absolute bottom-6 left-6 right-6">
@@ -708,8 +686,8 @@ export default function Home() {
                   href="/blog"
                   className="group relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-out hover:text-white bg-black/40"
                 >
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity" />
-                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/20 to-teal-500/20 opacity-50 group-hover:opacity-100 blur-sm transition-opacity pointer-events-none" />
+                  <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-r from-violet-600/40 to-teal-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   <span className="relative text-white">View All Posts</span>
                 </Link>
               </div>
@@ -721,7 +699,7 @@ export default function Home() {
         <section className="py-24 px-4">
           <div className="container max-w-4xl mx-auto text-center">
             <div className="w-full">
-              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity" />
+              <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity pointer-events-none" />
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 flex flex-wrap md:flex-nowrap items-center justify-center">
                 <span className="mr-2">🔥</span>
                 <span className="bg-gradient-to-r from-violet-900 to-teal-400 bg-clip-text text-transparent">
