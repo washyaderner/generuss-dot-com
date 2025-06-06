@@ -112,6 +112,9 @@ export default function RootLayout({
                   <div>
                     <h3 className="text-white font-semibold mb-4">Russell Gardner</h3>
                     <p className="text-gray-400 text-sm">Software solutions for the digital age</p>
+                    <p className="text-gray-400 text-sm mt-2">
+                      © {new Date().getFullYear()} Generuss. All rights reserved.
+                    </p>
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-4">Quick Links</h3>
@@ -167,27 +170,8 @@ export default function RootLayout({
                           <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                         </svg>
                       </Link>
-                      <Link 
-                        href="https://www.upwork.com/freelancers/~0187db78cb531330b6" 
-                        className="text-gray-400 hover:text-white transition-colors"
-                        aria-label="Visit Russell Gardner's Upwork profile"
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                      >
-                        <span className="sr-only">Upwork</span>
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path 
-                            d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"
-                          />
-                        </svg>
-                      </Link>
                     </div>
                   </div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-white/5 text-center">
-                  <p className="text-gray-400 text-sm">
-                    © {new Date().getFullYear()} Russell Gardner. All rights reserved.
-                  </p>
                 </div>
               </div>
             </footer>
