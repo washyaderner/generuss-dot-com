@@ -583,9 +583,6 @@ export default function Home() {
         {/* About Section */}
         <section id="about" className="py-24 px-4 scroll-mt-20">
           <div className="container max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-violet-800 to-teal-400 bg-clip-text text-transparent">
-              About
-            </h2>
             <div className="grid md:grid-cols-3 gap-8 items-start">
               <div className="col-span-1">
                 {/* Profile image */}
@@ -602,7 +599,7 @@ export default function Home() {
               </div>
               
               <div className="col-span-2 text-left">
-                <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russell</h3>
+                <h3 className="text-2xl font-semibold text-teal-400 mb-4">Hey, I'm Russ</h3>
                 <p className="text-gray-300 mb-4">
                   I'm a sales automation expert with over 10 years of experience helping B2B companies streamline their operations and boost growth. My background combines sales leadership, software development, and process optimization.
                 </p>
