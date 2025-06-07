@@ -18,12 +18,12 @@ export function NavLink({ href, children, className }: NavLinkProps) {
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isAnchorLink) {
-      e.preventDefault()
+    e.preventDefault()
       
       // Add a small delay to ensure the page content has loaded
       setTimeout(() => {
-        const element = document.querySelector(href)
-        if (element) {
+    const element = document.querySelector(href)
+    if (element) {
           const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80; // 80px offset for header
           window.scrollTo({
             top: offsetTop,
