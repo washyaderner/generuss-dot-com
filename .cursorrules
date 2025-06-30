@@ -417,3 +417,4 @@ And then provide the full description in a separate markdown block.
    - Issue tracking
 
 - For Claude (Anthropic) usage: install the `claude` CLI via Homebrew or use `tools/llm_api.py --provider anthropic`; ensure `ANTHROPIC_API_KEY` is set in the environment or `.env.local`.
+
