@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { headers } from 'next/headers'
 
 // Define metadata types for better type checking
 interface AppointmentData {
@@ -153,11 +154,12 @@ async function getAvailableSlots(dateString: string, baseUrl: string) {
     
     const availability = await response.json();
     return availability;
-  } catch (error: any) {
-    console.error('[Chat API] Error checking availability:', error.message);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[Chat API] Error checking availability:', errorMessage);
     return {
       available: false,
-      error: error.message,
+      error: errorMessage,
       // Return some mock data as fallback
       mockData: {
         date: dateString,
@@ -173,7 +175,43 @@ async function getAvailableSlots(dateString: string, baseUrl: string) {
  * Forwards messages to the n8n webhook and returns the response.
  * If no webhook URL is configured, returns a mock response for testing.
  */
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests per minute
+const requestCounts = new Map<string, { count: number; timestamp: number }>();
+
+// Simple rate limiting function
+function isRateLimited(clientId: string): boolean {
+  const now = Date.now();
+  const clientData = requestCounts.get(clientId);
+  
+  if (!clientData || now - clientData.timestamp > RATE_LIMIT_WINDOW) {
+    requestCounts.set(clientId, { count: 1, timestamp: now });
+    return false;
+  }
+  
+  if (clientData.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+  
+  clientData.count++;
+  return false;
+}
+
 export async function POST(request: Request) {
+  // Get client IP for rate limiting
+  const headersList = headers();
+  const clientIP = headersList.get('x-forwarded-for') || 
+                   headersList.get('x-real-ip') || 
+                   'unknown';
+  
+  // Check rate limiting
+  if (isRateLimited(clientIP)) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      { status: 429 }
+    );
+  }
   try {
     const { message, sessionId = `session_${Date.now()}`, messages = [] } = await request.json()
     
@@ -344,13 +382,14 @@ export async function POST(request: Request) {
         error: `OpenAI error: ${aiError.message}`
       })
     }
-  } catch (error: any) {
-    console.error('[Chat API] Request error:', error.message)
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[Chat API] Request error:', errorMessage)
     
     return NextResponse.json({
       message: "I encountered an error processing your message. Please try again.",
       error: 'Failed to process message',
-      details: error.message
+      details: errorMessage
     }, { status: 200 }) // Using 200 instead of 500 to prevent client-side errors
   }
 }

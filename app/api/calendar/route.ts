@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { google } from 'googleapis'
+import { headers } from 'next/headers'
 
 // Configure Google OAuth2 client
 const oauth2Client = new google.auth.OAuth2(
@@ -19,7 +20,13 @@ const calendar = google.calendar({ version: 'v3', auth: oauth2Client })
  * Creates a calendar event from appointment details
  * @param appointmentDetails The appointment details from the chat
  */
-async function createCalendarEvent(appointmentDetails: any) {
+async function createCalendarEvent(appointmentDetails: {
+  name: string;
+  email: string;
+  date: string;
+  time: string;
+  topic?: string;
+}) {
   try {
     const {
       name,
@@ -233,7 +240,43 @@ async function checkAvailability(dateString: string) {
 /**
  * Handler for POST requests to create calendar appointments
  */
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 5; // 5 calendar requests per minute
+const requestCounts = new Map<string, { count: number; timestamp: number }>();
+
+// Simple rate limiting function
+function isRateLimited(clientId: string): boolean {
+  const now = Date.now();
+  const clientData = requestCounts.get(clientId);
+  
+  if (!clientData || now - clientData.timestamp > RATE_LIMIT_WINDOW) {
+    requestCounts.set(clientId, { count: 1, timestamp: now });
+    return false;
+  }
+  
+  if (clientData.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+  
+  clientData.count++;
+  return false;
+}
+
 export async function POST(request: Request) {
+  // Get client IP for rate limiting
+  const headersList = headers();
+  const clientIP = headersList.get('x-forwarded-for') || 
+                   headersList.get('x-real-ip') || 
+                   'unknown';
+  
+  // Check rate limiting
+  if (isRateLimited(clientIP)) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      { status: 429 }
+    );
+  }
   try {
     const data = await request.json()
     

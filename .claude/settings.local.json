@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(rm:*)",
+      "Bash(node test-contentful.js)",
+      "Bash(pkill:*)",
+      "Bash(node:*)",
+      "Bash(npm --version)",
+      "Bash(NODE_OPTIONS=\"--max-old-space-size=4096\" npm run dev)",
+      "Bash(NODE_OPTIONS=\"--max-old-space-size=4096\" npm run build)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": []
+  }
+}
