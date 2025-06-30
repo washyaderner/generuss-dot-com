@@ -36,12 +36,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: `/favicon.ico?v=${Date.now()}` },
-      { url: `/favicon-16x16.png?v=${Date.now()}`, sizes: '16x16', type: 'image/png' },
-      { url: `/favicon-32x32.png?v=${Date.now()}`, sizes: '32x32', type: 'image/png' },
+      { url: `/favicon.ico` },
+      { url: `/favicon-16x16.png`, sizes: '16x16', type: 'image/png' },
+      { url: `/favicon-32x32.png`, sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: `/apple-touch-icon.png?v=${Date.now()}` },
+      { url: `/apple-touch-icon.png` },
     ],
   },
 }
@@ -51,8 +51,7 @@ const navigationLinks = [
   { href: "/blog", label: "Blog" }
 ]
 
-// Generate timestamp once for all resources to ensure consistent caching
-const cacheBuster = `?v=${Date.now()}`
+// Removed cache busting - Next.js handles caching optimization automatically
 
 export default function RootLayout({
   children,
@@ -66,11 +65,11 @@ export default function RootLayout({
           httpEquiv="Content-Security-Policy"
           content="default-src 'self'; frame-src 'self' https://app.cal.com https://cal.com https://*.cal.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://cal.com https://*.cal.com https://app.cal.com https://*.vercel.live https://*.googletagmanager.com; connect-src 'self' https://api.openai.com https://cal.com https://*.cal.com https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cal.com https://*.cal.com https://app.cal.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; object-src 'none'"
         />
-        <link rel="icon" href={`/favicon.ico${cacheBuster}`} />
-        <link rel="icon" href={`/favicon-96x96.png${cacheBuster}`} sizes="96x96" type="image/png" />
-        <link rel="icon" href={`/favicon.svg${cacheBuster}`} type="image/svg+xml" />
-        <link rel="apple-touch-icon" href={`/apple-touch-icon.png${cacheBuster}`} />
-        <link rel="manifest" href={`/site.webmanifest${cacheBuster}`} />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body>
         <Toaster richColors position="top-right" />

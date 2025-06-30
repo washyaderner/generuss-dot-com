@@ -6,7 +6,7 @@
     }
   },
   "env": {
-    "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "zg5esxnsmp6e",
-    "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "chkQ-gdVF_A0pt8cwfkeVQMvWGVCV_i-lXFdrdezOl0"
+    "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "your_contentful_space_id_here",
+    "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "your_contentful_access_token_here"
   }
 } 
