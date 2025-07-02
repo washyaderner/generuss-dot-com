@@ -43,7 +43,7 @@ export function SolutionsGrid() {
   const cards = [
     {
       icon: Banknote,
-      title: "$8.2M Annual Revenue Lift",
+      title: "$8.2M ARR Increase",
       description: "Boosted daily revenue from $55,440 to $87,120 for a major real estate marketing firm, using my advanced sales scripting and line-feeds on live calls. A custom role was created for me as a dedicated Line Coach to implement these strategies."
     },
     {
@@ -53,8 +53,8 @@ export function SolutionsGrid() {
     },
     {
       icon: Code,
-      title: "Generuss.com Built in Under 2 Weeks",
-      description: "Launched Generuss.com from scratch in less than two weeks using Cursor AI. Delivered a fully branded, SEO-rich site with AI-enhanced content, dynamic multimedia, and integrated lead-gen forms."
+      title: "16x Faster Proposal Generation",
+      description: "Built custom AI proposal generator that slashed proposal creation time from 4+ hours to just 15 minutes. Client says: 'every business deserves a secret weapon like Russell. Highly, highly recommended!!'"
     },
     {
       icon: LineChart,
