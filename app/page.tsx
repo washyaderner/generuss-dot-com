@@ -65,6 +65,13 @@ const reviews = [
     text: "Working with Russell has been nothing short of outstanding, and we don't say that lightly, especially after working with hundreds of developers and freelancers! This was a tricky project with the potential to veer off in multiple directions, but Russell brought structure, clarity, and calm from day one. He went truly above and beyond—navigating complexity with precision, staying focused when others might have drifted, and delivering results that exceeded every expectation. Russell is not only highly skilled and deeply logical, but also an absolute pleasure to work with. His communication is spot on, his work ethic is unmatched, and his ability to solve problems quickly and intelligently makes him a rare find. We'd love to keep working with Russ long term. I'd say 'don't hire him because he's ours,' but the truth is—every business deserves a secret weapon like Russell. Highly, highly recommended!!",
     rating: 5,
   },
+  {
+    name: "Jonny",
+    company: "Invincible Media",
+    title: "GTM/RevOps Proposal Builder Optimization",
+    text: "This was our second time working with Russell—and once again, he delivered flawlessly. The project was a focused optimisation of our GPT-based GTM/RevOps proposal builder, and Russell approached it with the same clarity, structure, and commercial instinct that impressed us the first time around. He took an already-solid system and made it smarter, faster, and sharper. His ability to balance logic, tone, and usability in prompt engineering is next-level. Nothing is ever too much trouble, and he remains thoughtful, fast, and genuinely enjoyable to work with. If anything, this second round confirmed what we already knew: Russell is a rare talent and an asset to any team. Still highly recommended - if not even more so now!",
+    rating: 5,
+  },
 ]
 
 
