@@ -62,7 +62,7 @@ const CSP = `
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  frame-ancestors 'none';
+  frame-ancestors 'self' https://generussdesign.com https://www.generussdesign.com;
   connect-src 'self' https://api.resend.com;
 `
 

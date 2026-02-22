@@ -91,7 +91,7 @@ const nextConfig = {
               object-src 'none';
               base-uri 'self';
               form-action 'self';
-              frame-ancestors 'none';
+              frame-ancestors 'self' https://generussdesign.com https://www.generussdesign.com;
               frame-src 'self' https://cal.com https://*.cal.com https://app.cal.com;
               block-all-mixed-content;
               upgrade-insecure-requests;
