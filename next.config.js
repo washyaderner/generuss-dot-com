@@ -13,6 +13,20 @@
  * Always check with the team before modifying shared configuration sections.
  */
 
+// Pages that live on generussdesign.com. generuss.com forwarded every path
+// there until 2026-09-22, so business cards (the /connect QR code), emails,
+// and search results still carry generuss.com links to these pages.
+const DESIGN_SITE = 'https://generussdesign.com'
+const DESIGN_PATHS = [
+  'automation', 'case-studies', 'compare', 'event-websites', 'free-build',
+  'guides', 'insights', 'links', 'ogc', 'paths', 'process', 'seo',
+  'taste-audit', 'tools', 'connect', 'call-confirmed',
+]
+const DESIGN_BLOG_POSTS = [
+  'building-this-site', 'claudes-retrospective', 'pharadoxa-build',
+  'sales-strategy-design', 'what-your-ai-needs-from-you',
+]
+
 const nextConfig = {
   /**
    * React Strict Mode
@@ -73,6 +87,20 @@ const nextConfig = {
    * - All other directives maintain strict security policies
    * - Cache-Control headers set for static assets including images
    */
+  async redirects() {
+    return [
+      ...DESIGN_PATHS.flatMap((p) => [
+        { source: `/${p}`, destination: `${DESIGN_SITE}/${p}`, permanent: true },
+        { source: `/${p}/:rest*`, destination: `${DESIGN_SITE}/${p}/:rest*`, permanent: true },
+      ]),
+      ...DESIGN_BLOG_POSTS.map((s) => ({
+        source: `/blog/${s}`,
+        destination: `${DESIGN_SITE}/blog/${s}`,
+        permanent: true,
+      })),
+    ]
+  },
+
   async headers() {
     return [
       {

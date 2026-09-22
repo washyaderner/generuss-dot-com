@@ -18,9 +18,18 @@ export async function sendLeadEmail(args: {
   const from = process.env.GCHAT_NOTIFY_FROM || "Generuss Chat <no-reply@mail.generuss.com>"
   const { lead, transcript, page } = args
 
-  const who = lead.name || lead.business || lead.email || lead.phone || "a visitor"
+  // Name, business, and time keep each lead in its own Gmail thread.
+  const who = lead.name || lead.email || lead.phone || "a visitor"
+  const biz = lead.business && lead.business !== who ? ` (${lead.business})` : ""
   const need = lead.need ? ` - ${lead.need}` : ""
-  const subject = `Chat lead: ${who}${need}`.slice(0, 140)
+  const at = new Date().toLocaleString("en-US", {
+    timeZone: "America/Los_Angeles",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  })
+  const subject = `Chat lead: ${who}${biz}${need} [${at}]`.slice(0, 160)
 
   const fields = [
     ["Name", lead.name],
