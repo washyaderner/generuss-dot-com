@@ -131,7 +131,6 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
   - Hire vs. Automate, https://generussdesign.com/tools/hire-vs-automate : a hire against an automation over three years.
   - Workflow Automation Score, https://generussdesign.com/tools/automation-score : a 0 to 100 score plus the hours and dollars a workflow eats each year.
 - The 5-Leak Website Teardown: drop a URL on the generussdesign.com home page and get the five biggest leaks with fixes, same day. No drip campaign.
-- Free-Build Program, https://generussdesign.com/free-build/ : five slots (at last update, 1 claimed and 4 open). Russ builds a Launch-Page-scope site plus one working automation (instant lead reply, follow-up sequence, or review engine) free, at the paid standard. The trade: a written case study with real before-and-after numbers, a public review, and two warm introductions. Must check all four boxes: a real business with revenue, the owner or direct decision maker, a real measurable site or lead problem, ready to start within 2 weeks. He reviews applications within 24 hours. If slots are full, the application stays open as a waitlist.
 
 # THINGS RUSS HAS BUILT
 
@@ -182,7 +181,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "How much does automation cost?", a: "A single system, like instant lead replies or a review engine, is a fixed-scope build quoted after a short call. Full pipeline wiring is part of the Growth Engine at $750 a month." },
   { q: "How much does a custom AI tool, chatbot, or agent cost?", a: "It's scoped and quoted after a discovery call, as a fixed price. It depends on what the tool has to do and what it connects to." },
   { q: "How long does a build take?", a: "21 days from kickoff for a full build, about 7 days for a Launch Page. Miss the date and you don't pay the balance until it's live." },
-  { q: "Do I own my website?", a: "Yes, all of it: code, domain, and content. Hosting is free on Cloudflare, so there's no monthly fee and nothing holding the site hostage." },
+  { q: "Do I own my website?", a: "Yes, all of it: code, domain, and content. Hosting is free on Cloudflare, so there are no hosting fees and nothing holding the site hostage." },
   { q: "Is there a monthly fee?", a: "Not for the site. Hosting is $0 a month. The only monthly option is the Growth Engine, if you want ongoing SEO and optimization, and you can cancel it anytime." },
   { q: "What if I don't like the design?", a: "You see a real design direction before committing further. If you don't love it, your deposit comes back." },
   { q: "What happens after launch?", a: "30 days of direct support with Russ, plus documentation and a Loom walkthrough. After that you can change it yourself, hire anyone, or have Russ handle it." },
@@ -199,7 +198,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "Is there a contract?", a: "Every project is a fixed-scope plan with the price locked before work starts, so you know exactly what you're getting and what it costs. Russ sends it after the discovery call." },
   { q: "How do payments work?", a: "A deposit to start and the balance at launch; Russ confirms the details in your proposal. If a full build misses the 21-day date, you don't pay the balance until it's live." },
   { q: "Do you offer discounts?", a: "The published ones: Oregon Ghost Conference vendors and speakers get 20% off a first build, the $500 Launch Page credits toward a full build for 6 months, and the $197 Taste Audit credits toward any build within 30 days. Scope can also shrink to fit a budget." },
-  { q: "Can I get a free website?", a: "Maybe. The Free-Build Program has limited slots for real businesses with revenue: a free Launch-Page-scope site plus one automation, in exchange for a case study, a public review, and two introductions." },
+  { q: "Can I get a free website?", a: "Not as an open offer. When Russ does a free build, he invites that business directly. Otherwise the free tools cost nothing, and the smallest paid door is the $500 Launch Page, which credits toward a full build for 6 months." },
   { q: "What's the Website Taste Audit?", a: "18 pass-or-fail design and conversion checks on your site, desktop and mobile, every fail with its fix, ranked worst first, plus a recorded walkthrough. $197 flat, in your inbox within 48 hours." },
   { q: "What's included in the discovery call?", a: "30 minutes on Google Meet. Russ audits your current site live, finds the biggest leaks, and you leave with 3 specific fixes whether or not you work together. No deck, no pitch." },
   { q: "Who will I work with?", a: "Russ, directly, start to finish. The person on the call is the person who builds it." },
