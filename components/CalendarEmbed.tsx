@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface CalendarEmbedProps {
   /**
@@ -50,8 +50,34 @@ export function CalendarEmbed({
   showBorder = true,
   showGradient = true
 }: CalendarEmbedProps) {
+  // The Cal.com page focuses a day button when it loads, and the browser then
+  // scrolls the whole page down to the iframe. Mount it only once the visitor
+  // is near the section, so the focus lands where they already are.
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [shouldLoad, setShouldLoad] = useState(false)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el || shouldLoad) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setShouldLoad(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldLoad(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px 150px 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [shouldLoad])
+
   return (
-    <div className={`relative rounded-xl overflow-hidden ${showBorder ? 'border border-white/10' : ''} ${className}`}>
+    <div ref={containerRef} className={`relative rounded-xl overflow-hidden ${showBorder ? 'border border-white/10' : ''} ${className}`}>
       {showGradient && (
         <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-violet-600/10 pointer-events-none z-10" />
       )}
@@ -64,6 +90,7 @@ export function CalendarEmbed({
           '--desktop-height': height
         } as React.CSSProperties}
       >
+        {shouldLoad ? (
         <iframe
           src={calendarUrl}
           width="100%"
@@ -86,6 +113,11 @@ export function CalendarEmbed({
           allow="camera; microphone; fullscreen; display-capture; autoplay"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
         />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500">
+            Loading calendar...
+          </div>
+        )}
       </div>
     </div>
   );
