@@ -14,7 +14,8 @@ export default function BlogPost({ post }: BlogPostProps) {
   const formattedDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'America/Los_Angeles'
   })
 
   // Function to render content based on available format
@@ -73,7 +74,8 @@ export default function BlogPost({ post }: BlogPostProps) {
               (Updated: {new Date(post.sys.updatedAt).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'numeric',
-                day: 'numeric'
+                day: 'numeric',
+                timeZone: 'America/Los_Angeles'
               })})
             </span>
           )}
