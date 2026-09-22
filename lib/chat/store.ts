@@ -3,7 +3,10 @@
 // both refuse any call without GCHAT_DB_SECRET. If storage is down the chat
 // keeps working on the in-memory limiter; nothing here throws to the caller.
 
+// Per-visitor counts include the current request (the gate bumps them
+// atomically), so compare with ">" against the limit.
 export type Counters = {
+  ip_1m: number
   ip_10m: number
   ip_day: number
   ip_strikes_1h: number
