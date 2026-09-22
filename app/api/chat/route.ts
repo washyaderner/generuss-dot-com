@@ -29,6 +29,7 @@ export const maxDuration = 30
 const LIMITS = {
   sessionTurns: 30,
   sessionStrikes: 3,
+  ipPerMinute: 6,
   ipPer10Min: 15,
   ipPerDay: 60,
   ipStrikesPerHour: 4,
@@ -200,7 +201,11 @@ export async function POST(req: Request) {
 
   counters = await gateCounters(ipHash)
   if (counters) {
-    if (counters.ip_10m >= LIMITS.ipPer10Min || counters.ip_day >= LIMITS.ipPerDay) {
+    if (
+      counters.ip_1m > LIMITS.ipPerMinute ||
+      counters.ip_10m > LIMITS.ipPer10Min ||
+      counters.ip_day > LIMITS.ipPerDay
+    ) {
       return respond({ reply: pickReply("rate_limited", 0), cta: "book_call", intent: "other", blocked: "ip_limit" })
     }
     if (counters.ip_strikes_1h >= LIMITS.ipStrikesPerHour) {
