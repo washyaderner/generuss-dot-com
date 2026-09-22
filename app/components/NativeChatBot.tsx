@@ -1,488 +1,270 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence, useMotionValue, PanInfo } from 'framer-motion'
-import { FaCommentDots, FaTimes, FaPaperPlane, FaSyncAlt, FaGripLines } from 'react-icons/fa'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FaCommentDots, FaTimes, FaPaperPlane, FaSyncAlt, FaCalendarAlt, FaArrowRight } from 'react-icons/fa'
 
-// Message type definition
+// The generuss.com assistant widget. The brain lives in /api/chat; this file
+// only renders, keeps the signed session token, and sends the history the
+// server signed last turn (the welcome message is local and never sent).
+
+type Role = 'user' | 'assistant'
+type Cta = 'none' | 'book_call' | 'free_tools' | 'free_build'
+
 interface ChatMessage {
   id: string
+  role: Role
   content: string
-  sender: 'user' | 'bot'
-  timestamp: number
-  metadata?: {
-    type?: string
-    data?: any
-  }
+  cta?: Cta
+  local?: boolean // shown in the UI only, never sent to the server
+  error?: boolean
 }
 
-// GlowingText component for animated text effects
-const GlowingText = ({ message, isError = false }: { message: string; isError?: boolean }) => {
-  // Split message by words but animate by letter
-  const words = message.split(' ')
-  const totalChars = words.reduce((sum, word) => sum + word.length, 0)
-  const totalSpaces = words.length - 1
-  const totalCharsWithSpaces = totalChars + totalSpaces
-  // Time for one complete pulse to travel through the entire message
-  const pulseDuration = totalCharsWithSpaces * 0.07 // 70ms per character
-  
+const STORAGE_KEY = 'gchat_v2'
+const RESTORE_WINDOW_MS = 30 * 60 * 1000
+const MAX_CHARS = 1200
+const BOOKING_URL = 'https://app.cal.com/generuss/discovery-call'
+
+const WELCOME: ChatMessage = {
+  id: 'welcome',
+  role: 'assistant',
+  local: true,
+  content:
+    "Hey, I'm Russ's AI assistant. I can tell you what he builds, what it costs, and whether he's a fit for your project. What are you working on?",
+}
+
+const STARTERS = [
+  'I need a website',
+  'Automate my follow-up',
+  'What has Russ built?',
+  'What does it cost?',
+]
+
+const CTA_BUTTONS: Record<Exclude<Cta, 'none'>, { label: string; href: string; icon: 'calendar' | 'arrow' }> = {
+  book_call: { label: 'Book a free 30-min call with Russ', href: BOOKING_URL, icon: 'calendar' },
+  free_tools: { label: 'Try the free tools', href: 'https://generussdesign.com/tools/', icon: 'arrow' },
+  free_build: { label: 'See the Free-Build Program', href: 'https://generussdesign.com/free-build/', icon: 'arrow' },
+}
+
+const URL_SPLIT = /(https?:\/\/[^\s<>"')]+)/g
+
+function Linkified({ text }: { text: string }) {
+  const parts = text.split(URL_SPLIT)
   return (
-    <span className={`${isError ? 'text-red-400' : 'text-teal-400'} whitespace-pre-wrap`}>
-      {words.map((word, wordIndex) => (
-        <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap mr-[0.25em]">
-          {word.split('').map((char, charIndex) => {
-            // Calculate the overall position in the entire text
-            let overallIndex = 0
-            for (let i = 0; i < wordIndex; i++) {
-              overallIndex += words[i].length + 1 // +1 for the space
-            }
-            overallIndex += charIndex
-            
-            // Animation delay based on character position
-            const style = {
-              animationDelay: `${overallIndex * 0.07}s`,
-            }
-            
-            return (
-              <span 
-                key={`char-${wordIndex}-${charIndex}`} 
-                className="inline-block animate-glow-trail"
-                style={style}
+    <>
+      {parts.map((part, i) => {
+        if (/^https?:\/\//.test(part)) {
+          const clean = part.replace(/[.,;:!?]+$/, '')
+          const tail = part.slice(clean.length)
+          return (
+            <React.Fragment key={i}>
+              <a
+                href={clean}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-teal-300 underline underline-offset-2 break-all hover:text-teal-200"
               >
-                {char}
-              </span>
-            )
-          })}
-        </span>
-      ))}
-    </span>
+                {clean.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+              </a>
+              {tail}
+            </React.Fragment>
+          )
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>
+      })}
+    </>
   )
 }
 
+function newId(prefix: string) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
+}
+
 export default function NativeChatBot() {
-  // State management
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  const [inputMessage, setInputMessage] = useState('')
+  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME])
+  const [token, setToken] = useState<string | undefined>(undefined)
+  const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [sessionId, setSessionId] = useState<string>('')
-  const [hasError, setHasError] = useState(false)
-  const [unreadCount, setUnreadCount] = useState(0)
-  const [showNotification, setShowNotification] = useState(false)
-  const [panelHeight, setPanelHeight] = useState(500) // Default height in pixels
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [nudge, setNudge] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
+  const openedAt = useRef<number | null>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
-  const dragStartY = useRef(0)
-  const dragStartHeight = useRef(0)
 
-  // Function to handle drag resize
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    dragStartY.current = e.clientY
-    dragStartHeight.current = panelHeight
-    
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      const deltaY = dragStartY.current - moveEvent.clientY
-      const newHeight = Math.min(
-        window.innerHeight - 20, // Max height (20px from top of viewport)
-        Math.max(300, dragStartHeight.current + deltaY) // Min height 300px
-      )
-      setPanelHeight(newHeight)
-    }
-    
-    const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-    
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-  }
-
-  // Initialize session ID and start notification timer
+  // Restore a recent conversation.
   useEffect(() => {
-    // Check if we have a session ID in localStorage
-    const storedSessionId = localStorage.getItem('chat_session_id')
-    
-    if (storedSessionId) {
-      setSessionId(storedSessionId)
-    } else {
-      // Generate a new session ID
-      const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
-      localStorage.setItem('chat_session_id', newSessionId)
-      setSessionId(newSessionId)
-    }
-    
-    // Check for stored messages and last activity timestamp
-    const lastActivity = localStorage.getItem('chat_last_activity')
-    const storedMessages = localStorage.getItem('chat_messages')
-    
-    if (lastActivity && storedMessages) {
-      const timeSinceLastActivity = Date.now() - parseInt(lastActivity)
-      const fiveMinutesInMs = 5 * 60 * 1000
-      
-      console.log(`[ChatBot] Time since last activity: ${timeSinceLastActivity}ms, threshold: ${fiveMinutesInMs}ms`);
-      
-      // If less than 5 minutes have passed, restore the chat history
-      if (timeSinceLastActivity < fiveMinutesInMs) {
-        try {
-          const parsedMessages = JSON.parse(storedMessages)
-          setMessages(parsedMessages.map((msg: any) => ({
-            ...msg,
-            timestamp: new Date(msg.timestamp).getTime()
-          })))
-          console.log('[ChatBot] Restored chat history');
-        } catch (error) {
-          console.error('Error parsing stored messages:', error)
-          localStorage.removeItem('chat_messages')
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        const saved = JSON.parse(raw)
+        if (saved && Date.now() - saved.updatedAt < RESTORE_WINDOW_MS && Array.isArray(saved.messages)) {
+          setMessages([WELCOME, ...saved.messages])
+          setToken(saved.token)
+        } else {
+          localStorage.removeItem(STORAGE_KEY)
         }
-      } else {
-        // Clear chat history if more than 5 minutes have passed
-        console.log('[ChatBot] Clearing chat history due to inactivity');
-        localStorage.removeItem('chat_messages')
-        localStorage.removeItem('chat_last_activity')
       }
+    } catch {
+      // storage blocked or corrupt; start fresh
     }
-    
-    // Update the last activity timestamp on load
-    localStorage.setItem('chat_last_activity', Date.now().toString())
-    
-    // Start timer to show notification after one minute
-    const timer = setTimeout(() => {
-      setShowNotification(true)
-    }, 60000) // 60000ms = 1 minute
-
+    const timer = setTimeout(() => setNudge(true), 45000)
     return () => clearTimeout(timer)
   }, [])
-  
-  // Force 5-minute check on browser focus
-  useEffect(() => {
-    const handleFocus = () => {
-      const lastActivity = localStorage.getItem('chat_last_activity')
-      if (lastActivity) {
-        const timeSinceLastActivity = Date.now() - parseInt(lastActivity)
-        const fiveMinutesInMs = 5 * 60 * 1000
-        
-        if (timeSinceLastActivity > fiveMinutesInMs) {
-          console.log('[ChatBot] Clearing chat history on window focus - inactive for too long');
-          setMessages([]);
-          localStorage.removeItem('chat_messages')
-        }
-      }
-      
-      // Always update activity timestamp on focus
-      localStorage.setItem('chat_last_activity', Date.now().toString())
-    };
-    
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
-  }, []);
 
-  // Save messages and update activity timestamp
+  // Persist everything except the local welcome and error bubbles.
   useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem('chat_messages', JSON.stringify(messages))
-      localStorage.setItem('chat_last_activity', Date.now().toString())
+    const serverMessages = messages.filter((m) => !m.local && !m.error)
+    if (serverMessages.length === 0) return
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages: serverMessages, token, updatedAt: Date.now() }))
+    } catch {
+      // ignore
     }
-  }, [messages])
+  }, [messages, token])
 
-  // Update last activity timestamp on user interaction
+  // Scroll the message list itself, never the page behind the widget.
   useEffect(() => {
-    const updateActivity = () => {
-      localStorage.setItem('chat_last_activity', Date.now().toString())
+    const list = listRef.current
+    if (list) list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' })
+  }, [messages, isTyping, isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+    if (openedAt.current === null) openedAt.current = Date.now()
+    setNudge(false)
+    // Desktop gets the cursor in the box; phones skip it so the keyboard
+    // doesn't cover the starter buttons.
+    const t = setTimeout(() => {
+      if (!window.matchMedia('(pointer: coarse)').matches) inputRef.current?.focus({ preventScroll: true })
+    }, 250)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
     }
-    
-    // Listen for user activity events
-    window.addEventListener('mousemove', updateActivity)
-    window.addEventListener('keydown', updateActivity)
-    window.addEventListener('click', updateActivity)
-    window.addEventListener('touchstart', updateActivity)
-    
+    window.addEventListener('keydown', onKey)
     return () => {
-      // Clean up event listeners
-      window.removeEventListener('mousemove', updateActivity)
-      window.removeEventListener('keydown', updateActivity)
-      window.removeEventListener('click', updateActivity)
-      window.removeEventListener('touchstart', updateActivity)
-    }
-  }, [])
-
-  // Welcome message when the chat first opens
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      // Add initial bot message with slight delay for effect
-      setTimeout(() => {
-        setMessages([{
-          id: `bot-${Date.now()}`,
-          content: 'Hey there 👋 I help answer questions and schedule appointments for Russ. Let me know how I can help!',
-          sender: 'bot',
-          timestamp: new Date().getTime()
-        }])
-      }, 500)
-    }
-  }, [isOpen, messages.length])
-
-  // Auto-scroll to bottom of messages
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [messages, isOpen])
-
-  // Focus input when chat opens
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      setTimeout(() => {
-        inputRef.current?.focus()
-      }, 300)
+      clearTimeout(t)
+      window.removeEventListener('keydown', onKey)
     }
   }, [isOpen])
 
-  // Add keyframes for glowing text animation
-  useEffect(() => {
-    const style = document.createElement('style')
-    style.textContent = `
-      @keyframes glowTrail {
-        0% {
-          color: #9CA3AF; /* gray-400 */
-          text-shadow: none;
-        }
-        10%, 20% {
-          color: #ffffff;
-          text-shadow: 0 0 12px rgba(20, 184, 166, 0.8), 0 0 20px rgba(20, 184, 166, 0.6), 0 0 30px rgba(20, 184, 166, 0.4);
-        }
-        30%, 100% {
-          color: #9CA3AF; /* gray-400 */
-          text-shadow: none;
-        }
+  const send = useCallback(
+    async (text: string) => {
+      const message = text.trim().slice(0, MAX_CHARS)
+      if (!message || isTyping) return
+      const history = messages.filter((m) => !m.local && !m.error).map((m) => ({ role: m.role, content: m.content }))
+      setMessages((prev) => [...prev.filter((m) => !m.error), { id: newId('user'), role: 'user', content: message }])
+      setInput('')
+      if (inputRef.current) inputRef.current.style.height = 'auto'
+      setIsTyping(true)
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message,
+            messages: history,
+            token,
+            page: window.location.pathname,
+            website: honeypot,
+            openedMs: openedAt.current ? Date.now() - openedAt.current : undefined,
+          }),
+        })
+        if (!res.ok) throw new Error(`status ${res.status}`)
+        const data = await res.json()
+        if (!data.message) throw new Error('no message')
+        setToken(data.token)
+        setMessages((prev) => [
+          ...prev,
+          { id: newId('bot'), role: 'assistant', content: data.message, cta: data.cta },
+        ])
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: newId('error'),
+            role: 'assistant',
+            error: true,
+            cta: 'book_call',
+            content:
+              "Sorry, I couldn't connect just now. You can try again, book a call with Russ below, or email russ@generuss.com.",
+          },
+        ])
+      } finally {
+        setIsTyping(false)
       }
-      
-      @keyframes pulseBubble {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.7);
-        }
-        70% {
-          transform: scale(1.1);
-          box-shadow: 0 0 0 10px rgba(20, 184, 166, 0);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
-        }
-      }
-      
-      .animate-glow-trail {
-        animation: glowTrail 6s linear infinite;
-      }
-      
-      .animate-pulse-bubble {
-        animation: pulseBubble 2s infinite;
-      }
-    `
-    document.head.appendChild(style)
-    
-    return () => {
-      document.head.removeChild(style)
-    }
-  }, [])
+    },
+    [messages, token, honeypot, isTyping],
+  )
 
-  // Increment unread count when new bot messages arrive and chat is closed
-  useEffect(() => {
-    if (!isOpen && messages.length > 0 && showNotification) {
-      const newBotMessages = messages.filter(m => m.sender === 'bot')
-      setUnreadCount(newBotMessages.length)
-    } else {
-      setUnreadCount(0)
-    }
-  }, [messages, isOpen, showNotification])
-
-  // Handle sending a message
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return
-    
-    setHasError(false)
-    const userMessage = inputMessage.trim()
-    setInputMessage('')
-    
-    // Add user message to chat
-    const newUserMessage: ChatMessage = {
-      id: `user-${Date.now()}`,
-      content: userMessage,
-      sender: 'user',
-      timestamp: new Date().getTime()
-    }
-    
-    setMessages(prev => [...prev, newUserMessage])
-    
-    // Show typing indicator
-    setIsTyping(true)
-    
+  const reset = () => {
+    setMessages([WELCOME])
+    setToken(undefined)
     try {
-      // Send message to our API route with conversation history
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        body: JSON.stringify({ 
-          message: userMessage,
-          sessionId,
-          messages: messages // Send the full conversation history
-        }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      
-      // Check if the request was successful
-      if (!response.ok) {
-        throw new Error(`Error from server: ${response.status} ${response.statusText}`)
-      }
-      
-      const data = await response.json()
-      
-      // Add the bot's response to the messages
-      if (data.message) {
-        const botResponse: ChatMessage = {
-          id: `bot-${Date.now()}`,
-          content: data.message,
-          sender: 'bot',
-          timestamp: new Date().getTime(),
-          metadata: data.metadata
-        }
-        setMessages(prev => [...prev, botResponse])
-        
-        // Handle any metadata from response (e.g., for appointment scheduling)
-        if (data.metadata) {
-          console.log('[Chat] Received metadata:', data.metadata);
-          
-          // Handle appointment data including calendar event if created
-          if (data.metadata.type === 'appointment' && data.metadata.calendarEvent) {
-            const calendarEvent = data.metadata.calendarEvent;
-            
-            if (calendarEvent.created) {
-              // Send a follow-up message with calendar details
-              setTimeout(() => {
-                const confirmationMessage: ChatMessage = {
-                  id: `bot-calendar-${Date.now()}`,
-                  content: `Great! I've added this meeting to the calendar. ${
-                    calendarEvent.eventLink 
-                      ? `You can view and manage it here: ${calendarEvent.eventLink}` 
-                      : "You'll receive an email confirmation shortly."
-                  }`,
-                  sender: 'bot',
-                  timestamp: new Date().getTime()
-                };
-                setMessages(prev => [...prev, confirmationMessage]);
-              }, 1000);
-            } else if (calendarEvent.error) {
-              // Send a follow-up message about the error
-              setTimeout(() => {
-                const errorMessage: ChatMessage = {
-                  id: `bot-calendar-error-${Date.now()}`,
-                  content: `I tried to schedule this appointment, but encountered an issue: ${calendarEvent.error}. Please try again or provide more specific details.`,
-                  sender: 'bot',
-                  timestamp: new Date().getTime()
-                };
-                setMessages(prev => [...prev, errorMessage]);
-              }, 1000);
-            }
-          }
-        }
-      } else {
-        throw new Error('No message in response')
-      }
-    } catch (error) {
-      console.error('Error sending message:', error)
-      
-      setHasError(true)
-      
-      // Add error message
-      setMessages(prev => [...prev, {
-        id: `error-${Date.now()}`,
-        content: "Sorry, I'm having trouble connecting right now. Please try again later.",
-        sender: 'bot',
-        timestamp: new Date().getTime()
-      }])
-    } finally {
-      setIsTyping(false)
+      localStorage.removeItem(STORAGE_KEY)
+    } catch {
+      // ignore
     }
   }
 
-  // Clear chat history
-  const clearHistory = () => {
-    setMessages([])
-    localStorage.removeItem('chat_messages')
-    // Keep the last activity timestamp and session ID
-  }
+  const hasConversation = messages.some((m) => m.role === 'user')
 
   return (
     <>
-      {/* Chat Bubble Button */}
-      <motion.div
-        className={`fixed bottom-6 right-6 z-50 shadow-lg rounded-full ${
-          unreadCount > 0 && showNotification ? 'animate-pulse-bubble' : ''
-        }`}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <div className="relative">
-          <button
-            aria-label="Open chat"
-            className="w-14 h-14 flex items-center justify-center rounded-full bg-teal-500 text-white border border-white/10 shadow-teal-500/20"
-          >
-            <FaCommentDots size={24} />
-          </button>
-          
-          {/* Unread messages badge */}
-          {unreadCount > 0 && showNotification && (
-            <motion.div 
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
-            >
-              {unreadCount}
-            </motion.div>
+      {/* Launcher */}
+      {!isOpen && (
+        <motion.button
+          type="button"
+          aria-label="Chat with Russ's assistant"
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-teal-500 text-white border border-white/10 shadow-lg shadow-teal-500/20"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaCommentDots size={24} />
+          {nudge && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              1
+            </span>
           )}
-        </div>
-      </motion.div>
+        </motion.button>
+      )}
 
-      {/* Chat Panel */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-6 right-6 w-80 sm:w-96 bg-black/90 backdrop-blur-md rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-white/10 shadow-teal-500/20"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            role="dialog"
+            aria-label="Chat with Russ's AI assistant"
+            className="fixed z-50 bottom-3 right-3 left-3 sm:left-auto sm:bottom-6 sm:right-6 sm:w-96 flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-black/90 backdrop-blur-md shadow-2xl shadow-teal-500/20"
+            style={{ height: 'min(600px, calc(100dvh - 24px))' }}
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
-            style={{ height: panelHeight }}
+            exit={{ opacity: 0, y: 20, scale: 0.96 }}
+            transition={{ duration: 0.25 }}
           >
-            {/* Drag Handle */}
-            <div 
-              className="absolute top-0 left-0 w-full h-1 cursor-ns-resize flex justify-center items-center"
-              onMouseDown={handleDragStart}
-            >
-              <div className="w-16 h-1 rounded-full bg-teal-500/30 -mt-0.5"></div>
-            </div>
-            
             {/* Header */}
-            <div className="p-4 border-b border-white/10 bg-gradient-to-r from-black to-slate-900 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="cursor-ns-resize" onMouseDown={handleDragStart}>
-                  <FaGripLines className="text-gray-400" />
-                </div>
-                <h3 className="text-white font-medium">Generuss Assistant</h3>
+            <div className="px-4 py-3 border-b border-white/10 bg-gradient-to-r from-black to-slate-900 flex items-center justify-between">
+              <div>
+                <h3 className="text-white font-medium leading-tight">Russ&apos;s AI assistant</h3>
+                <p className="text-xs text-gray-400">Websites, automation, and AI systems</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex items-center gap-3">
+                {hasConversation && (
+                  <button
+                    type="button"
+                    onClick={reset}
+                    className="text-gray-400 hover:text-white transition-colors"
+                    aria-label="Start a new conversation"
+                    title="New conversation"
+                  >
+                    <FaSyncAlt size={14} />
+                  </button>
+                )}
                 <button
-                  onClick={clearHistory}
-                  className="text-gray-400 hover:text-white transition-colors"
-                  aria-label="Clear history"
-                >
-                  <FaSyncAlt size={16} />
-                </button>
-                <button
+                  type="button"
                   onClick={() => setIsOpen(false)}
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Close chat"
@@ -491,124 +273,128 @@ export default function NativeChatBot() {
                 </button>
               </div>
             </div>
-            
-            {/* Messages Container */}
-            <div className="flex-1 p-4 overflow-y-auto bg-slate-900/50 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-              <AnimatePresence initial={false}>
-                {messages.map((msg) => (
-                  <motion.div
-                    key={msg.id}
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className={`mb-4 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+
+            {/* Messages */}
+            <div ref={listRef} className="flex-1 p-4 overflow-y-auto overscroll-contain bg-slate-900/50" aria-live="polite">
+              {messages.map((msg) => (
+                <div key={msg.id} className={`mb-3 flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                  <div
+                    className={`max-w-[85%] rounded-xl px-3 py-2 text-sm whitespace-pre-wrap break-words ${
+                      msg.role === 'user'
+                        ? 'bg-teal-500/20 text-white rounded-tr-none border border-teal-500/30'
+                        : msg.error
+                          ? 'bg-red-900/20 border border-red-500/30 text-white rounded-tl-none'
+                          : 'bg-slate-800/60 text-white rounded-tl-none border border-white/10'
+                    }`}
                   >
-                    <div
-                      className={`max-w-[80%] rounded-xl p-3 ${
-                        msg.sender === 'user'
-                          ? 'bg-teal-500/20 text-white rounded-tr-none border border-teal-500/30'
-                          : msg.id.startsWith('error') 
-                            ? 'bg-red-900/20 border border-red-500/30 text-white rounded-tl-none' 
-                            : 'bg-slate-800/60 text-white rounded-tl-none border border-white/10'
-                      }`}
+                    {msg.role === 'assistant' ? <Linkified text={msg.content} /> : msg.content}
+                  </div>
+                  {msg.role === 'assistant' && msg.cta && msg.cta !== 'none' && CTA_BUTTONS[msg.cta] && (
+                    <a
+                      href={CTA_BUTTONS[msg.cta].href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center gap-2 rounded-lg bg-teal-500 hover:bg-teal-400 text-white text-sm font-medium px-3 py-2 transition-colors"
                     >
-                      {msg.id.startsWith('error') ? (
-                        <GlowingText message={msg.content} isError={true} />
-                      ) : (
-                        <p className="text-sm whitespace-pre-wrap break-words">{msg.content}</p>
-                      )}
-                      <div className="text-xs opacity-70 mt-1 text-right">
-                        {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-                
-                {/* Typing indicator */}
-                {isTyping && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-4 flex justify-start"
-                  >
-                    <div className="bg-slate-800/60 rounded-xl p-3 max-w-[80%] rounded-tl-none border border-white/10">
-                      <div className="flex space-x-1">
-                        <motion.div
-                          className="w-2 h-2 bg-teal-400 rounded-full"
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.8, delay: 0 }}
-                        />
-                        <motion.div
-                          className="w-2 h-2 bg-teal-400 rounded-full"
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }}
-                        />
-                        <motion.div
-                          className="w-2 h-2 bg-teal-400 rounded-full"
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }}
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <div ref={messagesEndRef} />
-            </div>
-            
-            {/* Input Container */}
-            <div className="p-3 border-t border-white/10 bg-gradient-to-r from-black to-slate-900/80">
-              {hasError && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="text-red-400 text-xs mb-2"
-                >
-                  <GlowingText 
-                    message="Connection error. Please check your internet connection and try again later." 
-                    isError={true} 
-                  />
-                </motion.div>
+                      {CTA_BUTTONS[msg.cta].icon === 'calendar' ? <FaCalendarAlt size={13} /> : <FaArrowRight size={12} />}
+                      {CTA_BUTTONS[msg.cta].label}
+                    </a>
+                  )}
+                </div>
+              ))}
+
+              {!hasConversation && (
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {STARTERS.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => send(s)}
+                      className="text-xs text-teal-200 border border-teal-500/40 bg-teal-500/10 hover:bg-teal-500/20 rounded-full px-3 py-1.5 transition-colors"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
               )}
-              <div className="flex">
+
+              {isTyping && (
+                <div className="mb-3 flex justify-start" aria-label="Assistant is typing">
+                  <div className="bg-slate-800/60 rounded-xl px-3 py-3 rounded-tl-none border border-white/10 flex gap-1">
+                    {[0, 0.2, 0.4].map((d) => (
+                      <motion.span
+                        key={d}
+                        className="w-2 h-2 bg-teal-400 rounded-full"
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ repeat: Infinity, duration: 0.8, delay: d }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Input */}
+            <form
+              className="p-3 border-t border-white/10 bg-gradient-to-r from-black to-slate-900/80"
+              onSubmit={(e) => {
+                e.preventDefault()
+                send(input)
+              }}
+            >
+              {/* Honeypot: invisible to people, tempting to form-filling bots. */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] w-px h-px opacity-0"
+              />
+              <div className="flex items-end gap-2">
                 <textarea
                   ref={inputRef}
-                  value={inputMessage}
+                  value={input}
+                  maxLength={MAX_CHARS}
                   onChange={(e) => {
-                    setInputMessage(e.target.value);
-                    // Auto-resize the textarea based on content (up to 3 lines before scrolling)
-                    e.target.style.height = 'auto';
-                    const lineHeight = 24; // Approximate line height in pixels
-                    const maxHeight = lineHeight * 3; // Max 3 lines before scrolling
-                    e.target.style.height = Math.min(maxHeight, e.target.scrollHeight) + 'px';
+                    setInput(e.target.value)
+                    e.target.style.height = 'auto'
+                    e.target.style.height = Math.min(96, e.target.scrollHeight) + 'px'
                   }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendMessage();
+                      e.preventDefault()
+                      send(input)
                     }
                   }}
-                  placeholder="Type your message..."
-                  className="flex-1 bg-slate-800/50 border border-white/10 rounded-none py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none overflow-auto min-h-[40px] max-h-[72px]"
-                  id="chat-message-input"
-                  name="chat-message-input"
-                  aria-label="Chat message"
+                  placeholder="Ask about a website, automation, or AI..."
+                  aria-label="Message"
                   rows={1}
-                  style={{ overflow: 'hidden' }}
+                  className="flex-1 resize-none bg-slate-800/50 border border-white/10 rounded-lg py-2 px-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50 max-h-24"
                 />
                 <button
-                  onClick={handleSendMessage}
-                  disabled={!inputMessage.trim()}
-                  className="bg-teal-500 text-white px-3 rounded-none hover:bg-teal-600 disabled:opacity-50 transition-colors"
+                  type="submit"
+                  disabled={!input.trim() || isTyping}
+                  aria-label="Send message"
+                  className="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg bg-teal-500 text-white hover:bg-teal-400 disabled:opacity-40 transition-colors"
                 >
-                  <FaPaperPlane />
+                  <FaPaperPlane size={14} />
                 </button>
               </div>
-            </div>
+              <div className="mt-2 flex justify-between text-[11px] text-gray-500">
+                <span>AI assistant. Chats are saved so Russ can follow up.</span>
+                {input.length > MAX_CHARS - 300 && (
+                  <span>
+                    {input.length}/{MAX_CHARS}
+                  </span>
+                )}
+              </div>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   )
-} 
+}

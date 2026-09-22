@@ -364,7 +364,7 @@ export default async function Home() {
         {/* CTA Section */}
         <section className="py-24 px-4">
           <div className="container max-w-4xl mx-auto text-center">
-            <div className="w-full">
+            <div className="w-full relative">
               <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-teal-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity pointer-events-none" />
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 flex flex-wrap md:flex-nowrap items-center justify-center">
                 <span className="mr-2">🔥</span>

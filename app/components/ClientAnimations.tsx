@@ -49,7 +49,7 @@ export function SolutionsGrid() {
     {
       icon: Rocket,
       title: "$32.7K Over Annual Goal",
-      description: "Leveraged automation to drive $146,278 in personal annual revenue at Comcast, surpassing the 2024 target by 28.8%. Streamlined call processes, strategic upselling, and optimized sales automation."
+      description: "Leveraged automation to drive $146,278 in personal annual revenue, surpassing the 2024 target by 28.8%. Streamlined call processes, strategic upselling, and optimized sales automation."
     },
     {
       icon: Code,
@@ -59,7 +59,7 @@ export function SolutionsGrid() {
     {
       icon: LineChart,
       title: "950% Sales Growth",
-      description: "Lifted monthly sales from 2 to 21 units for a rep selling high-ROI products through targeted coaching, refined call structure, and strategic upsell scripting. Consistently mentored peers while maintaining Elite (top 3%) sales rank at Comcast."
+      description: "Lifted monthly sales from 2 to 21 units for a rep selling high-ROI products through targeted coaching, refined call structure, and strategic upsell scripting. Consistently mentored peers while maintaining Elite (top 3%) sales rank."
     }
   ]
 
