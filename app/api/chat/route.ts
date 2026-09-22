@@ -71,8 +71,8 @@ function burstLimited(key: string): boolean {
 function originAllowed(origin: string | null): boolean {
   if (!origin) return false
   if (ALLOWED_ORIGINS.has(origin)) return true
-  // Vercel preview deployments of this project.
-  return /^https:\/\/generuss-dot-com-[a-z0-9-]+-washyaderners-projects\.vercel\.app$/.test(origin)
+  // Vercel preview deployments of this project (hash URLs and branch aliases).
+  return /^https:\/\/generuss-dot-(com-)?[a-z0-9-]+-washyaderners-projects\.vercel\.app$/.test(origin)
 }
 
 function clientIp(req: Request): string {
