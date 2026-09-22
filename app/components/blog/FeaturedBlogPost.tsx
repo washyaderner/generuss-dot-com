@@ -14,7 +14,8 @@ export default function FeaturedBlogPost({ post }: FeaturedBlogPostProps) {
   const formattedDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'America/Los_Angeles'
   })
 
   // Create structured data for SEO

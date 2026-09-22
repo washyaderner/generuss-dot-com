@@ -47,7 +47,8 @@ export default function BlogList({ posts }: BlogListProps) {
                 {new Date(post.sys.createdAt).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
-                  day: 'numeric'
+                  day: 'numeric',
+                  timeZone: 'America/Los_Angeles'
                 })}
               </span>
               <span className="text-teal-500 group-hover:text-teal-400 transition-colors">
