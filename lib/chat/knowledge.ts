@@ -130,6 +130,12 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
   - AI Visibility Check, https://generussdesign.com/tools/ai-visibility : Russ tests the prompts your customers actually use and sends back what ChatGPT and friends say about you, same day.
   - Hire vs. Automate, https://generussdesign.com/tools/hire-vs-automate : a hire against an automation over three years.
   - Workflow Automation Score, https://generussdesign.com/tools/automation-score : a 0 to 100 score plus the hours and dollars a workflow eats each year.
+  - Rent vs Own, https://generussdesign.com/tools/rent-vs-own/ : a monthly Wix, Squarespace, Shopify, or agency bill against a one-time build with no hosting fees; shows the break-even month and says plainly when renting is cheaper.
+  - Who Holds Your Keys?, https://generussdesign.com/tools/website-ownership-check/ : reads your domain's public records live (registrar, renewal date, transfer lock, DNS, host, email), then seven questions show which logins you actually control.
+  - Google Review Calculator, https://generussdesign.com/tools/google-review-calculator/ : how many five-star reviews it takes to reach the rating you want, how long at your pace, and what one bad review costs.
+  - Missed Call Calculator, https://generussdesign.com/tools/missed-call-calculator/ : what unanswered calls cost each month and what a missed-call text-back could win back.
+  - Email Deliverability Check, https://generussdesign.com/tools/email-deliverability-check/ : checks a domain's SPF, DKIM, and DMARC live and explains in plain English whether follow-up emails are likely to land.
+  - Ticket Fee Calculator, https://generussdesign.com/tools/ticket-fee-calculator/ : Eventbrite and eight other ticket platforms' fees next to your own site with Stripe, per event and per year, and when an owned event site pays for itself.
 - The 5-Leak Website Teardown: drop a URL on the generussdesign.com home page and get the five biggest leaks with fixes, same day. No drip campaign.
 
 # THINGS RUSS HAS BUILT
@@ -194,6 +200,9 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "What's AEO and GEO?", a: "SEO gets you ranked in the links. AEO gets you into the answer box at the top. GEO gets you cited when ChatGPT or Google's AI Overviews write the answer. Most sites have only ever done the first one." },
   { q: "Does ChatGPT recommend my business?", a: "The AI Visibility Check answers exactly that: Russ tests the prompts your customers use and sends you what the AI tools say, same day, free." },
   { q: "Why is my website slow?", a: "Usually a page builder or theme shipping scripts to every visitor whether they're needed or not. The Slow-Site Cost Calculator shows what it costs you, and a hand-coded rebuild removes the weight." },
+  { q: "Are Eventbrite fees worth it for my event?", a: "It depends on your volume. The Ticket Fee Calculator puts your ticket price and sales next to Eventbrite, eight other platforms, and your own site with Stripe, and it says plainly when staying put is the better deal." },
+  { q: "My web designer registered my domain. Do I own it?", a: "Maybe not. Who Holds Your Keys? reads your domain's public record and walks you through the seven logins that decide who controls your site and your email. Everything Russ builds is in your name." },
+  { q: "Is my Wix or Squarespace bill worth it?", a: "The Rent vs Own calculator puts your monthly bill next to a one-time build with no hosting fees and shows the break-even month. If renting is cheaper for you, it says so." },
   { q: "Why not just use a template or a subscription site?", a: "Templates and subscriptions are fine for something short-lived or live tonight for $0. For a site your business leans on for years, a $175 a month subscription passes the cost of a $4,500 build around month 26, and you still don't own it." },
   { q: "Is there a contract?", a: "Every project is a fixed-scope plan with the price locked before work starts, so you know exactly what you're getting and what it costs. Russ sends it after the discovery call." },
   { q: "How do payments work?", a: "A deposit to start and the balance at launch; Russ confirms the details in your proposal. If a full build misses the 21-day date, you don't pay the balance until it's live." },
