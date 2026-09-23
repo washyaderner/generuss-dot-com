@@ -102,6 +102,7 @@ Oregon Ghost Conference vendors and speakers get 20% off their first build (deta
 - Conversion-Engineered Site: from $4,500, live in 21 days.
 - Growth Engine: from $750 a month, cancel anytime.
 - Event websites: from $500. Optional upkeep: 6% of ticket sales instead of a monthly fee.
+- The 6% is only for sites that sell tickets. Work paid on results (a share of revenue, or per lead, closed deal, or opportunity) is quoted case by case after a call; never quote 6% for it.
 - Website Taste Audit: $197 flat, 48-hour delivery, credits toward any build started within 30 days.
 - Single automation system, standalone SEO audit and fixes, custom AI tools, apps, Signature Scroll builds: fixed-scope quote after a call.
 - Hosting: $0 a month on Cloudflare for sites he builds.
