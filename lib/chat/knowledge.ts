@@ -94,14 +94,14 @@ He builds full products, not just sites. Tarotdoxa is his own: native iPhone and
 Two decades of selling shape everything he builds: scripts, call structure, follow-up, and the pages that do the selling. On his earlier site: in a past sales role, his scripting and live-call coaching took a real estate marketing firm's daily revenue from $55,440 to $87,120, and they created a dedicated Line Coach role for him. Sales thinking also runs this assistant.
 
 ## 7. Event and conference websites (details at https://generussdesign.com/event-websites)
-Custom event sites that sell tickets: ticket path built first, a schedule people can read on a phone in a hallway, speaker and vendor directories, tiered sponsor walls, fast under announcement-day traffic, mobile-first. Hand-built from $500, live in 21 days, free hosting, you own everything, so there's no monthly platform fee riding on the event budget. Proof: the Oregon Ghost Conference platform.
+Custom event sites that sell tickets: ticket path built first, a schedule people can read on a phone in a hallway, speaker and vendor directories, tiered sponsor walls, fast under announcement-day traffic, mobile-first. Hand-built from $500, live in 21 days, free hosting, you own everything, so there's no monthly platform fee riding on the event budget. Upkeep through the season is optional and priced as a 6% share of ticket sales instead of a monthly maintenance bill, so it rises and falls with the event. Proof: the Oregon Ghost Conference platform.
 Oregon Ghost Conference vendors and speakers get 20% off their first build (details at https://generussdesign.com/ogc). He knows the paranormal and metaphysical community, so vendors don't have to explain their world first.
 
 # PRICES AT A GLANCE (all published)
 - Launch Page: $500 flat, live in 7 days.
 - Conversion-Engineered Site: from $4,500, live in 21 days.
 - Growth Engine: from $750 a month, cancel anytime.
-- Event websites: from $500.
+- Event websites: from $500. Optional upkeep: 6% of ticket sales instead of a monthly fee.
 - Website Taste Audit: $197 flat, 48-hour delivery, credits toward any build started within 30 days.
 - Single automation system, standalone SEO audit and fixes, custom AI tools, apps, Signature Scroll builds: fixed-scope quote after a call.
 - Hosting: $0 a month on Cloudflare for sites he builds.
@@ -123,11 +123,11 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
 
 # FREE THINGS TO OFFER
 - Free tools at https://generussdesign.com/tools/ (they tell the truth even when the truth is "your site is fine"):
-  - Website Leak Scanner, https://generussdesign.com/tools/website-leak-scanner : Russ tears down your actual site against five conversion leaks and emails a personal report the same day.
+  - Website Leak Scanner, https://generussdesign.com/tools/website-leak-scanner : a scanner opens your actual site on a phone and a desktop, runs Google's speed test and a Google search, and Russ sends the report on five conversion leaks the same day.
   - Slow-Site Cost Calculator, https://generussdesign.com/tools/slow-site-cost : turns load time into a monthly dollar figure.
   - Missed-Lead Calculator, https://generussdesign.com/tools/missed-lead-calculator : what slow follow-up costs per month.
   - Local Visibility Grade, https://generussdesign.com/tools/local-visibility : twelve checks on your Google presence, a letter grade, and the gaps to close first.
-  - AI Visibility Check, https://generussdesign.com/tools/ai-visibility : Russ tests the prompts your customers actually use and sends back what ChatGPT and friends say about you, same day.
+  - AI Visibility Check, https://generussdesign.com/tools/ai-visibility : five customer prompts asked twice each on ChatGPT's and Perplexity's search (20 answers), with who gets named instead and three fixes, emailed the same day.
   - Hire vs. Automate, https://generussdesign.com/tools/hire-vs-automate : a hire against an automation over three years.
   - Workflow Automation Score, https://generussdesign.com/tools/automation-score : a 0 to 100 score plus the hours and dollars a workflow eats each year.
   - Rent vs Own, https://generussdesign.com/tools/rent-vs-own/ : a monthly Wix, Squarespace, Shopify, or agency bill against a one-time build with no hosting fees; shows the break-even month and says plainly when renting is cheaper.
@@ -136,13 +136,13 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
   - Google Review Calculator, https://generussdesign.com/tools/google-review-calculator/ : how many five-star reviews it takes to reach the rating you want, how long at your pace, and what one bad review costs.
   - Missed Call Calculator, https://generussdesign.com/tools/missed-call-calculator/ : what unanswered calls cost each month and what a missed-call text-back could win back.
   - Email Deliverability Check, https://generussdesign.com/tools/email-deliverability-check/ : checks a domain's SPF, DKIM, and DMARC live and explains in plain English whether follow-up emails are likely to land.
-  - Ticket Fee Calculator, https://generussdesign.com/tools/ticket-fee-calculator/ : Eventbrite and eight other ticket platforms' fees next to your own site with Stripe, per event and per year, and when an owned event site pays for itself.
+  - Ticket Fee Calculator, https://generussdesign.com/tools/ticket-fee-calculator/ : Eventbrite and eight other ticket platforms' fees next to your own site with Stripe plus the 6% upkeep share, per event and per year, and when an owned event site pays for itself.
 - The 5-Leak Website Teardown: drop a URL on the generussdesign.com home page and get the five biggest leaks with fixes, same day. No drip campaign.
 
 # THINGS RUSS HAS BUILT
 
 ## Client work
-- Oregon Ghost Conference, https://oregonghostconference.com : not just a website, the whole event platform. Public site (schedule, vendors, classes, events, Kids Zone, merch, ticketing), a four-step vendor, speaker, and sponsor application that autosaves, a vendor feedback survey that feeds the dashboard, and a private, role-gated Mission Control where the committee runs the conference (applications, roster, check-in, roadmap, an AI copilot). 15th annual conference, 100+ vendors, all editable without a developer. Astro, Cloudflare Pages, Supabase, Stripe.
+- Oregon Ghost Conference, https://oregonghostconference.com : not just a website, the whole event platform. Public site (schedule, vendors, classes, events, Kids Zone, merch, ticketing), a four-step vendor, speaker, and sponsor application that autosaves, a vendor feedback survey that feeds the dashboard, and a private, role-gated Mission Control where the committee runs the conference (applications, roster, check-in, roadmap, an AI copilot). 15th annual conference, 81 vendors, all editable without a developer. Astro, Cloudflare Pages, Supabase, Stripe.
 - Invincible Media: the AI proposal generator (4+ hours down to about 15 minutes, 15+ page growth plans from call transcripts), then a second project optimizing their GPT-based GTM and RevOps proposal builder. Both 5 stars on Upwork.
 - Crystal Seed Tarot, https://crystalseedtarot.com : a custom site for a working tarot reader's whole business. Booking, recurring events, blog, gallery, reviews, services menu, validated forms, 57 reusable components, mobile-first.
 - Vibe'N Thrive, https://vibenthrivetherapy.com : a single-page conversion site for a vibroacoustic therapy practice. Explainer, services, pricing, founder story, booking, with the booking funnel tested end to end.
@@ -199,7 +199,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "Can you build an app?", a: "Yes. Tarotdoxa is his own: native iPhone and Android apps, the AI engine, the backend, and the site. App projects are scoped on a call." },
   { q: "Can you build a chatbot like this one?", a: "Yes. This assistant is his work, and he builds the same kind of thing for businesses: trained on your offers, filtered for spam, and wired to send you the leads." },
   { q: "What's AEO and GEO?", a: "SEO gets you ranked in the links. AEO gets you into the answer box at the top. GEO gets you cited when ChatGPT or Google's AI Overviews write the answer. Most sites have only ever done the first one." },
-  { q: "Does ChatGPT recommend my business?", a: "The AI Visibility Check answers exactly that: Russ tests the prompts your customers use and sends you what the AI tools say, same day, free." },
+  { q: "Does ChatGPT recommend my business?", a: "The AI Visibility Check answers exactly that: it asks ChatGPT's and Perplexity's search the prompts your customers use, 20 answers in all, and emails you what they say, same day, free." },
   { q: "Why is my website slow?", a: "Usually a page builder or theme shipping scripts to every visitor whether they're needed or not. The Slow-Site Cost Calculator shows what it costs you, and a hand-coded rebuild removes the weight." },
   { q: "Are Eventbrite fees worth it for my event?", a: "It depends on your volume. The Ticket Fee Calculator puts your ticket price and sales next to Eventbrite, eight other platforms, and your own site with Stripe, and it says plainly when staying put is the better deal." },
   { q: "My web designer registered my domain. Do I own it?", a: "Maybe not. Who Holds Your Keys? reads your domain's public record and walks you through the seven logins that decide who controls your site and your email. Everything Russ builds is in your name." },
@@ -229,7 +229,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "What's Pharallax?", a: "Russ's AI strategy engine at pharallax.ai. It pressure-tests a business strategy through three adversarial lenses and delivers a quality-scored report. Every website build includes an analysis free ($497 value)." },
   { q: "What's Tarotdoxa?", a: "Russ's own AI tarot app with a real reader's voice, for iPhone and Android, with a website at tarotdoxa.com. He built the apps, the AI engine, and the backend." },
   { q: "What's Pharadoxa?", a: "An autonomous AI agent Russ built for himself in about 24 hours: long-term memory, research, Upwork job screening, even a nightly dream mode. The story's on his blog." },
-  { q: "Tell me about the Oregon Ghost Conference project.", a: "Russ built the conference's whole platform: public site with ticketing and schedule, a four-step vendor and speaker application, a feedback survey, and a private Mission Control dashboard the committee runs everything from. 100+ vendors, all editable without a developer." },
+  { q: "Tell me about the Oregon Ghost Conference project.", a: "Russ built the conference's whole platform: public site with ticketing and schedule, a four-step vendor and speaker application, a feedback survey, and a private Mission Control dashboard the committee runs everything from. 81 vendors, all editable without a developer." },
   { q: "I run an event. Can you help?", a: "Yes. Event sites are a specialty: ticketing first, a schedule that works on a phone, vendor and speaker directories, sponsor tiers. From $500, live in 21 days, no monthly platform fee." },
   { q: "I'm an Oregon Ghost Conference vendor.", a: "Then you get 20% off your first build, and Russ already knows your world. Custom sites start at $500 with free hosting." },
   { q: "Can you automate my proposals, onboarding, or reporting?", a: "That's squarely his lane. The Invincible Media proposal generator took a 4-hour task down to 15 minutes. The first step is mapping your current process on a call." },
