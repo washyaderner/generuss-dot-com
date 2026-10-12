@@ -15,6 +15,7 @@ export const revalidate = 3600 // Revalidate every hour
 // Generate metadata for the blog list page
 export const metadata: Metadata = {
   title: 'Blog | Generuss',
+  alternates: { canonical: '/blog' },
   description: 'Insights, tips, and strategies to elevate your sales and business processes. Stay updated with the latest trends and best practices.',
   openGraph: {
     title: 'Generuss Blog',

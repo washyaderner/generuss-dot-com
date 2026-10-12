@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return {
       title: `${post.title} | Generuss Blog`,
       description: post.summary,
+      alternates: { canonical: `/blog/${post.slug}` },
       openGraph: {
         title: post.title,
         description: post.summary,

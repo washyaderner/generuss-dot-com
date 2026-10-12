@@ -1,4 +1,5 @@
 import Link from "next/link"
+import type { Metadata } from "next"
 import { Zap, Star, ArrowRight, Bot, Rocket, UserPlus, Code, DollarSign, Target, Timer, TrendingUp, LineChart, Banknote, Book, BrainCircuit, Calendar, ChartBar, Clock, DatabaseZap, GitBranch, Laptop, Mail, MapPin, Megaphone, MessageSquare, Palette, Phone, Presentation, Settings, Sparkles, Terminal, Trophy, Users, Workflow } from "lucide-react"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLink } from "@/components/nav-link"
@@ -11,6 +12,10 @@ import Image from 'next/image'
 import { CalendarEmbed } from "@/components/CalendarEmbed"
 import { BackToTop } from "@/components/back-to-top"
 import ClientAnimations, { SolutionsGrid, AnimatedPortfolio, AnimatedReviews } from "./components/ClientAnimations"
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 // Navigation links used in both desktop and mobile nav
 const navigationLinks = [
