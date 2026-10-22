@@ -1,0 +1,22 @@
+# Step 2 of 2: when Vercel's preview build for a labeled Dependabot PR succeeds, merge it.
+# The merge to main is what makes Vercel deploy production. Majors and minors never get here.
+name: Dependabot auto-merge
+on: deployment_status
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  merge:
+    if: github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Preview')
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.event.deployment.sha }}
+        run: |
+          set -euo pipefail
+          pr=$(gh api "repos/$GITHUB_REPOSITORY/commits/$SHA/pulls" \
+            --jq '[.[] | select(.state=="open" and .user.login=="dependabot[bot]" and .head.sha==env.SHA and any(.labels[]; .name=="automerge-ok"))][0].number // empty')
+          if [ -z "$pr" ]; then echo "No labeled open Dependabot PR at $SHA, nothing to merge."; exit 0; fi
+          echo "Merging PR #$pr (Vercel preview green at $SHA)"
+          gh pr merge "$pr" -R "$GITHUB_REPOSITORY" --squash --delete-branch
