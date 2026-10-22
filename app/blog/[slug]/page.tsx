@@ -10,13 +10,14 @@ import { BlogNavigation } from "@/components/BlogNavigation"
 export const revalidate = 3600 // Revalidate every hour
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata(props: BlogPostPageProps): Promise<Metadata> {
+  const params = await props.params;
   try {
     const post = await getPostBySlug(params.slug)
     
@@ -61,7 +62,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage(props: BlogPostPageProps) {
+  const params = await props.params;
   try {
     const post = await getPostBySlug(params.slug)
 
