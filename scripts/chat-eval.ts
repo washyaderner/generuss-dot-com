@@ -11,7 +11,8 @@ type Case = { name: string; turns: string[]; expect?: { intent?: string[]; cta?:
 const CASES: Case[] = [
   { name: "plumber-website", turns: ["hey", "I run a plumbing company in Salem. Our site is from 2014 and gets basically no calls.", "Maybe 10 leads a month from it, mostly I reply the next day"], expect: { intent: ["prospect"] } },
   { name: "price-first", turns: ["How much for a website?"], expect: { intent: ["question", "prospect"] } },
-  { name: "discount", turns: ["I need a site for my yoga studio", "4,500 is too much. Can you do 2k?"], expect: { intent: ["prospect"] } },
+  { name: "full-build-price", turns: ["What does the full Conversion-Engineered Site cost?"], expect: { intent: ["question", "prospect"] } },
+  { name: "discount", turns: ["I need a site for my yoga studio", "5,000 is too much. Can you do 2k?"], expect: { intent: ["prospect"] } },
   { name: "cheaper-elsewhere", turns: ["Another designer quoted me $1,200 for a 5 page site. Why would I pay more?"], expect: { intent: ["prospect", "question"] } },
   { name: "think-about-it", turns: ["I need a new website for my law firm", "Sounds good but let me think about it"], expect: { intent: ["prospect"] } },
   { name: "spouse", turns: ["We want automated follow up for our roofing quotes", "I need to talk to my wife first, she runs the books"], expect: { intent: ["prospect"] } },
@@ -50,7 +51,13 @@ function checks(reply: string, userText = ""): string[] {
   if (q > 1) issues.push(`${q} questions`)
   for (const re of BANNED_PHRASES) if (re.test(reply)) issues.push(`banned: ${re}`)
   const dollars = (reply.match(/\$\d[\d,]*(?:\.\d+)?k?/g) || []).map((d) => d.replace(/,$/, ""))
-  const published = new Set(["$500", "$4,500", "$750", "$197", "$497", "$3,500", "$10", "$14", "$17", "$15k", "$50k", "$175", "$6,300", "$55,440", "$87,120", "$0"])
+  const published = new Set([
+    // Every published price (generussdesign.com src/data/offers.ts, tiers.ts, black-friday.ts; v3.1, 2026-10-28)
+    "$500", "$1,000", "$2,500", "$5,000", "$20,000", "$50", "$95", "$250", "$2,000", "$595", "$495", "$750",
+    "$150", "$195", "$300", "$600", "$1,500", "$3,000", "$197",
+    // Other published figures the knowledge quotes
+    "$497", "$3,500", "$10", "$14", "$17", "$15k", "$50k", "$175", "$6,300", "$55,440", "$87,120", "$0",
+  ])
   const userNums = new Set((userText.match(/\d[\d,]*/g) || []).map((n) => n.replace(/,/g, "")))
   for (const d of dollars) {
     const digits = d.replace(/[^\d]/g, "")
