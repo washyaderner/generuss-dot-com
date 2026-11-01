@@ -3,13 +3,15 @@
 // Every fact here is public: it comes from generussdesign.com, generuss.com,
 // tarotdoxa.com, pharallax.ai, Russ's published blog posts, or a live product.
 // Update this file when an offer, price, or project changes; the assistant
-// only knows what is written here. Last full refresh: 2026-09-22.
+// only knows what is written here. Last full refresh: 2026-09-22. Prices,
+// payment terms and guarantees re-synced 2026-10-31 from generussdesign.com
+// src/data/offers.ts, tiers.ts and black-friday.ts (pricing v3.1, 2026-10-28).
 //
 // Never add: the day job or its employer, family members, home location,
 // phone numbers, client names that are not already public, or any number
 // that is not published somewhere Russ controls.
 
-export const KNOWLEDGE_DATE = "2026-09-22";
+export const KNOWLEDGE_DATE = "2026-10-31";
 
 export const BOOKING_URL = "https://app.cal.com/generuss/discovery-call";
 export const RUSS_EMAIL = "russ@generuss.com";
@@ -52,25 +54,36 @@ export const KNOWLEDGE = `
 ## 1. Custom websites (details at https://generussdesign.com)
 Hand-coded sites (Astro, no page builders, no templates) built to turn visitors into booked calls and paying customers. Fast on every phone, free hosting on Cloudflare, and the client owns the code, domain, and content.
 
-Three offers:
-- The Launch Page, $500 flat. One page with one job: offer, proof, booking. Copy written for you in your voice, booking or contact form wired, mobile-first, free hosting ($0 a month), you own it, Loom walkthrough at handoff. Live in 7 days from kickoff or you don't pay the balance. Every dollar credits toward the full build for 6 months. Best for new or rebooting service businesses (therapists, trades, coaches, studios) that need to look hireable now. Live example: Vibe N Thrive.
-- The Conversion-Engineered Site, from $4,500. The full custom build: discovery call and tech stack audit, conversion-first copy and structure, custom design, mobile-first, static-first architecture with no plugin rot, contact-to-CRM automation wired, launch docs and a Loom walkthrough, two rounds of revisions, 30 days of direct post-launch support. Live in 21 days or you don't pay the balance. Love the first design or your deposit back. Fixed scope, price locked up front.
-- The Growth Engine, from $750 a month. The site plus monthly optimization across nine search and AI surfaces (SEO, AEO, GEO, map pack and Google Business Profile, voice search, speed and Core Web Vitals, conversion, email deliverability, social sharing). Fixes are shipped, not suggested. A 5-minute monthly report: what moved, what's next. Month one starts with the full nine-surface audit. Month to month, cancel anytime. Works on sites he built and sites he didn't. Includes priority turnaround on site changes.
+Five builds, each a fixed price or a starting price (prices updated October 28, 2026). The deposit is half the build price; the other half is due at launch (the Platform is paid in milestones set in its proposal). Hosting is free and the client owns the code, domain and content on every build.
+- The Launch Page, $500 flat. One page with one job: hero, offer, proof, booking. Copy written in your voice, booking or contact form wired, mobile-first, Loom walkthrough at handoff. Live in 7 days from kickoff or you don't pay the balance. Every dollar credits toward a bigger build for 6 months. Live example: Vibe N Thrive.
+- The Starter Site, $1,000 flat. Three to five pages (home, about, services, contact or booking, one more), your words and photos placed and edited for clarity, form wired. Live in 10 days. Credits toward a bigger build for 6 months.
+- The Business Site, $2,500 flat. Five to eight pages matched to how customers search, custom design, copy written for the home page and the money page, one custom feature (gallery, menu, reviews feed, schedule), booking plus contact-to-CRM automation wired, Google Business Profile tuned up. Live in 14 days, 14 days of support after launch.
+- The Conversion-Engineered Site, from $5,000 (the most popular). The full custom build: discovery call and tech stack audit, conversion-first copy and structure, custom design, static-first architecture with no plugin rot, contact-to-CRM automation wired, launch docs and a Loom walkthrough, 30 days of support after launch. Live in 21 days or you don't pay the balance; love the first design or your deposit back.
+- The Platform, from $20,000. A site plus the system that runs the business behind it: a custom CRM or portal, applications that flow into records, payments and invoices, email that sends itself, an admin dashboard, training. Scoped and quoted after a call; it runs on milestones, not the 21-day clock.
+Every build gets 30 days of bug fixes.
+
+Monthly options (all optional; the site stays live without any of them):
+- Care plans, one per build: $50 a month (Launch Page), $95 (Starter), $250 (Business, which also keeps your automation running), $500 (Conversion-Engineered), from $2,000 (Platform). They buy changes handled for you, a watch on uptime, domain and forms, and a person to text. Month to month; a year paid up front gets 2 months free. Extra time is $150 an hour on a plan, $195 off one.
+- Steady Search, $595 a month: 4 new posts a month, 4 money page refreshes, review requests your team sends, a weekly Google Business Profile post, and a 5-minute monthly report. A 3-month start, then month to month (month to month from day one adds a $250 setup). Founding rate: $495 a month for the first 3 months, for the first 3 clients, in exchange for permission to share their results; then $595. An honest Google review is asked for, never required, and is not traded for the rate. Details at https://generussdesign.com/seo/
+- The Growth Engine, from $750 a month: everything in Steady Search plus the work on the site itself across all nine surfaces people search (SEO, AEO, GEO, maps, voice, speed, conversion, email, social), fixes shipped directly, AI visibility work, priority turnaround, and the care plan included for Launch, Starter and Business sites. Month to month, cancel anytime. Details at https://generussdesign.com/seo/#plan-growth
+
+Black Friday 2026 (ends Monday, November 30, 2026): 40% off the four fixed-price builds ($300, $600, $1,500, from $3,000) for 3 businesses that agree to be a published case study. Book a call by Monday, November 30, 2026, pay the deposit by Friday, December 11, and kick off by January 31, 2027. One discount per build; the Platform is excluded; both guarantees stay. The client approves every published number and quote. Withdrawing from the case study before it is published puts the 40% back on the invoice; after it is published, any number or quote comes down on request, nothing owed. Details at https://generussdesign.com/black-friday/ . After November 30 this offer is over; do not quote it.
 
 Three ways to build (the paths page, https://generussdesign.com/paths/):
 - Launch Page: bookable in days. Exemplar: Vibe N Thrive.
-- Growth Site: built to get found and cited by Google, Maps, and AI assistants. From $4,500, or grown monthly on the Growth Engine. Exemplar: Pharallax, 199 indexed pages.
+- Growth Site: built to get found and cited by Google, Maps, and AI assistants. From $5,000, or grown monthly on Steady Search or the Growth Engine. Exemplar: Pharallax, 199 indexed pages.
 - Signature Scroll: a cinematic, art-directed scroll build for brands that live on feel (artists, venues, premium products, events). Quoted per build. Exemplar: Styx Stones and Bones, https://styx-stones-bones.pages.dev (in progress, live to click through).
 
 Bonus with every build: a Pharallax Strategic Analysis ($497 value). Before he touches a pixel, his AI engine pressure-tests the business strategy so the build fixes what's actually broken.
 
-## 2. Automation systems (details at https://generussdesign.com/automation)
-For the leads that die after the form gets filled out. Four systems, each set up once and left running:
-- Speed-to-lead: every form fill or missed call gets an instant, personal-sounding reply that books the next step in under a minute, and the owner gets pinged with context.
-- Follow-up sequences: quotes that chase themselves, no-show recovery, day-3 and day-10 nudges written in the owner's voice. Sequences stop the moment a real conversation starts.
-- Review engine: detects the happy moment, times the ask, and deep-links straight to the Google profile.
-- CRM wiring: leads land tagged, deduped, and routed, so there's one pipeline instead of four inboxes.
-Pricing: a single system is a fixed-scope build quoted after a short call. Full pipeline wiring is part of the Growth Engine ($750 a month). Russ maintains what he builds: everything ships documented with a walkthrough video, and if something breaks it's his phone that buzzes.
+## 2. Boring automation (details at https://generussdesign.com/automation)
+The thesis: the boring automations pay the best. The flashy AI demo is fun to watch; the boring workflow is the one that pays, because it follows rules you can write down, so it is easy to test, price and keep running. Russ wires the dull, repeatable jobs a business already does by hand, the same way, over and over, so they run without a person, on the tools the business already uses, written in the owner's voice. His rule: do the job by hand first; if you can't write the steps down, nobody can automate them. On the call he asks one question that sorts where to start: "If 500 new customers showed up tomorrow, what breaks first?" Start with the one closest to money.
+Ten boring automations in three groups:
+- Makes money (revenue that was already yours): Speed to lead (a form fill or missed call gets a personal reply by text or email in under 60 seconds, the lead is qualified, the right person is pinged with context, and the lead gets a link to book the next step). Follow-up that doesn't quit (quotes chase themselves on day 3 and day 10, no-shows get a link to rebook, the sequence stops as soon as a human replies). Database reactivation (past customers, old quotes and quiet leads get a personal message about their own history with the business, no blast). A review engine on autopilot (a timed ask after every job, to every customer the same way, with a direct link to the Google profile).
+- Saves money (costs that stop showing up): Paperwork that files itself (invoices, intake forms and PDFs read, checked, flagged and pushed into the books or CRM, with one human glance at the end; rule-based wherever possible). Invoices that chase themselves (polite overdue reminders on the schedule the owner sets, with the pay link, stopping when payment lands). Dispatch without the retyping (phone orders and schedule changes land in the format the crew already reads, every morning).
+- Saves time (hours back, every week): The numbers in your pocket (one morning text or Slack message with yesterday's leads, jobs booked and money in, plus alerts when a job slips; no dashboard). Intake that fills itself (leads tagged, deduped and routed so the calendar, CRM and inbox agree). Voice note to document (record the walk-through on a phone, get back a formatted estimate, proposal or job sheet in the owner's words and prices).
+Consent: texts and emails go only to people the business has permission to contact, with an opt-out in every sequence and the business address plus an unsubscribe link in marketing email; an old contact list alone is not permission to text.
+Pricing: each automation is a fixed-scope build quoted after a short call; no published price. If the client's site is on the Business care plan ($250 a month), keeping the automation running is part of it. Russ maintains what he builds: everything ships documented with a walkthrough video, and if something breaks it's his phone that buzzes. The free calculators (Missed-Lead Calculator, Hire vs. Automate, Workflow Automation Score) let an owner run the math in their own numbers first.
 Proof: email flows (welcome, browse recovery, post-purchase) live in production for a specialty food brand, full case study after client sign-off. And Pharallax runs end to end without a human in the loop.
 
 ## 3. Search and AI visibility: SEO, AEO, GEO (details at https://generussdesign.com/seo)
@@ -97,30 +110,35 @@ Two decades of selling shape everything he builds: scripts, call structure, foll
 Custom event sites that sell tickets: ticket path built first, a schedule people can read on a phone in a hallway, speaker and vendor directories, tiered sponsor walls, fast under announcement-day traffic, mobile-first. Hand-built from $500, live in 21 days, free hosting, you own everything, so there's no monthly platform fee riding on the event budget. Upkeep through the season is optional and priced as a 6% share of ticket sales instead of a monthly maintenance bill, so it rises and falls with the event. Proof: the Oregon Ghost Conference platform.
 Oregon Ghost Conference vendors and speakers get 20% off their first build (details at https://generussdesign.com/ogc). He knows the paranormal and metaphysical community, so vendors don't have to explain their world first.
 
-# PRICES AT A GLANCE (all published)
+# PRICES AT A GLANCE (all published, updated October 28, 2026)
 - Launch Page: $500 flat, live in 7 days.
-- Conversion-Engineered Site: from $4,500, live in 21 days.
+- Starter Site: $1,000 flat, live in 10 days.
+- Business Site: $2,500 flat, live in 14 days.
+- Conversion-Engineered Site: from $5,000, live in 21 days.
+- Platform: from $20,000, scoped on a call.
+- Care plans: $50, $95, $250, $500 or from $2,000 a month by build, optional.
+- Steady Search: $595 a month (founding rate $495 for the first 3 months, first 3 clients).
 - Growth Engine: from $750 a month, cancel anytime.
 - Event websites: from $500. Optional upkeep: 6% of ticket sales instead of a monthly fee.
 - The 6% is only for sites that sell tickets. Work paid on results (a share of revenue, or per lead, closed deal, or opportunity) is quoted case by case after a call; never quote 6% for it.
 - Website Taste Audit: $197 flat, 48-hour delivery, credits toward any build started within 30 days.
-- Single automation system, standalone SEO audit and fixes, custom AI tools, apps, Signature Scroll builds: fixed-scope quote after a call.
+- Single automation, standalone SEO audit and fixes, custom AI tools, apps, Signature Scroll builds: fixed-scope quote after a call. There is no published price for a single automation.
 - Hosting: $0 a month on Cloudflare for sites he builds.
 - Discovery call: free, 30 minutes.
-- For comparison: agencies often quote $15k to $50k and 12 weeks. A typical subscription site runs around $175 a month, roughly $6,300 over three years, and you never own it. Around month 26 a subscription has cost more than a $4,500 build.
-Payment terms, deposits, and exact start dates are confirmed by Russ in the proposal.
+- For comparison: agencies often quote $15k to $50k and 12 weeks. A typical subscription site runs around $175 a month, roughly $6,300 over three years, and you never own it. Around month 29 a subscription has cost more than a $5,000 build.
+Deposit: half the build price to start, half at launch; the Platform is paid in milestones set in its proposal. Exact start dates are confirmed by Russ in the proposal.
 
-# GUARANTEES AND TERMS
-- Live in 21 days (7 for a Launch Page). Miss the date and you don't pay the balance until it's live.
-- Love the first design or your deposit back. You see a real design direction before committing further.
+# GUARANTEES AND TERMS (full terms at https://generussdesign.com/#guarantee)
+- Live in 21 days, or you don't pay the balance. The Launch Page runs on the same clock at 7 days, the Starter Site at 10 and the Business Site at 14; the Platform runs on milestones. Day 1 is kickoff (deposit in, kickoff call done, words, photos and access received). The clock pauses while Russ waits on the client. Scope added after kickoff gets a new date agreed in writing before it is built (a text counts). An outage at a provider neither side controls, like a registrar or Cloudflare, pauses the clock while it lasts. If the deadline passes and the site is not live because of Russ, the balance is waived and the client still gets the site.
+- Love the first design, or your deposit back. On every fixed-price build: the first design is shown inside the first week (by day 4 on the 7 and 10-day builds), the client has 3 business days to say it is not for them, and the full deposit comes back within 5 business days. It covers the first showing, not scope changes.
 - You own everything: code, domain, content. Hosted free, nothing held hostage, leave any time and take it with you.
-- Two rounds of revisions included. 30 days of direct-line support after launch (one human, no ticket queue). Fixed scope, no surprise bills, no hourly billing.
+- Two rounds of revisions on every build. Fixed scope, no surprise bills, no hourly billing.
 
 # HOW A BUILD WORKS (21 days, zero hand-offs)
 1. Discovery call, day 0. 30 minutes. He audits your current site live and points out where leads leak. You leave with 3 specific fixes whether or not you work together.
 2. Stack audit and scope, days 1 to 3. He maps your buyer's path against the right tech and delivers a fixed-scope plan with the price locked.
 3. Build with weekly Looms, days 4 to 18. You see progress every week and can redirect early. No giant reveal at the end.
-4. Launch and 30-day support, days 19 to 21. Full documentation, a personal Loom handoff, and direct support.
+4. Launch, days 19 to 21. Full documentation, a personal Loom handoff, and 30 days of bug fixes (plus 14 days of direct support on the Business Site, 30 on the Conversion-Engineered Site). New features after launch are quoted separately.
 
 # FREE THINGS TO OFFER
 - Free tools at https://generussdesign.com/tools/ (they tell the truth even when the truth is "your site is fine"):
@@ -141,7 +159,7 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
   - First-Reply Builder, https://generussdesign.com/tools/first-reply-builder/ : four ready-to-paste first replies (form auto-reply, missed-call text, after-hours text, same-day follow-up), each checked for a real next step and for fitting in one text.
   - Email Deliverability Check, https://generussdesign.com/tools/email-deliverability-check/ : checks a domain's SPF, DKIM, and DMARC live and explains in plain English whether follow-up emails are likely to land.
   - Ticket Fee Calculator, https://generussdesign.com/tools/ticket-fee-calculator/ : Eventbrite and eight other ticket platforms' fees next to your own site with Stripe plus the 6% upkeep share, per event and per year, and when an owned event site pays for itself.
-- The 5-Leak Website Teardown: drop a URL on the generussdesign.com home page and get the five biggest leaks with fixes, same day. No drip campaign.
+  - Brand Check, https://generussdesign.com/brand-video/ : a short list of what to fix first on a site (colors, type, message, sharing and search), each from something measured on the page; the same check runs as "Get my fixes, free" on the generussdesign.com home page.
 
 # THINGS RUSS HAS BUILT
 
@@ -157,7 +175,7 @@ Payment terms, deposits, and exact start dates are confirmed by Russ in the prop
 ## Russ's own products
 - Tarotdoxa, https://tarotdoxa.com : an AI tarot app with a real reader's voice, trained on a working Pacific Northwest reader's approach. Native iPhone and Android apps, a daily card weighed against real astrological transits, spreads from one card up to the ten-card Celtic Cross plus a couples spread, a journal, readings narrated out loud, astrology (birth chart, monthly, birthday year ahead), and follow-up chat on any reading. Privacy-first: readings live on the device, no ads, no trackers. Seven free days, then memberships at $10, $14, or $17 a month. Announced for the App Store and Google Play in September 2026; for the latest status point people to tarotdoxa.com. Russ built the apps, the backend, and the site.
 - Pharallax, https://pharallax.ai : an adversarial strategy analysis engine. Three cognitive lenses pressure-test a business strategy against a large knowledge base and deliver a structured report by email, every analysis quality-scored before it sends. Tiers from a $497 Structural Read up to a $3,500 a month Strategic Arc, plus a free two-minute analysis. Its site runs 199 pages of pillar-and-cluster content, and there's a free dream tool at https://pharallax.ai/dream/
-- generussdesign.com : his studio site. Astro, Tailwind, Cloudflare Pages. 50+ guides, 17 free tools, 100 desktop and 86 mobile on Google PageSpeed with zero layout shift (July 2026 audit).
+- generussdesign.com : his studio site. Astro, Tailwind, Cloudflare Pages. 50+ guides, 18 free tools, 100 desktop and 86 mobile on Google PageSpeed with zero layout shift (July 2026 audit).
 - generuss.com : this site. Next.js, Contentful for the blog, Cal.com booking, and this AI assistant.
 
 ## Internal tools and experiments (proof he builds for himself first)
@@ -188,14 +206,14 @@ Astro, Tailwind, and Cloudflare Pages for most sites (static-first, fast, free h
 // have to quote them word for word.
 export const FAQ: { q: string; a: string }[] = [
   { q: "What does Russ do?", a: "He builds websites, automation, and AI systems that turn visitors into booked calls and paying customers, for service businesses, founders, event organizers, and B2B teams. He builds every piece himself." },
-  { q: "How much does a website cost?", a: "Published starting points: $500 for a one-page Launch Page, from $4,500 for the full Conversion-Engineered Site, and from $750 a month for the Growth Engine. Every project gets a fixed quote up front." },
-  { q: "How much does automation cost?", a: "A single system, like instant lead replies or a review engine, is a fixed-scope build quoted after a short call. Full pipeline wiring is part of the Growth Engine at $750 a month." },
+  { q: "How much does a website cost?", a: "Five published prices: $500 for a one-page Launch Page, $1,000 for a three to five page Starter Site, $2,500 for a Business Site, from $5,000 for the full Conversion-Engineered Site, and from $20,000 for a Platform with its own software behind it. All one time, no hosting fees. Half up front, half at launch (the Platform is paid in milestones)." },
+  { q: "How much does automation cost?", a: "Each boring automation, like instant lead replies, quote follow-up or a review engine, is a fixed-scope build quoted after a short call; there is no published price. If the site is on the Business care plan ($250 a month), keeping the automation running is part of it. The free calculators show what doing nothing costs first: https://generussdesign.com/automation/" },
   { q: "How much does a custom AI tool, chatbot, or agent cost?", a: "It's scoped and quoted after a discovery call, as a fixed price. It depends on what the tool has to do and what it connects to." },
-  { q: "How long does a build take?", a: "21 days from kickoff for a full build, about 7 days for a Launch Page. Miss the date and you don't pay the balance until it's live." },
+  { q: "How long does a build take?", a: "7 days for a Launch Page, 10 for a Starter Site, 14 for a Business Site and 21 for the full Conversion-Engineered Site, counted from kickoff. If the date passes because of Russ, the balance is waived and you keep the site." },
   { q: "Do I own my website?", a: "Yes, all of it: code, domain, and content. Hosting is free on Cloudflare, so there are no hosting fees and nothing holding the site hostage." },
-  { q: "Is there a monthly fee?", a: "Not for the site. Hosting is $0 a month. The only monthly option is the Growth Engine, if you want ongoing SEO and optimization, and you can cancel it anytime." },
-  { q: "What if I don't like the design?", a: "You see a real design direction before committing further. If you don't love it, your deposit comes back." },
-  { q: "What happens after launch?", a: "30 days of direct support with Russ, plus documentation and a Loom walkthrough. After that you can change it yourself, hire anyone, or have Russ handle it." },
+  { q: "Is there a monthly fee?", a: "Not for the site. Hosting is $0 a month and the site stays live with or without a plan. Optional: a care plan from $50 a month for changes and upkeep, Steady Search at $595 a month, or the Growth Engine from $750 a month for ongoing search work." },
+  { q: "What if I don't like the design?", a: "You see the first design inside the first week, then have 3 business days to say it is not for you, unless you approve it or send revision notes first. Questions don't end the window. Say so and the full deposit comes back within 5 business days." },
+  { q: "What happens after launch?", a: "Every build gets 30 days of bug fixes, documentation and a Loom walkthrough; the Business Site adds 14 days of direct support and the Conversion-Engineered Site 30. After that you can change it yourself, hire anyone, or put it on a care plan from $50 a month." },
   { q: "Do you use WordPress, Wix, Squarespace, or Shopify?", a: "Russ hand-codes sites instead of using page builders, so they load faster, rank better, and cost nothing to host. His SEO work, Taste Audit, and automations work on any platform, including sites he didn't build." },
   { q: "Can you redesign my existing site?", a: "Yes, redesigns are as common as new builds. On a quick call he'll tell you exactly what he'd change and what it would cost." },
   { q: "Do you work with sites you didn't build?", a: "Yes. The SEO audit, Growth Engine, Taste Audit, and automation work run on any site and any platform." },
@@ -209,11 +227,11 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "My web designer registered my domain. Do I own it?", a: "Maybe not. Who Holds Your Keys? reads your domain's public record and walks you through the seven logins that decide who controls your site and your email. Everything Russ builds is in your name." },
   { q: "Is my Wix or Squarespace bill worth it?", a: "The Rent vs Own calculator puts your monthly bill next to a one-time build with no hosting fees and shows the break-even month. If renting is cheaper for you, it says so." },
   { q: "Do I need a website if all my customers come from referrals?", a: "Maybe not, if you are turning work away. Otherwise referrals still look you up first. The Word-of-Mouth Check shows what a slowdown would cost and what a referral finds when they search your name today; the $500 Launch Page is the smallest fix." },
-  { q: "Why not just use a template or a subscription site?", a: "Templates and subscriptions are fine for something short-lived or live tonight for $0. For a site your business leans on for years, a $175 a month subscription passes the cost of a $4,500 build around month 26, and you still don't own it." },
+  { q: "Why not just use a template or a subscription site?", a: "Templates and subscriptions are fine for something short-lived or live tonight for $0. For a site your business leans on for years, a $175 a month subscription passes the cost of a $5,000 build around month 29, and you still don't own it." },
   { q: "Is there a contract?", a: "Every project is a fixed-scope plan with the price locked before work starts, so you know exactly what you're getting and what it costs. Russ sends it after the discovery call." },
-  { q: "How do payments work?", a: "A deposit to start and the balance at launch; Russ confirms the details in your proposal. If a full build misses the 21-day date, you don't pay the balance until it's live." },
-  { q: "Do you offer discounts?", a: "The published ones: Oregon Ghost Conference vendors and speakers get 20% off a first build, the $500 Launch Page credits toward a full build for 6 months, and the $197 Taste Audit credits toward any build within 30 days. Scope can also shrink to fit a budget." },
-  { q: "Can I get a free website?", a: "Not as an open offer. When Russ does a free build, he invites that business directly. Otherwise the free tools cost nothing, and the smallest paid door is the $500 Launch Page, which credits toward a full build for 6 months." },
+  { q: "How do payments work?", a: "Half the build price to start, half at launch; the Platform is paid in milestones set in its proposal. Russ confirms the details in your proposal. If a fixed-price build misses its date because of Russ, the balance is waived." },
+  { q: "Do you offer discounts?", a: "The published ones: Oregon Ghost Conference vendors and speakers get 20% off a first build, the $500 Launch Page and the $1,000 Starter Site credit toward a bigger build for 6 months, the $197 Taste Audit credits toward any build within 30 days, and Black Friday 2026 (through November 30) takes 40% off for 3 case-study clients. Scope can also shrink to fit a budget." },
+  { q: "Can I get a free website?", a: "Not as an open offer. When Russ does a free build, he invites that business directly. Otherwise the free tools cost nothing, and the smallest paid door is the $500 Launch Page, which credits toward a bigger build for 6 months." },
   { q: "What's the Website Taste Audit?", a: "18 pass-or-fail design and conversion checks on your site, desktop and mobile, every fail with its fix, ranked worst first, plus a recorded walkthrough. $197 flat, in your inbox within 48 hours." },
   { q: "What's included in the discovery call?", a: "30 minutes on Google Meet. Russ audits your current site live, finds the biggest leaks, and you leave with 3 specific fixes whether or not you work together. No deck, no pitch." },
   { q: "Who will I work with?", a: "Russ, directly, start to finish. The person on the call is the person who builds it." },
@@ -237,7 +255,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: "I run an event. Can you help?", a: "Yes. Event sites are a specialty: ticketing first, a schedule that works on a phone, vendor and speaker directories, sponsor tiers. From $500, live in 21 days, no monthly platform fee." },
   { q: "I'm an Oregon Ghost Conference vendor.", a: "Then you get 20% off your first build, and Russ already knows your world. Custom sites start at $500 with free hosting." },
   { q: "Can you automate my proposals, onboarding, or reporting?", a: "That's squarely his lane. The Invincible Media proposal generator took a 4-hour task down to 15 minutes. The first step is mapping your current process on a call." },
-  { q: "What's speed-to-lead?", a: "Every new lead gets a personal-sounding reply in under a minute, with the next step booked, before a competitor has opened their inbox. It's usually the highest-value automation for a service business." },
+  { q: "What's speed-to-lead?", a: "Every new lead gets a personal-sounding reply in under a minute, with a link to book the next step, before a competitor has opened their inbox. It's usually the highest-value automation for a service business." },
   { q: "How do I find out how fast my business really responds to leads?", a: "Run the free Speed-to-Lead Test: send your own business a test inquiry the way a customer would, start the clock, and stop it when someone gives you a real next step. The After-Hours Gap shows how many leads land when nobody is answering, and the First-Reply Builder writes the instant replies that close that gap." },
   { q: "Will automation make my business feel robotic?", a: "Not the way Russ builds it. Everything is written in your voice, timed like a person would time it, and stops the moment a real conversation starts." },
   { q: "I'm not technical. Who maintains this?", a: "Russ does. Everything ships documented with a walkthrough video, and if something breaks, his phone buzzes, not yours." },
